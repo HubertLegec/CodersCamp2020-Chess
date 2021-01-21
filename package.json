@@ -1,0 +1,31 @@
+{
+  "name": "coderscamp2020-chess",
+  "version": "0.0.1",
+  "description": "**UWAGA! Zaczynając pracę nad projektem — nie róbcie forka. Jedna osoba z zespołu (np. Mentor) powinna użyć przycisku `Use this template` i dodać innych członków zespołu jako Collaborators do tego repozytorium. Mentorzy mogą dowolnie zmieniać zakres projektu lub zdecydować się na zupełnie inny temat.**",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "rimraf .cache && rimraf dist && rimraf node_modules",
+    "prebuild": "rimraf dist",
+    "build": "parcel build index.html --public-url ./",
+    "start:dev": "parcel -p 8765 watch index.html",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HubertLegec/CodersCamp2020-Chess.git"
+  },
+  "author": "Hubert Legęć <hubert.legec@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HubertLegec/CodersCamp2020-Chess/issues"
+  },
+  "homepage": "https://github.com/HubertLegec/CodersCamp2020-Chess#readme",
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.4",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.3"
+  }
+}
