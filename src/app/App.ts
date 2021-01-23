@@ -1,4 +1,6 @@
+import {Board} from "./Board"
+
 
 export const App = () => {
-  console.log('App');
+  const GameBoard = new Board();
 }
