@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    font-size: 10px;
 }
 
 #chess-app {
@@ -18,7 +19,7 @@
 #codersLogo {
     display: inline;
     font-family: 'Sarpanch', sans-serif;
-    font-size: 38px;
+    font-size: 3.8rem;
     position: absolute;
     top: 50px;
     padding: 20px;
@@ -40,7 +41,7 @@
     height: 100px;
 }
 #gamePanel>p{
-    font-size: 18px;
+    font-size: 1.8rem;
     line-height: 20px;
     width: 100%;
     text-align: center;
@@ -51,7 +52,7 @@
 }
 input{
     padding:5px; 
-    font-size:12px; 
+    font-size:1.2rem; 
     text-align:left;  
     border-radius:10px;     
     border:2px solid #1a90ff; 
@@ -118,7 +119,7 @@ input{
 }
 @media (min-width: 410px) and (orientation: portrait){
     #codersLogo {
-        font-size: 48px;
+        font-size: 4.8rem;
         padding: 24px;
     }
     #gamePanel {
@@ -127,13 +128,16 @@ input{
         width: 370px;
     }
     #gamePanel p{
-        font-size: 18px;
+        font-size: 1.8rem;
+    }
+    #gamePanel #sliderValue{
+        font-size: 1.8rem;
     }
     #gamePanel >p{
-        font-size: 24px;
+        font-size: 2.4rem;
     }
     input{
-        font-size: 16px;
+        font-size: 1.6rem;
         width: 160px;
     }
 }
@@ -156,7 +160,7 @@ input{
 }
 @media (min-width: 760px) and (orientation: portrait){
     #codersLogo {
-        font-size: 76px;
+        font-size: 7.6rem;
         padding: 38px;
     }
     #gamePanel {
@@ -165,13 +169,16 @@ input{
         width: 500px;
     }
     #gamePanel p{
-        font-size: 22px;
+        font-size: 2.2rem;
+    }
+    #gamePanel #sliderValue{
+        font-size: 2.2rem;
     }
     #gamePanel >p{
-        font-size: 32px;
+        font-size: 3.2rem;
     }
        input{
-        font-size: 16px;
+        font-size: 1.6rem;
         width: 210px;
     }
     #nameSettings{
@@ -181,7 +188,7 @@ input{
         top: 230px;
     }
     #gameStartButton{
-        font-size: 25px;
+        font-size: 2.5rem;
         width: 250px;
         height: 40px;
       }
@@ -190,7 +197,7 @@ input{
     #codersLogo {
         left: 20px;
         top: 20px;
-        font-size: 72px;
+        font-size: 7.2rem;
         padding: 36px;
     }
     #gamePanel {
@@ -200,14 +207,17 @@ input{
         width: 380px;
     }
     #gamePanel p{
-        font-size: 22px;
+        font-size: 2.2rem;
+    }
+    #gamePanel #sliderValue{
+        font-size: 2.2rem;
     }
     #gamePanel >p{
-        font-size: 32px;
+        font-size: 3.2rem;
     }
     input{
         width: 170px;
-        font-size: 18px;
+        font-size: 1.8rem;
     }
     #nameSettings{
         top: 80px;
@@ -218,7 +228,7 @@ input{
 }
 @media (min-width: 1023px) and (orientation: portrait){
     #codersLogo {
-        font-size: 90px;
+        font-size: 9rem;
         padding: 45px;
     }
     #gamePanel {
@@ -227,13 +237,13 @@ input{
         width: 600px;
     }
     #gamePanel p{
-        font-size: 26px;
+        font-size: 2.6rem;
     }
     #gamePanel >p{
-        font-size: 38px;
+        font-size: 3.8rem;
     }
     input{
-        font-size: 22px;
+        font-size: 2.2rem;
         width: 250px;
     }
     #nameSettings{
@@ -243,7 +253,7 @@ input{
         top: 300px;
     }
     #gameStartButton{
-        font-size: 30px;
+        font-size: 3rem;
         width: 300px;
         height: 50px;
       }
@@ -252,7 +262,7 @@ input{
     #codersLogo {
         left: 40px;
         top: 40px;
-        font-size: 90px;
+        font-size: 9rem;
         padding: 45px;
     }
     #gamePanel {
@@ -262,14 +272,17 @@ input{
         width: 450px;
     }
     #gamePanel p{
-        font-size: 26px;
+        font-size: 2.6rem;
+    }
+    #gamePanel #sliderValue{
+        font-size: 2.6rem;
     }
     #gamePanel >p{
-        font-size: 38px;
+        font-size: 3.8rem;
     }
     input{
         width: 190px;
-        font-size: 18px;
+        font-size: 1.8rem;
     }
     #nameSettings{
         top: 100px;
@@ -278,7 +291,7 @@ input{
         top: 230px;
     }
     #gameStartButton{
-        font-size: 25px;
+        font-size: 2.5rem;
         width: 250px;
         height: 40px;
       }
@@ -287,7 +300,7 @@ input{
     #codersLogo {
         left: 20px;
         top: 20px;
-        font-size: 90px;
+        font-size: 9rem;
         padding: 45px;
     }
 }

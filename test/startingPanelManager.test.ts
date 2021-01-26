@@ -1,4 +1,4 @@
-import { startingPanelManager } from '../src/app/startingPanelManager';
+import { StartingPanelManager } from '../src/app/startingPanelManager';
 import { fireEvent, getByRole, getByTestId, getByText } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -17,7 +17,7 @@ describe('startingPanelManager', () => {
     })
 
     test('creates CodersCrew logo', (): void => {
-        const startingPanel = new startingPanelManager('chess-app');
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
 
@@ -25,29 +25,25 @@ describe('startingPanelManager', () => {
     })
 
     test('creates game panel', (): void => {
-        const startingPanel = new startingPanelManager('chess-app');
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
 
         expect(document.getElementById('gamePanel')).toBeInTheDocument();
     })
 
-    test('creates name settings div, slider div and button in game panel', (): void => {
-        const startingPanel = new startingPanelManager('chess-app');
+    test('creates button in game panel', (): void => {
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
         const gamePanel = document.getElementById('gamePanel');
-        const nameSettings = document.getElementById('nameSettings');
-        const sliderContainer = document.querySelector('.sliderContainer') as HTMLElement;
         const startButton = document.getElementById('gameStartButton')
 
-        expect(gamePanel).toContainElement(nameSettings);
-        expect(gamePanel).toContainElement(sliderContainer);
         expect(gamePanel).toContainElement(startButton);
     })
 
     test('creates elements in nameSettings div', (): void => {
-        const startingPanel = new startingPanelManager('chess-app');
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
         const nameSettings = document.getElementById('nameSettings');
@@ -60,7 +56,7 @@ describe('startingPanelManager', () => {
     })
 
     test('creates elements in sliderContainer div', (): void => {
-        const startingPanel = new startingPanelManager('chess-app');
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
         const sliderContainer = document.querySelector('.sliderContainer') as HTMLElement;
@@ -72,7 +68,7 @@ describe('startingPanelManager', () => {
     })
 
     test('changes minutes value with slider change', () => {
-        const startingPanel = new startingPanelManager('chess-app');
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
         const sliderValue = document.getElementById('sliderValue');
@@ -80,11 +76,12 @@ describe('startingPanelManager', () => {
         fireEvent.input(slider, { target: { value: 30 } })
 
 
-        expect(sliderValue.textContent).toEqual(slider.value);
+        expect(getByText(sliderValue, '30')).toBeInTheDocument();
+
     })
 
     test('starting button clear all elements', (): void => {
-        const startingPanel = new startingPanelManager('chess-app');
+        const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
         const startingButton = document.getElementById('gameStartButton');
