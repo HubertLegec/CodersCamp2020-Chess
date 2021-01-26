@@ -1,4 +1,4 @@
-export class boardDisplayManager {
+export class boardDisplay {
     private containerId: string;
 
     constructor(containerId: string) {

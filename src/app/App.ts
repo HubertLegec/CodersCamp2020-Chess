@@ -1,6 +1,6 @@
-import { boardDisplayManager } from './boardDisplayManager'
+import { boardDisplay } from './boardDisplay'
 export const App = () => {
-  let boardDisplay = new boardDisplayManager('chess-app');
-  boardDisplay.createChessBoard();
+  let board = new boardDisplay('chess-app');
+  board.createChessBoard();
   console.log('App');
 }

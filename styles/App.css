@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+:root {
+    --squareSize: 50px;
+}
 
 #chess-app {
     width: 100vw;
@@ -16,37 +19,37 @@
 }
 #chessBoard{
     display: grid;
-    grid-template-columns: repeat(10, 50px);
-    grid-template-rows: repeat(10, 50px);
+    grid-template-columns: repeat(10, var(--squareSize));
+    grid-template-rows: repeat(10, var(--squareSize));
     justify-content: center;
     margin-left: 50px;
     margin-top: 75px;
 }
 #opponentFile{
     display: grid;
-    grid-template-columns: repeat(10, 50px);
+    grid-template-columns: repeat(10, var(--squareSize));
     grid-column: 1 / span 10;
 }
 #myRank{
     display: grid;
-    grid-template-rows: repeat(8, 50px);
+    grid-template-rows: repeat(8, var(--squareSize));
     grid-row: 2 / span 8;
 }
 #board{
     display: grid;
-    grid-template-columns: repeat(8, 50px);
-    grid-template-rows: repeat(8, 50px);
+    grid-template-columns: repeat(8, var(--squareSize));
+    grid-template-rows: repeat(8, var(--squareSize));
     grid-column: 2 / span 8;
     grid-row: 2 / span 8;
 }
 #opponentRank{
     display: grid;
-    grid-template-rows: repeat(8, 50px);
+    grid-template-rows: repeat(8, var(--squareSize));
     grid-row: 2 / span 8;
 }
 #myFile{
     display: grid;
-    grid-template-columns: repeat(10, 50px);
+    grid-template-columns: repeat(10, var(--squareSize));
     grid-column: 1 / span 10;
 }
 
@@ -57,13 +60,13 @@
 .rank{
 
     text-align: center;
-    line-height: 50px;
+    line-height: var(--squareSize);
     font-size: 20px;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
 .file{
     text-align: center;
-    line-height: 50px;
+    line-height: var(--squareSize);
     font-size: 20px;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
