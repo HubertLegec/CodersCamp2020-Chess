@@ -3,9 +3,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    font-size: 10px;
 }
 :root {
-    --squareSize: 50px;
+    --squareSize: 22px;
 }
 
 #chess-app {
@@ -22,8 +23,7 @@
     grid-template-columns: repeat(10, var(--squareSize));
     grid-template-rows: repeat(10, var(--squareSize));
     justify-content: center;
-    margin-left: 50px;
-    margin-top: 75px;
+    position: absolute;
 }
 #opponentFile{
     display: grid;
@@ -61,13 +61,13 @@
 
     text-align: center;
     line-height: var(--squareSize);
-    font-size: 20px;
+    font-size: 2rem;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
 .file{
     text-align: center;
     line-height: var(--squareSize);
-    font-size: 20px;
+    font-size: 2rem;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
 .corner{
@@ -88,4 +88,87 @@
 {
   background: linear-gradient(135deg, rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%);
   color: #fff;
+}
+@media (orientation: portrait){
+    #chess-app {
+        justify-content: center;
+    } 
+    #chessBoard{
+        top: 50px;
+    } 
+}
+@media (orientation: landscape){
+    #chess-app {
+        align-items: center;
+    }  
+}
+@media (min-width: 359px) and (orientation: portrait){
+    :root {
+        --squareSize: 30px;
+    }
+}
+@media (min-width: 567px) and (orientation: landscape){
+    #chessBoard{
+        left: 40px;
+    }
+}
+@media (min-width: 639px) and (orientation: landscape){
+    :root {
+        --squareSize: 25px;
+    }
+}
+@media (min-width: 410px) and (orientation: portrait){
+    :root {
+        --squareSize: 35px;
+    }
+}
+@media (min-width: 730px) and (orientation: landscape){
+    #chessBoard{
+        left: 40px;
+    }
+    :root {
+        --squareSize: 30px;
+    }
+}
+@media (min-width: 820px) and (orientation: landscape){
+    #chessBoard{
+        left: 40px;
+    }
+    :root {
+        --squareSize: 32px;
+    }
+}
+@media (min-width: 820px) and (orientation: landscape){
+    #chessBoard{
+        left: 40px;
+    }
+    :root {
+        --squareSize: 32px;
+    }
+}
+@media (min-width: 1023px) and (orientation: landscape){
+    #chessBoard{
+        left: 60px;
+    }
+    :root {
+        --squareSize: 45px;
+    }
+}
+@media (min-width: 767px) and (orientation: portrait){
+    :root {
+        --squareSize: 55px;
+    }
+}
+@media (min-width: 1365px) and (orientation: landscape){
+    #chessBoard{
+        left: 80px;
+    }
+    :root {
+        --squareSize: 60px;
+    }
+}
+@media (min-width: 1023px) and (orientation: portrait){
+    :root {
+        --squareSize: 75px;
+    }
 }
