@@ -2,10 +2,12 @@ import { BoardDisplay } from './boardDisplay'
 const board = new BoardDisplay('chess-app');
 export class StartingPanelManager {
     private containerId: string;
-
+    private flagInputOne: boolean;
+    private flagInputTwo: boolean;
     constructor(containerId: string) {
         this.containerId = containerId;
     }
+
 
     createStartingPage(): void {
         this.createLogo();
@@ -41,10 +43,22 @@ export class StartingPanelManager {
         const firstName: HTMLInputElement = document.createElement('input');
         firstName.setAttribute('id', 'firstPlayerName');
         firstName.setAttribute('placeholder', "Białe - pierwszy gracz");
+        firstName.onchange = () => {
+            if (firstName.value.length > 0) {
+                this.flagInputOne = true;
+                this.watchInputFlags();
+            }
+        }
         nameSettings.appendChild(firstName);
         const secondName: HTMLInputElement = document.createElement('input');
         secondName.setAttribute('id', 'secondPlayerName');
         secondName.setAttribute('placeholder', "Czarne - drugi gracz");
+        secondName.onchange = () => {
+            if (secondName.value.length > 0) {
+                this.flagInputTwo = true;
+                this.watchInputFlags();
+            }
+        }
         nameSettings.appendChild(secondName);
         gamePanel.appendChild(nameSettings);
     }
@@ -78,8 +92,6 @@ export class StartingPanelManager {
     }
     private createStartButton(gamePanelId: string): void {
         const gamePanel: HTMLDivElement = document.getElementById(gamePanelId) as HTMLDivElement;
-        const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
-        const secondPlayerInput: HTMLInputElement = document.getElementById('secondPlayerName') as HTMLInputElement;
         const gameTime: HTMLInputElement = document.getElementById('sliderTime') as HTMLInputElement;
         const startGameButton: HTMLButtonElement = document.createElement('button');
         startGameButton.setAttribute('id', 'gameStartButton');
@@ -92,17 +104,12 @@ export class StartingPanelManager {
             board.createChessBoard();
             document.getElementById(this.containerId).classList.add('center');
         })
-        let gameSettings: object = setInterval(() => {
-            if (firstPlayerInput.value !== '' && secondPlayerInput.value !== '') {
-                startGameButton.disabled = false;
-            }
-            else {
-
-                startGameButton.disabled = true;
-            }
-        }, 1000)
     }
-
+    watchInputFlags() {
+        if (this.flagInputOne && this.flagInputTwo) {
+            document.getElementById('gameStartButton').removeAttribute('disabled')
+        }
+    }
     private removeElement(elementId: string): void {
         const element: HTMLElement = document.getElementById(elementId);
         element.parentElement.removeChild(element);

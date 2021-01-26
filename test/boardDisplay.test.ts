@@ -14,52 +14,31 @@ describe('boardDidsplayManager', () => {
         document.body.innerHTML = '';
         container = createContainer();
         document.body.append(container);
+        const board = new BoardDisplay('chess-app');
+        board.createChessBoard();
     })
 
     test('creates div which contains fields describing files at opponent side', (): void => {
-        const board = new BoardDisplay('chess-app');
-
-        board.createChessBoard();
-
         expect(document.getElementById('opponentFile')).toBeInTheDocument();
     })
 
     test('creates div which contains fields describing rank at our side', (): void => {
-        const board = new BoardDisplay('chess-app');
-
-        board.createChessBoard();
-
         expect(document.getElementById('myRank')).toBeInTheDocument();
     })
 
     test('check number of divs(squares) in board', (): void => {
-        const board = new BoardDisplay('chess-app');
-
-        board.createChessBoard();
-
         expect(document.querySelectorAll('.box').length).toEqual(64)
     })
 
     test('creates div which contains fields describing rank at opponent side', (): void => {
-        const board = new BoardDisplay('chess-app');
-
-        board.createChessBoard();
-
         expect(document.getElementById('opponentRank')).toBeInTheDocument();
     })
 
     test('creates div which contains fields describing files at opponent side', (): void => {
-        const board = new BoardDisplay('chess-app');
-
-        board.createChessBoard();
-
         expect(document.getElementById('myFile')).toBeInTheDocument();
     })
 
     test('check correct order of description fields', (): void => {
-        const board = new BoardDisplay('chess-app');
-
-        board.createChessBoard();
         const opponentFiles = [].slice.call(document.getElementById('opponentFile').children);
         opponentFiles.pop();
         opponentFiles.shift();
