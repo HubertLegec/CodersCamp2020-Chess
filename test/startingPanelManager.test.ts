@@ -91,17 +91,53 @@ describe('startingPanelManager', () => {
         expect(container).toContainElement(chessBoard);
     })
 
-    test('check disabled/enabled button', (): void => {
+    test('check disabled button without any input', (): void => {
         const startingPanel = new StartingPanelManager('chess-app');
 
         startingPanel.createStartingPage();
         const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
         const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
+        fireEvent.input(firstPlayerInput, { target: { value: '' } })
         const secondPlayerInput: HTMLInputElement = document.getElementById('secondPlayerName') as HTMLInputElement;
+        fireEvent.input(secondPlayerInput, { target: { value: '' } })
 
-        if (firstPlayerInput.value !== '' || secondPlayerInput.value !== '') {
-            expect(startGameButton).toHaveAttribute('disabled')
-        }
-
+        expect(startGameButton).toHaveAttribute('disabled')
     })
+    test('check disabled button with first input', (): void => {
+        const startingPanel = new StartingPanelManager('chess-app');
+
+        startingPanel.createStartingPage();
+        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
+        const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
+        fireEvent.input(firstPlayerInput, { target: { value: 'Player1' } })
+        const secondPlayerInput: HTMLInputElement = document.getElementById('secondPlayerName') as HTMLInputElement;
+        fireEvent.input(secondPlayerInput, { target: { value: '' } })
+
+        expect(startGameButton).toHaveAttribute('disabled')
+    })
+    test('check disabled button with second input', (): void => {
+        const startingPanel = new StartingPanelManager('chess-app');
+
+        startingPanel.createStartingPage();
+        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
+        const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
+        fireEvent.input(firstPlayerInput, { target: { value: '' } })
+        const secondPlayerInput: HTMLInputElement = document.getElementById('secondPlayerName') as HTMLInputElement;
+        fireEvent.input(secondPlayerInput, { target: { value: 'Player2' } })
+
+        expect(startGameButton).toHaveAttribute('disabled')
+    })
+    test('check disabled button with two inputs', (): void => {
+        const startingPanel = new StartingPanelManager('chess-app');
+
+        startingPanel.createStartingPage();
+        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
+        const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
+        fireEvent.input(firstPlayerInput, { target: { value: 'Player1' } })
+        const secondPlayerInput: HTMLInputElement = document.getElementById('secondPlayerName') as HTMLInputElement;
+        fireEvent.input(secondPlayerInput, { target: { value: 'Player2' } })
+
+        expect(startGameButton).not.toHaveAttribute('disabled', 'true')
+    })
+
 })

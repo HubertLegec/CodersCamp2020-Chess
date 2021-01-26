@@ -93,8 +93,12 @@ export class StartingPanelManager {
             document.getElementById(this.containerId).classList.add('center');
         })
         let gameSettings: object = setInterval(() => {
-            if (firstPlayerInput.value !== '' || secondPlayerInput.value !== '') {
+            if (firstPlayerInput.value !== '' && secondPlayerInput.value !== '') {
                 startGameButton.disabled = false;
+            }
+            else {
+
+                startGameButton.disabled = true;
             }
         }, 1000)
     }
