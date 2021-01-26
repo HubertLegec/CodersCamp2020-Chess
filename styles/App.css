@@ -16,28 +16,54 @@
 }
 #chessBoard{
     display: grid;
-    grid-template-columns: repeat(10, 60px);
-    grid-template-rows: repeat(10, 60px);
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
     justify-content: center;
     margin-left: 50px;
     margin-top: 75px;
 }
-#chessBoard>div{
-    border: 1px solid black;
+#opponentFile{
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-column: 1 / span 10;
 }
+#myRank{
+    display: grid;
+    grid-template-rows: repeat(8, 50px);
+    grid-row: 2 / span 8;
+}
+#board{
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    grid-template-rows: repeat(8, 50px);
+    grid-column: 2 / span 8;
+    grid-row: 2 / span 8;
+}
+#opponentRank{
+    display: grid;
+    grid-template-rows: repeat(8, 50px);
+    grid-row: 2 / span 8;
+}
+#myFile{
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-column: 1 / span 10;
+}
+
 .box{
     background: linear-gradient(45deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(76,76,76,1) 59%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(17,17,17,1) 92%,rgba(17,17,17,1) 92%,rgba(0,0,0,1) 93%,rgba(0,0,0,1) 93%,rgba(17,17,17,1) 94%,rgba(44,44,44,1) 94%,rgba(44,44,44,1) 94%,rgba(17,17,17,1) 94%,rgba(19,19,19,1) 100%);
-   
+    border: 1px solid black;
 }
 .rank{
+
     text-align: center;
-    line-height: 60px;
+    line-height: 50px;
     font-size: 20px;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
 .file{
     text-align: center;
-    line-height: 60px;
+    line-height: 50px;
     font-size: 20px;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
@@ -45,18 +71,18 @@
     text-align: center;
     background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
 }
-.box:nth-child(11) ~ .box:nth-child(-2n+19), 
-.box:nth-child(21) ~ .box:nth-child(-2n+28), 
-.box:nth-child(31) ~ .box:nth-child(-2n+39), 
-.box:nth-child(41) ~ .box:nth-child(-2n+48), 
-.box:nth-child(51) ~ .box:nth-child(-2n+59), 
-.box:nth-child(61) ~ .box:nth-child(-2n+68),
-.box:nth-child(71) ~ .box:nth-child(-2n+79),
-.box:nth-child(81) ~ .box:nth-child(-2n+88)
+.rotate {
+    transform: rotate(180deg);
+}
+.box:nth-child(-2n+8),
+.box:nth-child(8) ~ .box:nth-child(-2n+15),
+.box:nth-child(16) ~ .box:nth-child(-2n+24),
+.box:nth-child(24) ~ .box:nth-child(-2n+31),
+.box:nth-child(32) ~ .box:nth-child(-2n+40),
+.box:nth-child(40) ~ .box:nth-child(-2n+47),
+.box:nth-child(48) ~ .box:nth-child(-2n+56),
+.box:nth-child(56) ~ .box:nth-child(-2n+63)
 {
   background: linear-gradient(135deg, rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%);
   color: #fff;
-}
-.rotate {
-    transform: rotate(180deg);
 }
