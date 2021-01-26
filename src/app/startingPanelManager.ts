@@ -8,7 +8,6 @@ export class StartingPanelManager {
         this.containerId = containerId;
     }
 
-
     createStartingPage(): void {
         this.createLogo();
         this.createGamePanel();

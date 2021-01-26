@@ -95,7 +95,7 @@ input{
     background-position: 40%;
     background-size: cover;
     position: relative;
-    
+    display: flex;
 }
 .center{
     display: flex;
@@ -284,12 +284,12 @@ input{
     }
     #codersLogo {
         left: 40px;
-        top: 40px;
+        top: 20px;
         font-size: 9rem;
         padding: 45px;
     }
     #gamePanel {
-        top: 300px;
+        top: 250px;
         left: 80px;
         height: 400px;
         width: 450px;

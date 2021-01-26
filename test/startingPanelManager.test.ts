@@ -91,7 +91,6 @@ describe('startingPanelManager', () => {
         })
         fireEvent.input(firstPlayerInput, { target: { value: "Player1" } });
         fireEvent.input(secondPlayerInput, { target: { value: "Player2" } });
-        console.log(firstPlayerInput.value, secondPlayerInput.value);
         expect(startGameButton).not.toHaveAttribute('disabled', "true");
 
     })
