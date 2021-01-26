@@ -1,4 +1,4 @@
-import { boardDisplay } from '../src/app/boardDisplay';
+import { BoardDisplay } from '../src/app/boardDisplay';
 import { fireEvent, getByRole, getByTestId, getByText } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -17,7 +17,7 @@ describe('boardDidsplayManager', () => {
     })
 
     test('creates div which contains fields describing files at opponent side', (): void => {
-        const board = new boardDisplay('chess-app');
+        const board = new BoardDisplay('chess-app');
 
         board.createChessBoard();
 
@@ -25,7 +25,7 @@ describe('boardDidsplayManager', () => {
     })
 
     test('creates div which contains fields describing rank at our side', (): void => {
-        const board = new boardDisplay('chess-app');
+        const board = new BoardDisplay('chess-app');
 
         board.createChessBoard();
 
@@ -33,7 +33,7 @@ describe('boardDidsplayManager', () => {
     })
 
     test('check number of divs(squares) in board', (): void => {
-        const board = new boardDisplay('chess-app');
+        const board = new BoardDisplay('chess-app');
 
         board.createChessBoard();
 
@@ -41,7 +41,7 @@ describe('boardDidsplayManager', () => {
     })
 
     test('creates div which contains fields describing rank at opponent side', (): void => {
-        const board = new boardDisplay('chess-app');
+        const board = new BoardDisplay('chess-app');
 
         board.createChessBoard();
 
@@ -49,7 +49,7 @@ describe('boardDidsplayManager', () => {
     })
 
     test('creates div which contains fields describing files at opponent side', (): void => {
-        const board = new boardDisplay('chess-app');
+        const board = new BoardDisplay('chess-app');
 
         board.createChessBoard();
 
@@ -57,7 +57,7 @@ describe('boardDidsplayManager', () => {
     })
 
     test('check correct order of description fields', (): void => {
-        const board = new boardDisplay('chess-app');
+        const board = new BoardDisplay('chess-app');
 
         board.createChessBoard();
         const opponentFiles = [].slice.call(document.getElementById('opponentFile').children);
@@ -71,16 +71,16 @@ describe('boardDidsplayManager', () => {
         const myRanks = [].slice.call(document.getElementById('myRank').children);
         const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
 
-        opponentFiles.forEach((v, i) => {
+        opponentFiles.forEach((v: HTMLElement, i: number) => {
             expect(v.textContent).toBe(files[i].toUpperCase());
         });
-        myFiles.forEach((v, i) => {
+        myFiles.forEach((v: HTMLElement, i: number) => {
             expect(v.textContent).toBe(files[i].toUpperCase());
         });
-        opponentRanks.forEach((v, i) => {
+        opponentRanks.forEach((v: HTMLElement, i: number) => {
             expect(v.textContent).toBe(ranks[i]);
         });
-        myRanks.forEach((v, i) => {
+        myRanks.forEach((v: HTMLElement, i: number) => {
             expect(v.textContent).toBe(ranks[i]);
         });
     });
