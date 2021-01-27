@@ -1,5 +1,5 @@
-import { Board } from "../src/app/Board.js";
-import { Position } from "../src/app/Figure.js";
+import { Board } from "../src/app/Board";
+import { Position } from "../src/app/Figure";
 
 describe("Testing figure move", () => {
   let board = new Board();

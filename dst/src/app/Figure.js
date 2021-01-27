@@ -3,19 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pawn = exports.NoFigure = exports.Position = exports.Colors = exports.FigureType = void 0;
 var FigureType;
 (function (FigureType) {
-    FigureType[FigureType["King"] = 0] = "King";
-    FigureType[FigureType["Queen"] = 1] = "Queen";
-    FigureType[FigureType["Rook"] = 2] = "Rook";
-    FigureType[FigureType["Bishops"] = 3] = "Bishops";
-    FigureType[FigureType["Knight"] = 4] = "Knight";
-    FigureType[FigureType["Pawn"] = 5] = "Pawn";
-    FigureType[FigureType["None"] = 6] = "None";
+    FigureType[FigureType["None"] = 0] = "None";
+    FigureType[FigureType["Pawn"] = 1] = "Pawn";
+    FigureType[FigureType["Knight"] = 2] = "Knight";
+    FigureType[FigureType["Bishop"] = 3] = "Bishop";
+    FigureType[FigureType["Rook"] = 4] = "Rook";
+    FigureType[FigureType["Queen"] = 5] = "Queen";
+    FigureType[FigureType["King"] = 6] = "King";
 })(FigureType = exports.FigureType || (exports.FigureType = {}));
 var Colors;
 (function (Colors) {
-    Colors[Colors["White"] = 0] = "White";
-    Colors[Colors["Black"] = 1] = "Black";
-    Colors[Colors["None"] = 2] = "None";
+    Colors[Colors["None"] = 0] = "None";
+    Colors[Colors["White"] = 1] = "White";
+    Colors[Colors["Black"] = 2] = "Black";
 })(Colors = exports.Colors || (exports.Colors = {}));
 var Position = /** @class */ (function () {
     function Position(x, y) {

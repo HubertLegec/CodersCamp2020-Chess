@@ -1,20 +1,17 @@
-
-import { IBoard } from "./Board";
+import { Player } from "./Player";
 
 export enum FigureType {
-  King,
-  Queen,
-  Rook,
-  Bishops,
-  Knight,
   Pawn,
-  None
+  Knight,
+  Bishop,
+  Rook,
+  Queen,
+  King,
 }
 
 export enum Colors {
   White,
   Black,
-  None
 }
 
 export class Position {
@@ -31,72 +28,87 @@ export interface IFigure {
   type: FigureType;
   position: Position;
   isAlive: boolean;
-  color: Colors;
+  owner: Player;
+  imgName: string;
 
-  getPossibleMoves: (checker: IBoard) => Position[];
+  getPossibleMoves: () => Position[];
   move: (pos: Position) => void;
-}
-
-export class NoFigure implements IFigure{
-  type: FigureType;
-  position: Position;
-  isAlive: boolean;
-  color: Colors;
-
-  constructor(pos:Position){
-    this.type=FigureType.None;
-    this.position=pos;
-    this.isAlive=false;
-    this.color=Colors.None;
-  }
-
-  getPossibleMoves(){
-    return [];
-  }
-  move = ()=>{};
-
+  drawYourself: () => void;
+  removeYourself: () => void;
+  setOnClick(func:(me:IFigure)=>void):void;
 }
 
 export class Pawn implements IFigure {
   type: FigureType;
   position: Position;
   isAlive: boolean;
-  color: Colors;
+  owner: Player;
   hasMoved: boolean;
+  imgName: string;
 
-  constructor(pos: Position, col: Colors) {
+  constructor(pos: Position, owner: Player) {
     this.type = FigureType.Pawn;
     this.position = pos;
     this.isAlive = true;
-    this.color = col;
+    this.owner = owner;
     this.hasMoved = false;
+    this.imgName = "pawn.png";
   }
 
-  getPossibleMoves(checker: IBoard) {
+  setOnClick(func:(me:IFigure)=>void){
+    const me = document.getElementById(
+      `${this.position.x * 8 + this.position.y}`
+    );
+    me?.addEventListener('click', ()=>{
+      func(this);
+    });
+  }
+
+  drawYourself() {
+    // TODO implement drawing
+    const me = document.getElementById(
+      `${this.position.x * 8 + this.position.y}`
+    );
+    // TODO ustaw czcionkę pionka
+    me?.innerHTML = `<i class="fas fa-chess-pawn" style="font-size: 30px;  color:${
+      this.owner.color == Colors.Black ? "black" : "white"
+    }"></i>`;
+    me?.setAttribute("style", "text-align:center;");
+  }
+
+  removeYourself() {
+    // TODO implement removing
+    const me = document.getElementById(
+      `${this.position.x * 8 + this.position.y}`
+    );
+    me?.innerHTML = "";
+  }
+
+  getPossibleMoves() {
     let answer: Position[] = new Array<Position>();
     var pos: Position;
 
-    if (this.color == Colors.Black) {
+    if (this.owner.color == Colors.White) {
       pos = new Position(this.position.x + 1, this.position.y);
-      if (checker.isCellFree(pos) && this.position.x<7) {
+      if (this.position.x < 7) {
         answer.push(pos);
       }
 
       if (!this.hasMoved) {
         pos = new Position(this.position.x + 2, this.position.y);
-        if (checker.isCellFree(pos) && this.position.x<6) {
+        if (this.position.x < 6) {
           answer.push(pos);
         }
       }
     } else {
       pos = new Position(this.position.x - 1, this.position.y);
-      if (checker.isCellFree(pos) && this.position.x>0) {
+      if (this.position.x > 0) {
         answer.push(pos);
       }
 
       if (!this.hasMoved) {
         pos = new Position(this.position.x - 2, this.position.y);
-        if (checker.isCellFree(pos)&& this.position.x>1) {
+        if (this.position.x > 1) {
           answer.push(pos);
         }
       }

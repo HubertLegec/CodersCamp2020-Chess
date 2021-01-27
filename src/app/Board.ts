@@ -1,46 +1,55 @@
-import { IFigure, FigureType, Position, Pawn, Colors, NoFigure } from "./Figure";
-import { Cell } from "./Cell";
+import { swap } from "../Helper";
+import { IFigure, FigureType, Position, Pawn, Colors } from "./Figure";
+import { Player } from "./Player";
 
-export interface IBoard {
-  board: Array<Array<Cell>>;
+export interface AvailabilityChecker {
+  findCell: (pos: Position) => findResponse;
+  moveFigures: (start: Position, end: Position) => void;
 
-  isCellFree: (pos: Position) => boolean;
-  getCell: (pos: Position) => Cell;
 }
 
-export class Board implements IBoard {
-  board: Array<Array<Cell>>;
+interface findResponse {
+  found: boolean;
+  player?: Player;
+  index?: number;
+}
 
-  constructor() {
-    this.board = new Array<Array<Cell>>(8);
-    this.initBoard();
+export class Board implements AvailabilityChecker {
+  players: Array<Player>;
+
+  constructor(p1: Player, p2: Player) {
+    this.players = new Array<Player>(p1, p2);
   }
 
-  initBoard(): void {
-
-    for (let i = 0; i < 8; i++) {
-      this.board[i] = new Array<Cell>(8);
-    }
-
-    for(let i=0; i<8;i++){
-      for(let j=0;j<8;j++){
-        if (i==1){
-          this.board[i][j] = new Cell(new Pawn(new Position(i, j), Colors.Black));
-        }
-        else if(i==6){
-          this.board[i][j] = new Cell(new Pawn(new Position(i, j), Colors.White));
-        }else{
-          this.board[i][j] = new Cell(new NoFigure(new Position(i,j)));
-        }
+  findCell(pos: Position): findResponse {
+    for (let i = 0; i < this.players[0].actualFigures.length; i++) {
+      const fig = this.players[0].actualFigures[i];
+      if (fig.position.x == pos.x && fig.position.y == pos.y) {
+        return { found: true, player: this.players[0], index: i };
       }
     }
+    for (let i = 0; i < this.players[1].actualFigures.length; i++) {
+      const fig = this.players[1].actualFigures[i];
+      if (fig.position.x == pos.x && fig.position.y == pos.y) {
+        return {found:true, player:this.players[1], index:i};
+      }
+    }
+    return {found:false};
   }
 
-  getCell(pos: Position): Cell {
-    return this.board[pos.x][pos.y];
-  }
+  moveFigures(start: Position, end: Position) {
+    let response = this.findCell(end);
+    if (response.found) {
+      // figura zostanie zbita
+      // usuwamy ją z listy
+      response.player?.actualFigures[response.index].removeYourself();
+      swap<IFigure>(response.player?.actualFigures[response.index], response.player?.actualFigures[response.player.actualFigures.length-1]);
+      response.player?.actualFigures.pop();
+    }
+    response = this.findCell(start);
+    response.player?.actualFigures[response.index].removeYourself();
+    response.player?.actualFigures[response.index].position = end;
+    response.player?.actualFigures[response.index].drawYourself();
 
-  isCellFree(pos: Position): boolean {
-    return this.getCell(pos).figure.type == FigureType.None;
   }
 }
