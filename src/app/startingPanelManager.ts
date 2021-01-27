@@ -43,8 +43,12 @@ export class StartingPanelManager {
         firstName.setAttribute('id', 'firstPlayerName');
         firstName.setAttribute('placeholder', "Białe - pierwszy gracz");
         firstName.onchange = () => {
-            if (firstName.value.length > 0) {
+            if (firstName.value.length > 2) {
                 this.flagInputOne = true;
+                this.watchInputFlags();
+            }
+            else {
+                this.flagInputOne = false;
                 this.watchInputFlags();
             }
         }
@@ -53,8 +57,12 @@ export class StartingPanelManager {
         secondName.setAttribute('id', 'secondPlayerName');
         secondName.setAttribute('placeholder', "Czarne - drugi gracz");
         secondName.onchange = () => {
-            if (secondName.value.length > 0) {
+            if (secondName.value.length > 2) {
                 this.flagInputTwo = true;
+                this.watchInputFlags();
+            }
+            else {
+                this.flagInputTwo = false;
                 this.watchInputFlags();
             }
         }
@@ -108,6 +116,7 @@ export class StartingPanelManager {
         if (this.flagInputOne && this.flagInputTwo) {
             document.getElementById('gameStartButton').removeAttribute('disabled')
         }
+        else document.getElementById('gameStartButton').setAttribute('disabled', 'true')
     }
     private removeElement(elementId: string): void {
         const element: HTMLElement = document.getElementById(elementId);
