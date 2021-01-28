@@ -1,14 +1,14 @@
-import { BoardDisplay } from './boardDisplay'
-const board = new BoardDisplay('chess-app');
-export class StartingPanelManager {
+import { BoardView } from './boardView'
+export class LandingPage {
+    private board = new BoardView('chess-app');
     private containerId: string;
-    private flagInputOne: boolean;
-    private flagInputTwo: boolean;
+    private flagInputOne: string;
+    private flagInputTwo: string;
     constructor(containerId: string) {
         this.containerId = containerId;
     }
 
-    createStartingPage(): void {
+    createStartingPage() {
         this.createLogo();
         this.createGamePanel();
         this.createNameSettings('gamePanel');
@@ -16,14 +16,14 @@ export class StartingPanelManager {
         this.createStartButton('gamePanel');
     }
 
-    private createLogo(): void {
+    private createLogo() {
         const logo: HTMLElement = document.createElement('h3');
         logo.setAttribute('id', 'codersLogo');
         logo.textContent = '.CodersCrew';
         document.getElementById(this.containerId).appendChild(logo);
     }
 
-    private createGamePanel(): void {
+    private createGamePanel() {
         const gamePanel: HTMLDivElement = document.createElement('div');
         gamePanel.setAttribute('id', 'gamePanel');
         document.getElementById(this.containerId).appendChild(gamePanel);
@@ -32,7 +32,7 @@ export class StartingPanelManager {
         gamePanel.appendChild(gameSettings);
     }
 
-    private createNameSettings(gamePanelId: string): void {
+    private createNameSettings(gamePanelId: string) {
         const gamePanel: HTMLDivElement = document.getElementById(gamePanelId) as HTMLDivElement;
         const nameSettings: HTMLDivElement = document.createElement('div');
         nameSettings.setAttribute('id', 'nameSettings');
@@ -43,34 +43,22 @@ export class StartingPanelManager {
         firstName.setAttribute('id', 'firstPlayerName');
         firstName.setAttribute('placeholder', "Białe - pierwszy gracz");
         firstName.onchange = () => {
-            if (firstName.value.length > 2) {
-                this.flagInputOne = true;
-                this.watchInputFlags();
-            }
-            else {
-                this.flagInputOne = false;
-                this.watchInputFlags();
-            }
+            this.flagInputOne = firstName.value;
+            this.watchInputFlags();
         }
         nameSettings.appendChild(firstName);
         const secondName: HTMLInputElement = document.createElement('input');
         secondName.setAttribute('id', 'secondPlayerName');
         secondName.setAttribute('placeholder', "Czarne - drugi gracz");
         secondName.onchange = () => {
-            if (secondName.value.length > 2) {
-                this.flagInputTwo = true;
-                this.watchInputFlags();
-            }
-            else {
-                this.flagInputTwo = false;
-                this.watchInputFlags();
-            }
+            this.flagInputTwo = secondName.value;
+            this.watchInputFlags();
         }
         nameSettings.appendChild(secondName);
         gamePanel.appendChild(nameSettings);
     }
 
-    private createSlider(gamePanelId: string): void {
+    private createSlider(gamePanelId: string) {
         const gamePanel: HTMLDivElement = document.getElementById(gamePanelId) as HTMLDivElement;
         const sliderContainer: HTMLDivElement = document.createElement('div');
         sliderContainer.setAttribute('class', 'sliderContainer');
@@ -93,11 +81,11 @@ export class StartingPanelManager {
         const slider: HTMLInputElement = document.getElementById("sliderTime") as HTMLInputElement;
         const output: HTMLElement = document.getElementById("sliderValue");
         output.innerHTML = slider.value;
-        slider.addEventListener('input', (): void => {
+        slider.addEventListener('input', () => {
             output.innerHTML = slider.value;
         })
     }
-    private createStartButton(gamePanelId: string): void {
+    private createStartButton(gamePanelId: string) {
         const gamePanel: HTMLDivElement = document.getElementById(gamePanelId) as HTMLDivElement;
         const gameTime: HTMLInputElement = document.getElementById('sliderTime') as HTMLInputElement;
         const startGameButton: HTMLButtonElement = document.createElement('button');
@@ -108,17 +96,17 @@ export class StartingPanelManager {
         startGameButton.addEventListener('click', () => {
             this.removeElement('codersLogo');
             this.removeElement('gamePanel');
-            board.createChessBoard();
+            this.board.createChessBoard();
             document.getElementById(this.containerId).classList.add('center');
         })
     }
     watchInputFlags() {
-        if (this.flagInputOne && this.flagInputTwo) {
+        if (this.flagInputOne.length > 2 && this.flagInputTwo.length > 2) {
             document.getElementById('gameStartButton').removeAttribute('disabled')
         }
         else document.getElementById('gameStartButton').setAttribute('disabled', 'true')
     }
-    private removeElement(elementId: string): void {
+    private removeElement(elementId: string) {
         const element: HTMLElement = document.getElementById(elementId);
         element.parentElement.removeChild(element);
     }

@@ -1,7 +1,6 @@
-
-import { StartingPanelManager } from './startingPanelManager'
+import { LandingPage } from './landingPage'
 export const App = () => {
-  let startingPanel = new StartingPanelManager('chess-app')
+  let startingPanel = new LandingPage('chess-app')
   startingPanel.createStartingPage();
   console.log('App');
 }

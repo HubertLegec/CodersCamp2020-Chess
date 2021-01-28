@@ -1,4 +1,4 @@
-export class BoardDisplay {
+export class BoardView {
     private containerId: string;
 
     constructor(containerId: string) {
@@ -26,14 +26,14 @@ export class BoardDisplay {
         cornerLU.setAttribute('class', 'corner');
         cornerRU.setAttribute('class', 'corner');
         opponentFile.appendChild(cornerLU);
-        let letterASCII: number = 65;
-        for (let i: number = 0; i < 8; i++) {
-            const fileBox: HTMLDivElement = document.createElement('div');
-            fileBox.setAttribute('class', 'file rotate');
-            fileBox.textContent = String.fromCharCode(letterASCII);
-            opponentFile.appendChild(fileBox);
-            letterASCII++;
-        }
+        ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+            .map(l => {
+                const fileBox: HTMLDivElement = document.createElement('div');
+                fileBox.setAttribute('class', 'file rotate');
+                fileBox.textContent = l;
+                return fileBox;
+            })
+            .forEach(f => opponentFile.appendChild(f));
         opponentFile.appendChild(cornerRU);
         document.getElementById('chessBoard').appendChild(opponentFile)
     }
@@ -54,6 +54,7 @@ export class BoardDisplay {
         for (let i: number = 0; i < 64; i++) {
             const boardBox: HTMLDivElement = document.createElement('div');
             boardBox.setAttribute('class', 'box');
+            boardBox.setAttribute('dataset', 'square')
             board.appendChild(boardBox);
         }
         document.getElementById('chessBoard').appendChild(board);
@@ -77,14 +78,14 @@ export class BoardDisplay {
         cornerLD.setAttribute('class', 'corner');
         cornerRD.setAttribute('class', 'corner');
         myFile.appendChild(cornerLD);
-        let letterASCII: number = 65;
-        for (let i: number = 0; i < 8; i++) {
-            const fileBox: HTMLDivElement = document.createElement('div');
-            fileBox.setAttribute('class', 'file');
-            fileBox.textContent = String.fromCharCode(letterASCII);
-            myFile.appendChild(fileBox);
-            letterASCII++;
-        }
+        ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+            .map(l => {
+                const fileBox: HTMLDivElement = document.createElement('div');
+                fileBox.setAttribute('class', 'file rotate');
+                fileBox.textContent = l;
+                return fileBox;
+            })
+            .forEach(f => myFile.appendChild(f));
         myFile.appendChild(cornerRD);
         document.getElementById('chessBoard').appendChild(myFile)
     }

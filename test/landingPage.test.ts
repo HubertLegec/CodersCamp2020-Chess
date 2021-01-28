@@ -1,4 +1,4 @@
-import { StartingPanelManager } from '../src/app/startingPanelManager';
+import { LandingPage } from '../src/app/landingPage';
 import { fireEvent, getByRole, getByTestId, getByText } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -14,7 +14,7 @@ describe('startingPanelManager', () => {
         document.body.innerHTML = '';
         container = createContainer();
         document.body.append(container);
-        const startingPanel = new StartingPanelManager('chess-app');
+        const startingPanel = new LandingPage('chess-app');
         startingPanel.createStartingPage();
     })
 
@@ -71,28 +71,10 @@ describe('startingPanelManager', () => {
         const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
         const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
         const secondPlayerInput: HTMLInputElement = document.getElementById('secondPlayerName') as HTMLInputElement;
-        [
-            {
-                firstName: '',
-                secondName: ''
-            },
-            {
-                firstName: 'Player1',
-                secondName: ''
-            },
-            {
-                firstName: '',
-                secondName: 'Player2'
-            },
-        ].map(givenNames => {
-            fireEvent.input(firstPlayerInput, { target: { value: givenNames.firstName } });
-            fireEvent.input(secondPlayerInput, { target: { value: givenNames.secondName } });
-            expect(startGameButton).toHaveAttribute('disabled')
-        })
         fireEvent.input(firstPlayerInput, { target: { value: "Player1" } });
         fireEvent.input(secondPlayerInput, { target: { value: "Player2" } });
-        expect(startGameButton).not.toHaveAttribute('disabled', "true");
 
+        expect(startGameButton).not.toHaveAttribute('disabled', "true");
     })
 
 })
