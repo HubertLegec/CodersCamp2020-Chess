@@ -48,7 +48,7 @@ export class Board implements AvailabilityChecker {
     }
     response = this.findCell(start);
     response.player?.actualFigures[response.index!].removeYourself();
-    response.player?.actualFigures[response.index!].position = end;
+    response.player?.actualFigures[response.index!].move(end);
     response.player?.actualFigures[response.index!].drawYourself();
 
   }

@@ -68,9 +68,9 @@ export class Pawn implements IFigure {
     // TODO implement drawing
     const me = document.getElementById(
       `${this.position.x * 8 + this.position.y}`
-    );
+    )!;
     // TODO ustaw czcionkę pionka
-    me?.innerHTML = `<i class="fas fa-chess-pawn" style="font-size: 30px;  color:${
+    me.innerHTML = `<i class="fas fa-chess-pawn" style="font-size: 30px;  color:${
       this.owner.color == Colors.Black ? "black" : "white"
     }"></i>`;
     me?.setAttribute("style", "text-align:center;");
@@ -80,8 +80,8 @@ export class Pawn implements IFigure {
     // TODO implement removing
     const me = document.getElementById(
       `${this.position.x * 8 + this.position.y}`
-    );
-    me?.innerHTML = "";
+    )!;
+    me.innerHTML = "";
   }
 
   getPossibleMoves() {
@@ -118,5 +118,6 @@ export class Pawn implements IFigure {
 
   move(end: Position): void {
     this.position = end;
+    this.hasMoved = true;
   }
 }
