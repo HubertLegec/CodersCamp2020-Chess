@@ -5,7 +5,7 @@ import { Player } from "./Player";
 export interface AvailabilityChecker {
   findCell: (pos: Position) => findResponse;
   moveFigures: (start: Position, end: Position) => void;
-
+  validateMoves: (moves:Position[], figPos:Position)=>Position[]
 }
 
 interface findResponse {
@@ -42,14 +42,32 @@ export class Board implements AvailabilityChecker {
     if (response.found) {
       // figura zostanie zbita
       // usuwamy ją z listy
-      response.player?.actualFigures[response.index].removeYourself();
-      swap<IFigure>(response.player?.actualFigures[response.index], response.player?.actualFigures[response.player.actualFigures.length-1]);
+      response.player?.actualFigures[response.index!].removeYourself();
+      swap<IFigure>(response.player?.actualFigures[response.index!]!, response.player?.actualFigures[response.player.actualFigures.length-1]!);
       response.player?.actualFigures.pop();
     }
     response = this.findCell(start);
-    response.player?.actualFigures[response.index].removeYourself();
-    response.player?.actualFigures[response.index].position = end;
-    response.player?.actualFigures[response.index].drawYourself();
+    response.player?.actualFigures[response.index!].removeYourself();
+    response.player?.actualFigures[response.index!].position = end;
+    response.player?.actualFigures[response.index!].drawYourself();
 
+  }
+
+  validateMoves(moves:Position[], figPos:Position):Position[]{
+    // chwilowo sprawdzanie zaimplementowane tylko dla pionkow
+    const answer:Position[] = new Array<Position>();
+    const res = this.findCell(figPos);
+    // jezeli figura jest pionkiem
+    if (res.player?.actualFigures[res.index!].type == FigureType.Pawn){
+      if(moves.length == 0 || this.findCell(moves[0]).found){
+        return answer;
+      }else{
+        answer.push(moves[0]);
+        if (moves.length == 2 && !this.findCell(moves[1]).found){
+          answer.push(moves[1]);
+        }
+        return answer;
+      }
+    }
   }
 }
