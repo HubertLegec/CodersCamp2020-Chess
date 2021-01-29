@@ -1,13 +1,7 @@
 
 export class LandingPage {
-    private containerId: string;
     private flagInputOne: string = '';
     private flagInputTwo: string = '';
-    private board: object;
-    constructor(containerId: string, board: object) {
-        this.containerId = containerId;
-        this.board = board;
-    }
 
     createStartingPage() {
         this.checkInputs();
@@ -27,7 +21,7 @@ export class LandingPage {
         }
     }
     private chessboardButton() {
-        const startGameButton: HTMLButtonElement = document.querySelector('.button');
+        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton')
         startGameButton.addEventListener('click', () => {
             this.removeElement('codersLogo');
             this.removeElement('gamePanel');
