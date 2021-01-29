@@ -29,7 +29,7 @@ export class BoardView {
         ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
             .map(l => {
                 const fileBox: HTMLDivElement = document.createElement('div');
-                fileBox.setAttribute('class', 'file rotate');
+                fileBox.setAttribute('class', 'file');
                 fileBox.textContent = l;
                 return fileBox;
             })
@@ -64,7 +64,7 @@ export class BoardView {
         opponentRank.setAttribute('id', 'opponentRank');
         for (let i: number = 8; i > 0; i--) {
             const rankBox: HTMLDivElement = document.createElement('div');
-            rankBox.setAttribute('class', 'rank rotate');
+            rankBox.setAttribute('class', 'rank');
             rankBox.textContent = i.toString();
             opponentRank.appendChild(rankBox)
         }
@@ -81,7 +81,7 @@ export class BoardView {
         ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
             .map(l => {
                 const fileBox: HTMLDivElement = document.createElement('div');
-                fileBox.setAttribute('class', 'file rotate');
+                fileBox.setAttribute('class', 'file');
                 fileBox.textContent = l;
                 return fileBox;
             })
