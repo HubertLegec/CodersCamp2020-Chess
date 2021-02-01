@@ -1,9 +1,8 @@
-
 export class LandingPage {
     private flagInputOne: string = '';
     private flagInputTwo: string = '';
 
-    createStartingPage() {
+    addEventsToDOMElements() {
         this.checkInputs();
         this.chessboardButton();
     }
@@ -21,7 +20,7 @@ export class LandingPage {
         }
     }
     private chessboardButton() {
-        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton')
+        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
         startGameButton.addEventListener('click', () => {
             this.removeElement('codersLogo');
             this.removeElement('gamePanel');
@@ -38,3 +37,7 @@ export class LandingPage {
         element.parentElement.removeChild(element);
     }
 }
+const landingPage = new LandingPage();
+
+landingPage.addEventsToDOMElements();
+

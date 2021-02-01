@@ -4,51 +4,35 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('startingPanelManager', () => {
     let container: HTMLDivElement;
-    function createContainer(): HTMLDivElement {
-        const div = document.createElement('div');
-        div.id = "chess-app";
-        return div;
+    const landingPage = new LandingPage();
+
+    function getChessApp(): HTMLDivElement {
+        const chessApp = document.createElement('div');
+        chessApp.id = 'chess-app';
+        chessApp.innerHTML = `
+        <h3 id="codersLogo">.CodersCrew</h3>
+        <div id="gamePanel">
+            <p id="gameSettingsTitle">USTAWIENIA GRY</p>
+            <div id="nameSettings">
+                <p>IMIONA GRACZY</p><input id="firstPlayerName" placeholder="Białe - pierwszy gracz"><input
+                    id="secondPlayerName" placeholder="Czarne - drugi gracz">
+            </div>
+            <div class="sliderContainer">
+                <p>CZAS GRY</p><input type="range" min="1" max="100" value="15" class="slider" id="sliderTime">
+                <p id="gameplayTime">DŁUGOŚĆ GRY: <span id="sliderValue">15</span> minut(y)</p>
+            </div>
+            <a href="./chessboard.html" id='chessboardView'>
+                <button id="gameStartButton" disabled="">ROZPOCZNIJ GRĘ</button>
+            </a>
+        </div>`;
+        return chessApp;
     }
 
     beforeEach(() => {
         document.body.innerHTML = '';
-        container = createContainer();
-        document.body.append(container);
-        const startingPanel = new LandingPage('chess-app');
-        startingPanel.createStartingPage();
-    })
-
-    test('creates CodersCrew logo', () => {
-        expect(getByText(container, '.CodersCrew')).toBeInTheDocument();
-    })
-
-    test('creates game panel', () => {
-        expect(document.getElementById('gamePanel')).toBeInTheDocument();
-    })
-
-    test('creates button in game panel', () => {
-        const gamePanel = document.getElementById('gamePanel');
-        const startButton = document.getElementById('gameStartButton')
-
-        expect(gamePanel).toContainElement(startButton);
-    })
-
-    test('creates elements in nameSettings div', () => {
-        const nameSettings = document.getElementById('nameSettings');
-        const firstPlayer = document.getElementById('firstPlayerName');
-        const secondPlayer = document.getElementById('secondPlayerName');
-
-        expect(getByText(nameSettings, 'IMIONA GRACZY')).toBeInTheDocument();
-        expect(nameSettings).toContainElement(firstPlayer);
-        expect(nameSettings).toContainElement(secondPlayer);
-    })
-
-    test('creates elements in sliderContainer div', () => {
-        const sliderContainer = document.querySelector('.sliderContainer') as HTMLElement;
-        const slider = document.getElementById('sliderTime')
-
-        expect(getByText(sliderContainer, 'CZAS GRY')).toBeInTheDocument();
-        expect(sliderContainer).toContainElement(slider);
+        container = document.body as HTMLDivElement;
+        container.append(getChessApp());
+        landingPage.addEventsToDOMElements();
     })
 
     test('changes minutes value with slider change', () => {
@@ -61,8 +45,8 @@ describe('startingPanelManager', () => {
     })
 
     test('starting button clear all elements / test removeElement function', () => {
-        const startingButton = document.getElementById('gameStartButton');
-        fireEvent.click(startingButton);
+        const startButton = document.getElementById('gameStartButton');
+        fireEvent.click(startButton);
         const chessBoard = document.getElementById('chessBoard');
 
         expect(container).toContainElement(chessBoard);
