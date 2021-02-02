@@ -4,7 +4,7 @@ export class LandingPage {
 
     addEventsToDOMElements() {
         this.checkInputs();
-        this.chessboardButton();
+        this.sliderValue();
     }
 
     private checkInputs() {
@@ -19,11 +19,12 @@ export class LandingPage {
             this.watchInputFlags();
         }
     }
-    private chessboardButton() {
-        const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
-        startGameButton.addEventListener('click', () => {
-            this.removeElement('codersLogo');
-            this.removeElement('gamePanel');
+    private sliderValue() {
+        const output: HTMLElement = document.getElementById("sliderValue");
+        const slider: HTMLInputElement = document.getElementById("sliderTime") as HTMLInputElement;
+        output.innerHTML = slider.value;
+        slider.addEventListener('input', (): void => {
+            output.innerHTML = slider.value;
         })
     }
     watchInputFlags() {
@@ -32,12 +33,5 @@ export class LandingPage {
         }
         else document.getElementById('gameStartButton').setAttribute('disabled', 'true')
     }
-    private removeElement(elementId: string) {
-        const element: HTMLElement = document.getElementById(elementId);
-        element.parentElement.removeChild(element);
-    }
 }
-const landingPage = new LandingPage();
-
-landingPage.addEventsToDOMElements();
 

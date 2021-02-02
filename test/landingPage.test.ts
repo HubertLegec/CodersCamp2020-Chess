@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('startingPanelManager', () => {
     let container: HTMLDivElement;
-    const landingPage = new LandingPage();
+
 
     function getChessApp(): HTMLDivElement {
         const chessApp = document.createElement('div');
@@ -32,6 +32,7 @@ describe('startingPanelManager', () => {
         document.body.innerHTML = '';
         container = document.body as HTMLDivElement;
         container.append(getChessApp());
+        const landingPage = new LandingPage();
         landingPage.addEventsToDOMElements();
     })
 
@@ -44,13 +45,6 @@ describe('startingPanelManager', () => {
 
     })
 
-    test('starting button clear all elements / test removeElement function', () => {
-        const startButton = document.getElementById('gameStartButton');
-        fireEvent.click(startButton);
-        const chessBoard = document.getElementById('chessBoard');
-
-        expect(container).toContainElement(chessBoard);
-    })
     test('check disabled button with two inputs', () => {
         const startGameButton: HTMLButtonElement = document.getElementById('gameStartButton') as HTMLButtonElement;
         const firstPlayerInput: HTMLInputElement = document.getElementById('firstPlayerName') as HTMLInputElement;
