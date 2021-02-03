@@ -8,20 +8,20 @@ export class GameUrl {
         this._baseUrl = baseUrl;
     }
 
-    set firstPlayerName(name: string){
+    set firstPlayerName(name: string) {
         this._firstPlayerName = name;
     }
 
-    set secondPlayerName(name: string){
+    set secondPlayerName(name: string) {
         this._secondPlayerName = name;
     }
 
-    set gameTime(time: string){
+    set gameTime(time: string) {
         this._gameTime = time;
     }
 
     getUrl(): string {
-        const searchParamsUrl: URLSearchParams = new URLSearchParams({'name1': this._firstPlayerName, 'name2': this._secondPlayerName, 'time': this._gameTime});
-        return this._baseUrl + '?' + searchParamsUrl.toString();    
+        const searchParamsUrl: URLSearchParams = new URLSearchParams({ 'name1': this._firstPlayerName, 'name2': this._secondPlayerName, 'time': this._gameTime, });
+        return this._baseUrl + '?' + searchParamsUrl.toString();
     }
 }
