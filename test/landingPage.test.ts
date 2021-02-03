@@ -1,8 +1,8 @@
 import { LandingPage } from '../src/app/LandingPage';
-import { fireEvent, getByRole, getByTestId, getByText } from '@testing-library/dom';
+import { fireEvent, getByRole, getByText } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
-describe('startingPanelManager', () => {
+describe('LandingPage', () => {
     let container: HTMLDivElement;
 
     function getChessApp(): HTMLDivElement {
