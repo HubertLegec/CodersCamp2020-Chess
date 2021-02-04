@@ -54,37 +54,55 @@ export class Game implements IGame {
 
   handleClick(newClick: Position) {
     // sprawdza czy jest to drugie klikniecie w ruchu
-    if (this.clickedPosition.x !== -1 && this.clickedPosition.y !== -1) { // pierwsze
+    if (this.clickedPosition.x !== -1 && this.clickedPosition.y !== -1) { // drugie
       console.log(newClick);
+      let miss = true;
       for (let i = 0; i < this.possiblePositions.length; i++) {
         const poss = this.possiblePositions[i];
         // kliknieta opcja zawiera sie w puli mozliwych ruchow
         if (poss.x == newClick.x && poss.y == newClick.y) {
+          miss = false;
           this.board.moveFigures(this.clickedPosition, newClick);
 
           // usuwa onClick z opcji danej figury
+          this.possiblePositions.push(new Position(this.clickedPosition.x, this.clickedPosition.y));
           this.possiblePositions.forEach(p => {
             const el = document.getElementById(`${p.x * 8 + p.y}`);
             el?.classList.remove('active');
             el?.replaceWith(el.cloneNode(true));
           })
-
+          
           const res = this.board.findCell(newClick);
           res.player?.actualFigures[res.index!].setOnClick(
             (me: IFigure) => {
               this.handleClick(me.position);
             }
           );
+          if (this.activePlayer == this.players[0]){
+            this.activePlayer = this.players[1];
+          }else{
+            this.activePlayer = this.players[0];
+          }
+          break;
         }
       }
+      if (miss){
+        // usuwa onClick z opcji danej figury
+        this.possiblePositions.forEach(p => {
+          const el = document.getElementById(`${p.x * 8 + p.y}`);
+          el?.classList.remove('active');
+          el?.replaceWith(el.cloneNode(true));
+        })
+      }
       this.clickedPosition = new Position(-1, -1);
-    } else { // drugie
-      this.clickedPosition = newClick;
+    } else { // pierwsze    
       const res = this.board.findCell(newClick);
-      let moves = res.player?.actualFigures[
-        res.index!
-      ].getPossibleMoves();
-      moves = this.board.validateMoves(moves!, newClick);
+
+      if (res.player != this.activePlayer){
+        return;
+      }
+      this.clickedPosition = newClick;
+      const moves = this.board.validateMoves(newClick);
       this.possiblePositions = moves!;
       console.log(this.possiblePositions);
       this.possiblePositions.forEach((p) => {

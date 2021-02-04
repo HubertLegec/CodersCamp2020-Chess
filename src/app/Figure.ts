@@ -24,35 +24,32 @@ export class Position {
   }
 }
 
-export interface IFigure {
-  type: FigureType;
+export abstract class IFigure {
+  abstract type:FigureType
   position: Position;
   isAlive: boolean;
   owner: Player;
-  imgName: string;
+  hasMoved:boolean;
 
-  getPossibleMoves: () => Position[];
-  move: (pos: Position) => void;
-  drawYourself: () => void;
-  removeYourself: () => void;
-  setOnClick(func:(me:IFigure)=>void):void;
-}
-
-export class Pawn implements IFigure {
-  type: FigureType;
-  position: Position;
-  isAlive: boolean;
-  owner: Player;
-  hasMoved: boolean;
-  imgName: string;
-
-  constructor(pos: Position, owner: Player) {
-    this.type = FigureType.Pawn;
+  constructor(pos:Position, owner:Player){
     this.position = pos;
     this.isAlive = true;
     this.owner = owner;
     this.hasMoved = false;
-    this.imgName = "pawn.png";
+  }
+
+  move(end:Position){
+    this.position = end;
+    this.hasMoved = true;
+  }
+  abstract drawYourself():void;
+
+  removeYourself() {
+    // TODO implement removing
+    const me = document.getElementById(
+      `${this.position.x * 8 + this.position.y}`
+    )!;
+    me.innerHTML = "";
   }
 
   setOnClick(func:(me:IFigure)=>void){
@@ -62,6 +59,16 @@ export class Pawn implements IFigure {
     me?.addEventListener('click', ()=>{
       func(this);
     });
+  }
+}
+
+export class Pawn extends IFigure {
+  type: FigureType;
+
+  constructor(pos: Position, owner: Player) {
+    super(pos, owner);
+    this.type = FigureType.Pawn;
+
   }
 
   drawYourself() {
@@ -75,49 +82,69 @@ export class Pawn implements IFigure {
     }"></i>`;
     me?.setAttribute("style", "text-align:center;");
   }
+}
 
-  removeYourself() {
-    // TODO implement removing
+export class Rook extends IFigure{
+  type: FigureType;
+
+  constructor(pos:Position, owner:Player){
+    super(pos, owner);
+    this.type = FigureType.Rook;
+  }
+
+  drawYourself() {
+    // TODO implement drawing
     const me = document.getElementById(
       `${this.position.x * 8 + this.position.y}`
     )!;
-    me.innerHTML = "";
+    // TODO ustaw czcionkę pionka
+    me.innerHTML = `<i class="fas fa-chess-rook" style="font-size: 30px;  color:${
+      this.owner.color == Colors.Black ? "black" : "white"
+    }"></i>`;
+    me?.setAttribute("style", "text-align:center;");
+  }
+}
+
+export class Bishop extends IFigure{
+  type:FigureType;
+
+  constructor(pos:Position, owner:Player){
+    super(pos, owner);
+    this.type = FigureType.Bishop;
   }
 
-  getPossibleMoves() {
-    let answer: Position[] = new Array<Position>();
-    var pos: Position;
+  drawYourself(): void {
+    
+    const me = document.getElementById(
+      `${this.position.x * 8 + this.position.y}`
+    )!;
+    
+    me.innerHTML = `<i class="fas fa-chess-bishop" style="font-size: 30px;  color:${
+      this.owner.color == Colors.Black ? "black" : "white"
+    }"></i>`;
+    me?.setAttribute("style", "text-align:center;");
+  }
+  
+}
 
-    if (this.owner.color == Colors.White) {
-      pos = new Position(this.position.x + 1, this.position.y);
-      if (this.position.x < 7) {
-        answer.push(pos);
-      }
+export class Knight extends IFigure{
+  type:FigureType;
 
-      if (!this.hasMoved) {
-        pos = new Position(this.position.x + 2, this.position.y);
-        if (this.position.x < 6) {
-          answer.push(pos);
-        }
-      }
-    } else {
-      pos = new Position(this.position.x - 1, this.position.y);
-      if (this.position.x > 0) {
-        answer.push(pos);
-      }
-
-      if (!this.hasMoved) {
-        pos = new Position(this.position.x - 2, this.position.y);
-        if (this.position.x > 1) {
-          answer.push(pos);
-        }
-      }
-    }
-    return answer;
+  constructor(pos:Position, owner:Player){
+    super(pos, owner);
+    this.type = FigureType.Knight
   }
 
-  move(end: Position): void {
-    this.position = end;
-    this.hasMoved = true;
+  drawYourself(){
+
+    const me = document.getElementById(
+      `${this.position.x * 8 + this.position.y}`
+    )!;
+    // TODO ustaw czcionkę pionka
+    me.innerHTML = `<i class="fas fa-chess-knight" style="font-size: 30px;  color:${
+      this.owner.color == Colors.Black ? "black" : "white"
+    }"></i>`;
+    me?.setAttribute("style", "text-align:center;");
   }
+
 }
