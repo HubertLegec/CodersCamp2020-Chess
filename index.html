@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="pl">
 
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>CodersCamp2020 | Chess</title>
-    <link rel="stylesheet" href="styles/App.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sarpanch:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/landingPageStyle.css" />
 </head>
 
 <body>
     <div id="chess-app">
+        <h3 id="codersLogo">.CodersCrew</h3>
+        <div id="gamePanel">
+            <p id="gameSettingsTitle">USTAWIENIA GRY</p>
+            <div id="nameSettings">
+                <p>IMIONA GRACZY</p><input id="firstPlayerName" placeholder="Białe - pierwszy gracz"><input
+                    id="secondPlayerName" placeholder="Czarne - drugi gracz">
+            </div>
+            <div class="sliderContainer">
+                <p>CZAS GRY</p><input type="range" min="1" max="100" value="15" class="slider" id="sliderTime">
+                <p id="gameplayTime">DŁUGOŚĆ GRY: <span id="sliderValue">15</span> minut(y)</p>
+            </div>
+            <button id="gameStartButton" disabled="">ROZPOCZNIJ GRĘ</button>
+        </div>
     </div>
-    <script src='./src/index.ts'></script>
-    <script src="https://kit.fontawesome.com/a8fca9087a.js" crossorigin="anonymous"></script>
+    <script src='./src/homepage.ts'></script>
 </body>
 
 </html>

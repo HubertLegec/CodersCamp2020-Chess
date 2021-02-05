@@ -1,18 +1,13 @@
-import { Move } from "./Move";
 import { Player } from "./Player";
 import { Colors, IFigure, Position } from "./Figure";
 import { StartData } from "./Data";
 import { AvailabilityChecker, Board } from "./Board";
-import { BoardDisplay } from "./DOM/BoardDisplay";
 
 interface IGame {
-  movehistory: Move[];
-
   startGame: () => void;
 }
 
 export class Game implements IGame {
-  movehistory: Move[];
   activePlayer: Player;
   players: Player[];
   board: AvailabilityChecker;
@@ -20,7 +15,6 @@ export class Game implements IGame {
   possiblePositions: Position[];
 
   constructor(data: StartData) {
-    this.movehistory = new Array<Move>();
     this.players = new Array<Player>(2);
     this.players[0] = new Player(data.firstName, data.time, Colors.White);
     this.players[1] = new Player(data.secondName, data.time, Colors.Black);
@@ -31,9 +25,6 @@ export class Game implements IGame {
   }
 
   startGame() {
-    // wyswietla szachownice
-    const view = new BoardDisplay("chess-app");
-    view.createChessBoard();
 
     // wywoluje na każdej figurze wyrysowanie się i podpina onclicka
     this.players[0].actualFigures.forEach((f) => {
@@ -49,8 +40,6 @@ export class Game implements IGame {
       });
     });
   }
-
-  waitForPlayerMove() {}
 
   handleClick(newClick: Position) {
     // sprawdza czy jest to drugie klikniecie w ruchu

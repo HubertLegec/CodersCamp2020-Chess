@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+html{
+    font-size: 10px;
+}
+:root {
+    --squareSize: 30px;
+}
+#chess-app {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../src/img/chess-1697301.jpg');
+    background-position: 40%;
+    background-size: cover;
+    position: relative;
+    display: flex;
+}
+#chessBoard{
+    display: grid;
+    grid-template-columns: repeat(10, var(--squareSize));
+    grid-template-rows: repeat(10, var(--squareSize));
+    justify-content: center;
+    position: absolute;
+    top: 60px;
+}
+#opponentFile{
+    display: grid;
+    grid-template-columns: repeat(10, var(--squareSize));
+    grid-column: 1 / span 10;
+}
+#myRank{
+    display: grid;
+    grid-template-rows: repeat(8, var(--squareSize));
+    grid-row: 2 / span 8;
+}
+#board{
+    display: grid;
+    grid-template-columns: repeat(8, var(--squareSize));
+    grid-template-rows: repeat(8, var(--squareSize));
+    grid-column: 2 / span 8;
+    grid-row: 2 / span 8;
+}
+#opponentRank{
+    display: grid;
+    grid-template-rows: repeat(8, var(--squareSize));
+    grid-row: 2 / span 8;
+}
+#myFile{
+    display: grid;
+    grid-template-columns: repeat(10, var(--squareSize));
+    grid-column: 1 / span 10;
+}
+.box{
+    background: linear-gradient(135deg, rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%);
+
+    border: 1px solid black;
+}
+.rank, .file{
+    text-align: center;
+    line-height: var(--squareSize);
+    font-size: 2rem;
+    background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
+}
+.corner{
+    text-align: center;
+    background: linear-gradient(45deg, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 93%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 100%,rgba(191,110,78,1) 100%,rgba(140,51,16,1) 100%,rgba(117,34,1,1) 102%);
+}
+.box:nth-child(-2n+8),
+.box:nth-child(8) ~ .box:nth-child(-2n+15),
+.box:nth-child(16) ~ .box:nth-child(-2n+24),
+.box:nth-child(24) ~ .box:nth-child(-2n+31),
+.box:nth-child(32) ~ .box:nth-child(-2n+40),
+.box:nth-child(40) ~ .box:nth-child(-2n+47),
+.box:nth-child(48) ~ .box:nth-child(-2n+56),
+.box:nth-child(56) ~ .box:nth-child(-2n+63)
+{
+    background: linear-gradient(45deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(76,76,76,1) 59%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(17,17,17,1) 92%,rgba(17,17,17,1) 92%,rgba(0,0,0,1) 93%,rgba(0,0,0,1) 93%,rgba(17,17,17,1) 94%,rgba(44,44,44,1) 94%,rgba(44,44,44,1) 94%,rgba(17,17,17,1) 94%,rgba(19,19,19,1) 100%);
+
+  /* background: linear-gradient(135deg, rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%); */
+  color: #fff;
+}
+#gameSettings{
+    width: 90%;
+    height: 25%;
+    position: absolute;
+    right: 50%;
+    bottom: 5%;
+    transform: translate(50%, 0);
+    border: 2px solid #1a90ff;    
+    background: rgba(224, 216, 216, 0.5);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#gameSettings>#names,#gameSettings>#times,#gameSettings>#gameButtons{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#gameSettings p{
+    font-size: 2rem;
+}
+  @media (orientation: portrait) {
+      #chess-app{
+        justify-content: center;
+        } 
+  }
+  @media (orientation: landscape){
+    #chessBoard{
+        left: 5%;
+        top: 50%;
+        transform: translate(0, -50%);
+    } 
+    :root {
+        --squareSize: 27px;
+    }
+    #gameSettings{
+        width: 40%;
+        height: 50%;
+        right: 3%;
+        bottom: 50%;
+        transform: translate(0, 50%);
+    }
+    #gameSettings p{
+        font-size: 1.4rem;
+    }
+  }
+  @media (orientation: landscape) and (min-width: 639px){     
+    :root {
+        --squareSize: 30px;
+    }
+  }
+  @media (orientation: landscape) and (min-width: 730px){    
+    :root {
+        --squareSize: 35px;
+    }
+  }
+  @media (orientation: landscape) and (min-width: 1023px){
+    :root {
+        --squareSize: 60px;
+    }
+    .rank, .file{
+        font-size: 3rem;
+    }    
+    #gameSettings{
+        width: 30%;
+        height: 30%;
+    }
+    #gameSettings p{
+        font-size: 2rem;
+    }
+  }
+  @media (orientation: landscape) and (min-width: 1365px){  
+    :root {
+        --squareSize: 85px;
+    }    
+    .rank, .file{
+        font-size: 4rem;
+    }        
+    #gameSettings{
+        width: 25%;
+        height: 30%;
+    }
+  }
+  @media (orientation: portrait)and (min-width: 359px){
+    #chessBoard{
+        top: 80px;
+    } 
+    :root {
+        --squareSize: 34px;
+    }
+  }
+  @media (orientation: portrait)and (min-width: 410px){
+    #chessBoard{
+        top: 100px;
+    } 
+    :root {
+        --squareSize: 37px;
+    }
+  }
+  @media (orientation: portrait)and (min-width: 767px){
+    :root {
+        --squareSize: 70px;
+    }
+    .rank, .file{
+        font-size: 3rem;
+    }
+    #gameSettings{
+        height: 15%;
+    }
+  }
+  @media (orientation: portrait)and (min-width: 1023px){
+    :root {
+        --squareSize: 90px;
+    }    
+    .rank, .file{
+        font-size: 4rem;
+    }
+  }
+
+  /* helpers pawel*/
+
+.active{
+    background: grey !important;
+}
+
+    
+
+

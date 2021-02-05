@@ -58,7 +58,6 @@ export class Board implements AvailabilityChecker {
   }
 
   validateMoves(figPos: Position): Position[] {
-    // chwilowo sprawdzanie zaimplementowane tylko dla pionkow
     const answer: Position[] = new Array<Position>();
     const res = this.findCell(figPos);
     // jezeli figura jest pionkiem
