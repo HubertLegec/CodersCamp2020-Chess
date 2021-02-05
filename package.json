@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rimraf .cache && rimraf dist && rimraf node_modules",
     "prebuild": "rimraf dist",
-    "build": "parcel build index.html --public-url ./",
-    "start:dev": "parcel -p 8765 watch index.html",
+    "build": "parcel build index.html chessGame.html --public-url ./",
+    "start:dev": "parcel -p 8765 watch index.html chessGame.html",
     "test": "jest",
     "test:watch": "jest --watch"
   },

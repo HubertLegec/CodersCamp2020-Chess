@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CodersCamp2020 | Chess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sarpanch:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/chessGameStyle.css" />
+</head>
+
+<body>
+    <div id="chess-app">
+        <div id="chessBoard">
+            <div id="opponentFile">
+                <div class="corner"></div>
+                <div class="file">A</div>
+                <div class="file">B</div>
+                <div class="file">C</div>
+                <div class="file">D</div>
+                <div class="file">E</div>
+                <div class="file">F</div>
+                <div class="file">G</div>
+                <div class="file">H</div>
+                <div class="corner"></div>
+            </div>
+            <div id="myRank">
+                <div class="rank">8</div>
+                <div class="rank">7</div>
+                <div class="rank">6</div>
+                <div class="rank">5</div>
+                <div class="rank">4</div>
+                <div class="rank">3</div>
+                <div class="rank">2</div>
+                <div class="rank">1</div>
+            </div>
+            <div id="board">
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+                <div class="box" dataset="square"></div>
+            </div>
+            <div id="opponentRank">
+                <div class="rank">8</div>
+                <div class="rank">7</div>
+                <div class="rank">6</div>
+                <div class="rank">5</div>
+                <div class="rank">4</div>
+                <div class="rank">3</div>
+                <div class="rank">2</div>
+                <div class="rank">1</div>
+            </div>
+            <div id="myFile">
+                <div class="corner"></div>
+                <div class="file">A</div>
+                <div class="file">B</div>
+                <div class="file">C</div>
+                <div class="file">D</div>
+                <div class="file">E</div>
+                <div class="file">F</div>
+                <div class="file">G</div>
+                <div class="file">H</div>
+                <div class="corner"></div>
+            </div>
+        </div>
+    </div>
+    <div id="gameSettings">
+        <div id="names">
+            <p id="firstPlayerName"></p>
+            <p id="secondPlayerName"></p>
+        </div>
+        <div id="timers">
+            <p id="firstPlayerTimer"></p>
+            <p id="secondPlayerTimer"></p>
+        </div>
+    </div>
+
+    <script src='./src/chessGame.ts'></script>
+</body>
+
+</html>
