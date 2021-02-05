@@ -1,36 +1,17 @@
 import { LandingPage } from '../src/app/LandingPage';
-import { fireEvent, getByRole, getByText } from '@testing-library/dom';
+import { fireEvent, getByRole, getByText} from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('LandingPage', () => {
     let container: HTMLDivElement;
-
-    function getChessApp(): HTMLDivElement {
-        const chessApp = document.createElement('div');
-        chessApp.id = 'chess-app';
-        chessApp.innerHTML = `
-        <h3 id="codersLogo">.CodersCrew</h3>
-        <div id="gamePanel">
-            <p id="gameSettingsTitle">USTAWIENIA GRY</p>
-            <div id="nameSettings">
-                <p>IMIONA GRACZY</p><input id="firstPlayerName" placeholder="Białe - pierwszy gracz"><input
-                    id="secondPlayerName" placeholder="Czarne - drugi gracz">
-            </div>
-            <div class="sliderContainer">
-                <p>CZAS GRY</p><input type="range" min="1" max="100" value="15" class="slider" id="sliderTime">
-                <p id="gameplayTime">DŁUGOŚĆ GRY: <span id="sliderValue">15</span> minut(y)</p>
-            </div>
-            <a href="./chessboard.html" id='chessboardView'>
-                <button id="gameStartButton" disabled="">ROZPOCZNIJ GRĘ</button>
-            </a>
-        </div>`;
-        return chessApp;
-    }
+    const fs = require('fs');
+    const path = require('path');
+    const html: string = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+    jest.dontMock('fs');
 
     beforeEach(() => {
-        document.body.innerHTML = '';
+        document.documentElement.innerHTML = html;
         container = document.body as HTMLDivElement;
-        container.append(getChessApp());
         const landingPage = new LandingPage('chessGame.html');
         landingPage.addEventsToDOMElements();
     })
@@ -56,17 +37,19 @@ describe('LandingPage', () => {
         expect(startGameButton).not.toHaveAttribute('disabled', "true");
     })
 
-    test('button link href attribute has set game params', () => {
+    test('button click calls window open with parametrized url', () => {
+        global.open = jest.fn();        
         const firstPlayerInput = document.getElementById('firstPlayerName') as HTMLInputElement;
         const secondPlayerInput = document.getElementById('secondPlayerName') as HTMLInputElement;
         const slider = getByRole(container, 'slider') as HTMLInputElement;
-        const buttonLink = getByRole(container, 'link') as HTMLAnchorElement;        
+        const button = getByRole(container, 'button') as HTMLButtonElement;
         
         fireEvent.input(firstPlayerInput, { target: { value: "red" } });
         fireEvent.input(secondPlayerInput, { target: { value: "blue" } });
         fireEvent.input(slider, { target: { value: "33"}});
+        fireEvent.click(button);
 
-        expect(buttonLink.href).toContain('chessGame.html?name1=red&name2=blue&time=33');
+        expect(global.open).toBeCalledWith('chessGame.html?name1=red&name2=blue&time=33', '_self');
     })
 
 })

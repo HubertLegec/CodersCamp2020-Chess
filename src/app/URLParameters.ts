@@ -1,14 +1,21 @@
 export class URLParameters {
-    private _url: string;
+    private _params: Array<string>;
 
-    constructor(url: string){
-        this._url = url;
+    constructor(url: string) {
+        this._params = [];
+        const urlSearchParams = new URLSearchParams(url);
+        urlSearchParams.forEach(param => this._params.push(param));
     }
     
-    getParams() {
-        let params: Array<string> = [];
-        const paramsUrl = new URLSearchParams(this._url);
-        paramsUrl.forEach(param => params.push(param));
-        return params;
+    getFirstName() {
+        return this._params[0];
+    }
+
+    getSecondName() {
+        return this._params[1];
+    }
+    
+    getTime(){
+        return this._params[2];
     }
 }

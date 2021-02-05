@@ -85,7 +85,7 @@ input{
       position: absolute;
       top: 70px;
   }
-#chessboardView{
+#gameStartButton{
     position: absolute;
     bottom: 0px;
     left: 50%;
@@ -95,13 +95,8 @@ input{
     border-radius: 10px;      
     background: rgba(255,255,255, 0.7);
     font-size: 1rem;
-  }
-#gameStartButton{
-    width: 120px;
-    height: 40px;
     border-radius: 10px; 
     border: 2px solid #1a90ff;     
-    font-size: 1rem;
   }
   @media (orientation: portrait) {
     #chess-app{

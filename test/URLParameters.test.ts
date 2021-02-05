@@ -2,14 +2,16 @@ import { URLParameters } from '../src/app/URLParameters';
 
 describe('URLParameters', () => {
 
-    test('get array with params from url', () => {
+    test('get params from url', () => {
         const urlParameters = new URLParameters('?name1=green&name2=yellow&name3=black');
 
-        const params = urlParameters.getParams();
+        const firstName = urlParameters.getFirstName();
+        const secondName = urlParameters.getSecondName();
+        const time = urlParameters.getTime();
 
-        expect(params[0]).toEqual('green');
-        expect(params[1]).toEqual('yellow');
-        expect(params[2]).toEqual('black');
+        expect(firstName).toEqual('green');
+        expect(secondName).toEqual('yellow');
+        expect(time).toEqual('black');
     })
     
 })

@@ -4,24 +4,14 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe('GamePage', () => {
     let container;
-
-    function createSampleSettings(){
-        const gameSettings  = document.createElement('div');
-
-        gameSettings.id = 'gameSettings';
-        gameSettings.innerHTML = `
-        <div id="names">
-            <p id="firstPlayerName"></p>
-            <p id="secondPlayerName"></p>
-        </div>`;
-
-        return gameSettings;
-    }
+    const fs = require('fs');
+    const path = require('path');
+    const html: string = fs.readFileSync(path.resolve(__dirname, '../chessGame.html'), 'utf8');
+    jest.dontMock('fs');
 
     beforeEach(() => {
-        document.body.innerHTML = '';
+        document.body.innerHTML = html;
         container = document.body;
-        container.append(createSampleSettings());
     })
 
     test('creates name text in player params', () => {
