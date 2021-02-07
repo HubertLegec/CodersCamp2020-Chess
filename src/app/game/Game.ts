@@ -2,7 +2,7 @@ import { Player } from './Player';
 import { Piece } from './pieces/Piece';
 import { StartData } from './Data';
 import { Board } from './Board';
-import { AvailabilityChecker } from './AvailabilityChecker';
+import { AvailabilityChecker, PossibleMove } from './AvailabilityChecker';
 import { Colors } from './Colors';
 import { Position } from './Position';
 
@@ -15,7 +15,7 @@ export class Game implements IGame {
   players: Player[];
   board: AvailabilityChecker;
   clickedPosition: Position;
-  possiblePositions: Position[];
+  possiblePositions: PossibleMove[];
 
   constructor(data: StartData) {
     this.players = new Array<Player>(2);
@@ -38,16 +38,13 @@ export class Game implements IGame {
     });
     this.players[1].actualFigures.forEach((f) => {
       f.drawYourself();
-      f.setOnClick((me: Piece) => {
-        this.handleClick(me.position);
-      });
     });
   }
 
   handleClick(newClick: Position) {
     // sprawdza czy jest to drugie klikniecie w ruchu
-    if (this.clickedPosition.x !== -1 && this.clickedPosition.y !== -1) { // drugie
-      console.log(newClick);
+    if (this.clickedPosition.x != -1 && this.clickedPosition.y != -1) { // drugie
+      console.log(`${newClick.x} a stary ${this.clickedPosition.x}`);
       let miss = true;
       for (let i = 0; i < this.possiblePositions.length; i++) {
         const poss = this.possiblePositions[i];
@@ -55,51 +52,67 @@ export class Game implements IGame {
         if (poss.x == newClick.x && poss.y == newClick.y) {
           miss = false;
           this.board.moveFigures(this.clickedPosition, newClick);
-
+          
           // usuwa onClick z opcji danej figury
-          this.possiblePositions.push(new Position(this.clickedPosition.x, this.clickedPosition.y));
+          this.possiblePositions.push(new PossibleMove(this.clickedPosition.x, this.clickedPosition.y));
           this.possiblePositions.forEach(p => {
             const el = document.getElementById(`${p.x * 8 + p.y}`);
-            el?.classList.remove('active');
+            el?.classList.remove(p.attack == false ? 'active' : 'attacked');
             el?.replaceWith(el.cloneNode(true));
           })
-          
-          const res = this.board.findCell(newClick);
-          res.player?.actualFigures[res.index!].setOnClick(
-            (me: Piece) => {
-              this.handleClick(me.position);
-            }
-          );
+          // usuwa onClicki z figur obecnego gracza
+          this.activePlayer.actualFigures.forEach(p => {
+            const el = document.getElementById(`${p.position.x * 8 + p.position.y}`);
+            el?.replaceWith(el.cloneNode(true));
+          })
+
+          // const res = this.board.findCell(newClick);console.log(res);
+          // res.player?.actualFigures[res.index!].setOnClick(
+          //   (me: IFigure) => {
+          //     this.handleClick(me.position);
+          //   }
+          // );
           if (this.activePlayer == this.players[0]){
             this.activePlayer = this.players[1];
           }else{
             this.activePlayer = this.players[0];
           }
+
+          this.activePlayer.actualFigures.forEach(p => {
+            if (!p.isAlive){
+              return;
+            }
+            p.setOnClick(
+              (me: Piece) => {
+                this.handleClick(me.position);
+              }
+            );
+          })
           break;
         }
       }
-      if (miss){
+      if (miss){console.log("miss");
         // usuwa onClick z opcji danej figury
         this.possiblePositions.forEach(p => {
           const el = document.getElementById(`${p.x * 8 + p.y}`);
-          el?.classList.remove('active');
+          el?.classList.remove(p.attack == false ? 'active' : 'attacked');
           el?.replaceWith(el.cloneNode(true));
         })
       }
       this.clickedPosition = new Position(-1, -1);
     } else { // pierwsze    
       const res = this.board.findCell(newClick);
-
-      if (res.player != this.activePlayer){
+      console.log(`pierwsze kliknięcie ${newClick.x}`);
+      if (res.figure!.owner != this.activePlayer){console.log("nie ten gracz")
         return;
       }
       this.clickedPosition = newClick;
-      const moves = this.board.validateMoves(newClick);
+      const moves:PossibleMove[] = this.board.validateMoves(newClick);
       this.possiblePositions = moves!;
       console.log(this.possiblePositions);
-      this.possiblePositions.forEach((p) => {
+      this.possiblePositions.forEach((p) => {console.log("good")
         const el = document.getElementById(`${p.x * 8 + p.y}`);
-        el?.classList.add('active');
+        el?.classList.add(p.attack == false ? 'active':'attacked');
         el?.addEventListener("click", () => {
           this.handleClick(p);
         });

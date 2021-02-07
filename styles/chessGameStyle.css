@@ -211,6 +211,9 @@ html{
     background: grey !important;
 }
 
-    
+.attacked{
+    background: red!important;
+}
+
 
 
