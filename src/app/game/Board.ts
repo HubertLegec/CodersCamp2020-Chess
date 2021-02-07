@@ -1,18 +1,10 @@
-import { swap } from "../Helper";
-import { IFigure, FigureType, Position, Pawn, Colors } from "./Figure";
-import { Player } from "./Player";
-
-export interface AvailabilityChecker {
-  findCell: (pos: Position) => findResponse;
-  moveFigures: (start: Position, end: Position) => void;
-  validateMoves: (figPos: Position) => Position[];
-}
-
-interface findResponse {
-  found: boolean;
-  player?: Player;
-  index?: number;
-}
+import { swap } from './Helper';
+import { AvailabilityChecker, FindResponse } from './AvailabilityChecker';
+import { Piece } from './pieces/Piece'
+import { Player } from './Player';
+import { PieceType } from './pieces/PieceType';
+import { Colors } from './Colors';
+import { Position } from './Position';
 
 export class Board implements AvailabilityChecker {
   players: Array<Player>;
@@ -21,7 +13,7 @@ export class Board implements AvailabilityChecker {
     this.players = new Array<Player>(p1, p2);
   }
 
-  findCell(pos: Position): findResponse {
+  findCell(pos: Position): FindResponse {
     for (let i = 0; i < this.players[0].actualFigures.length; i++) {
       const fig = this.players[0].actualFigures[i];
       if (fig.position.x == pos.x && fig.position.y == pos.y) {
@@ -43,7 +35,7 @@ export class Board implements AvailabilityChecker {
       // figura zostanie zbita
       // usuwamy ją z listy
       response.player?.actualFigures[response.index!].removeYourself();
-      swap<IFigure>(
+      swap<Piece>(
         response.player?.actualFigures[response.index!]!,
         response.player?.actualFigures[
           response.player.actualFigures.length - 1
@@ -64,7 +56,7 @@ export class Board implements AvailabilityChecker {
     const fig = res.player?.actualFigures[res.index!];
     let pos: Position;
     switch (fig!.type) {
-      case FigureType.Pawn: {
+      case PieceType.Pawn: {
         if (fig!.owner.color == Colors.White) {
           pos = new Position(fig!.position.x + 1, fig!.position.y);
           if (fig!.position.x < 7 && this.findCell(pos).found == false) {
@@ -92,7 +84,7 @@ export class Board implements AvailabilityChecker {
         }
         return answer;
       }
-      case FigureType.Rook: {
+      case PieceType.Rook: {
         pos = new Position(fig!.position.x + 1, fig!.position.y);
 
         // ruchy do przodu
@@ -123,7 +115,7 @@ export class Board implements AvailabilityChecker {
         }
         return answer;
       }
-      case FigureType.Bishop: {
+      case PieceType.Bishop: {
         pos = new Position(fig!.position.x + 1, fig!.position.y + 1);
 
         // w prawy dolny
@@ -155,7 +147,7 @@ export class Board implements AvailabilityChecker {
         }
         return answer;
       }
-      case FigureType.Knight: {
+      case PieceType.Knight: {
         answer.push(new Position(fig!.position.x + 2, fig!.position.y + 1));
         answer.push(new Position(fig!.position.x + 2, fig!.position.y - 1));
         answer.push(new Position(fig!.position.x - 2, fig!.position.y + 1));

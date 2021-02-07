@@ -1,6 +1,6 @@
-import { URLParameters } from './URLParameters'
-import { GamePage } from './GamePage';
-import { Game } from './Game';
+import { URLParameters } from './page/URLParameters'
+import { GamePage } from './page/GamePage';
+import { Game } from './game/Game';
 
 export const ChessApp = () => {
     const urlParameters = new URLParameters(window.location.search);

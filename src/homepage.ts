@@ -1,4 +1,4 @@
-import { LandingPage } from './app/LandingPage';
+import { LandingPage } from './app/page/LandingPage';
 
 window.onload = () => {
     const landingPage = new LandingPage('chessGame.html');

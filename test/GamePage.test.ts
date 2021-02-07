@@ -1,9 +1,9 @@
-import { GamePage } from '../src/app/GamePage';
+import { GamePage } from '../src/app/page/GamePage';
 import { getByText } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('GamePage', () => {
-    let container;
+    let container: HTMLElement;
     const fs = require('fs');
     const path = require('path');
     const html: string = fs.readFileSync(path.resolve(__dirname, '../chessGame.html'), 'utf8');

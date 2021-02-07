@@ -1,4 +1,4 @@
-import { LandingPage } from '../src/app/LandingPage';
+import { LandingPage } from '../src/app/page/LandingPage';
 import { fireEvent, getByRole, getByText} from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -17,7 +17,7 @@ describe('LandingPage', () => {
     })
 
     test('changes minutes value with slider change', () => {
-        const sliderValue = document.getElementById('sliderValue');
+        const sliderValue = document.getElementById('sliderValue') as HTMLElement;
         const slider = getByRole(container, 'slider') as HTMLInputElement;
 
         fireEvent.input(slider, { target: { value: 30 } })

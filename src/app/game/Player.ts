@@ -1,16 +1,22 @@
-import { Bishop, Colors, IFigure, Knight, Pawn, Position, Rook } from "./Figure";
+import { Piece } from './pieces/Piece';
+import { Pawn } from './pieces/Pawn';
+import { Rook } from './pieces/Rook';
+import { Bishop } from './pieces/Bishop';
+import { Knight } from './pieces/Knight';
+import { Colors } from './Colors';
+import { Position } from './Position';
 
 export class Player {
   name: string;
   actualTime: number;
   color: Colors;
-  actualFigures: Array<IFigure>;
+  actualFigures: Array<Piece>;
 
   constructor(name: string, time: number, color: Colors) {
     this.name = name;
     this.actualTime = time;
     this.color = color;
-    this.actualFigures = new Array<IFigure>();
+    this.actualFigures = new Array<Piece>();
     this.initFigures();
   }
 

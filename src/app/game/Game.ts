@@ -1,7 +1,10 @@
-import { Player } from "./Player";
-import { Colors, IFigure, Position } from "./Figure";
-import { StartData } from "./Data";
-import { AvailabilityChecker, Board } from "./Board";
+import { Player } from './Player';
+import { Piece } from './pieces/Piece';
+import { StartData } from './Data';
+import { Board } from './Board';
+import { AvailabilityChecker } from './AvailabilityChecker';
+import { Colors } from './Colors';
+import { Position } from './Position';
 
 interface IGame {
   startGame: () => void;
@@ -29,13 +32,13 @@ export class Game implements IGame {
     // wywoluje na każdej figurze wyrysowanie się i podpina onclicka
     this.players[0].actualFigures.forEach((f) => {
       f.drawYourself();
-      f.setOnClick((me: IFigure) => {
+      f.setOnClick((me: Piece) => {
         this.handleClick(me.position);
       });
     });
     this.players[1].actualFigures.forEach((f) => {
       f.drawYourself();
-      f.setOnClick((me: IFigure) => {
+      f.setOnClick((me: Piece) => {
         this.handleClick(me.position);
       });
     });
@@ -63,7 +66,7 @@ export class Game implements IGame {
           
           const res = this.board.findCell(newClick);
           res.player?.actualFigures[res.index!].setOnClick(
-            (me: IFigure) => {
+            (me: Piece) => {
               this.handleClick(me.position);
             }
           );

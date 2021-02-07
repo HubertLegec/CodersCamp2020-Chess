@@ -59,9 +59,12 @@ export class LandingPage {
     }
 
     private watchInputFlags() {
+        const button = document.getElementById('gameStartButton') as HTMLButtonElement;
+        
         if (this._flagInputOne.length > 2 && this._flagInputTwo.length > 2) {
-            document.getElementById('gameStartButton').removeAttribute('disabled');
+            button.removeAttribute('disabled');
+        } else {
+            button.setAttribute('disabled', 'true');
         }
-        else document.getElementById('gameStartButton').setAttribute('disabled', 'true');
     }
 }

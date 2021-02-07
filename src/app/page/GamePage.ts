@@ -12,8 +12,8 @@ export class GamePage {
     }
 
     private displayPlayersNames(){
-        const firstPlayer = document.getElementById('firstPlayerName');
-        const secondPlayer = document.getElementById('secondPlayerName');
+        const firstPlayer = document.getElementById('firstPlayerName') as HTMLElement;
+        const secondPlayer = document.getElementById('secondPlayerName') as HTMLElement;
 
         firstPlayer.textContent = this._firstPlayerName;
         secondPlayer.textContent = this._secondPlayerName;
