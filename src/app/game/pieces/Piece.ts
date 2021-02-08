@@ -1,17 +1,17 @@
-import { Player } from '../Player';
-import { PieceType } from './PieceType';
-import { Position } from '../Position';
-import { Colors } from '../Colors';
+import { Player } from "../Player";
+import { PieceType } from "./PieceType";
+import { Position } from "../Position";
+import { Colors } from "../Colors";
 
 export class Piece {
-  type: PieceType
+  type: PieceType;
   position: Position;
   isAlive: boolean;
   owner: Player;
-  hasMoved:boolean;
-  name:string;
+  hasMoved: boolean;
+  name: string;
 
-  constructor(pos: Position, owner: Player, type: PieceType){
+  constructor(pos: Position, owner: Player, type: PieceType) {
     this.position = pos;
     this.isAlive = true;
     this.owner = owner;
@@ -20,36 +20,36 @@ export class Piece {
     this.setName();
   }
 
-  setName(){
-    switch(this.type){
-      case PieceType.Bishop:{
-        this.name = 'bishop';
+  setName() {
+    switch (this.type) {
+      case PieceType.Bishop: {
+        this.name = "bishop";
         break;
       }
-      case PieceType.King:{
-        this.name = 'king';
+      case PieceType.King: {
+        this.name = "king";
         break;
       }
-      case PieceType.Knight:{
-        this.name = 'knight';
+      case PieceType.Knight: {
+        this.name = "knight";
         break;
       }
-      case PieceType.Pawn:{
-        this.name = 'pawn';
+      case PieceType.Pawn: {
+        this.name = "pawn";
         break;
       }
-      case PieceType.Queen:{
-        this.name = 'queen';
+      case PieceType.Queen: {
+        this.name = "queen";
         break;
       }
-      case PieceType.Rook:{
-        this.name = 'rook';
+      case PieceType.Rook: {
+        this.name = "rook";
         break;
       }
     }
   }
 
-  move(end: Position){
+  move(end: Position) {
     this.position = end;
     this.hasMoved = true;
   }
@@ -62,13 +62,19 @@ export class Piece {
     me.innerHTML = "";
   }
 
-  setOnClick(func: (me: Piece) => void){
+  setOnClick(func: (me: Piece) => void) {
     const me = document.getElementById(
       `${this.position.x * 8 + this.position.y}`
     );
-    me?.addEventListener('click', () => {
+    me?.addEventListener("click", () => {
       func(this);
     });
+  }
+
+  removeAllOnClicks() {
+    const el = document.getElementById(`${this.position.x * 8 + this.position.y}`);
+    el?.classList.remove(p.attack == false ? "active" : "attacked");
+    el?.replaceWith(el.cloneNode(true));
   }
 
   drawYourself() {
@@ -77,13 +83,15 @@ export class Piece {
       `${this.position.x * 8 + this.position.y}`
     )!;
     // TODO ustaw czcionkę pionka
-    me.innerHTML = `<i class="fas fa-chess-${this.name}" style="font-size: 30px;  color:${
+    me.innerHTML = `<i class="fas fa-chess-${
+      this.name
+    }" style="font-size: 30px;  color:${
       this.owner.color == Colors.Black ? "black" : "white"
     }"></i>`;
     me?.setAttribute("style", "text-align:center;");
   }
 
-  kill(){
+  kill() {
     this.isAlive = false;
   }
 }

@@ -66,12 +66,6 @@ export class Game implements IGame {
             el?.replaceWith(el.cloneNode(true));
           })
 
-          // const res = this.board.findCell(newClick);console.log(res);
-          // res.player?.actualFigures[res.index!].setOnClick(
-          //   (me: IFigure) => {
-          //     this.handleClick(me.position);
-          //   }
-          // );
           if (this.activePlayer == this.players[0]){
             this.activePlayer = this.players[1];
           }else{

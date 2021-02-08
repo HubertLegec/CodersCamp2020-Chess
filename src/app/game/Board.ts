@@ -16,13 +16,13 @@ export class Board implements AvailabilityChecker {
   findCell(pos: Position): FindResponse {
     for (let i = 0; i < this.players[0].actualFigures.length; i++) {
       const fig = this.players[0].actualFigures[i];
-      if (fig.position.x == pos.x && fig.position.y == pos.y) {
+      if (fig.position.x == pos.x && fig.position.y == pos.y && fig.isAlive) {
         return { found: true, figure:fig};
       }
     }
     for (let i = 0; i < this.players[1].actualFigures.length; i++) {
       const fig = this.players[1].actualFigures[i];
-      if (fig.position.x == pos.x && fig.position.y == pos.y) {
+      if (fig.position.x == pos.x && fig.position.y == pos.y && fig.isAlive) {
         return { found: true, figure: fig};
       }
     }
@@ -119,11 +119,21 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x + 1, pos.y);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x < 8 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x - 1, fig!.position.y);
         // ruchy do tyłu
         while (pos.x >= 0 && !this.findCell(pos).found) {
           answer.push(pos);
           pos = new PossibleMove(pos.x - 1, pos.y);
+        }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.x >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
         }
 
         pos = new PossibleMove(fig!.position.x, fig!.position.y - 1);
@@ -133,12 +143,23 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x, pos.y - 1);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.y >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x, fig!.position.y + 1);
         // ruchy w prawo
         while (pos.y < 8 && !this.findCell(pos).found) {
           answer.push(pos);
           pos = new PossibleMove(pos.x, pos.y + 1);
         }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.y < 8 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         return answer;
       }
       case PieceType.Bishop: {
@@ -150,11 +171,21 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x + 1, pos.y + 1);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x < 8 && pos.y < 8 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x + 1, fig!.position.y - 1);
         // lewy dolny
         while (pos.x < 8 && pos.y >= 0 && !this.findCell(pos).found) {
           answer.push(pos);
           pos = new PossibleMove(pos.x + 1, pos.y - 1);
+        }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.x < 8 && pos.y >= 0 && opp.figure!.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
         }
 
         pos = new PossibleMove(fig!.position.x - 1, fig!.position.y - 1);
@@ -164,6 +195,11 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x - 1, pos.y - 1);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x >= 0 && pos.y >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x - 1, fig!.position.y + 1);
         // prawy gorny
         while (pos.x >= 0 && pos.y < 8 && !this.findCell(pos).found) {
@@ -171,6 +207,12 @@ export class Board implements AvailabilityChecker {
           answer.push(pos);
           pos = new PossibleMove(pos.x - 1, pos.y + 1);
         }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.x >= 0 && pos.y < 8 && opp.figure!.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         return answer;
       }
       case PieceType.Knight: {
@@ -183,9 +225,19 @@ export class Board implements AvailabilityChecker {
         answer.push(new PossibleMove(fig!.position.x - 1, fig!.position.y + 2));
         answer.push(new PossibleMove(fig!.position.x - 1, fig!.position.y - 2));
 
-        return answer.filter((f) => {
-          return f.x >= 0 && f.x < 8 && f.y >= 0 && f.y < 8 && !this.findCell(f).found;
+        let helper = answer.filter((f) => {
+          if (f.x >= 0 && f.x < 8 && f.y >= 0 && f.y < 8){
+            if (this.findCell(f).found){
+              return this.findCell(f).figure!.owner != fig.owner;
+            }else{
+              return true;
+            }
+          }
         });
+
+        return helper.map(f =>{
+          return this.findCell(f).found ? new PossibleMove(f.x, f.y, true) : f;
+        })
       }
       case PieceType.Queen:{
         pos = new PossibleMove(fig!.position.x + 1, fig!.position.y + 1);
@@ -196,6 +248,11 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x + 1, pos.y + 1);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x < 8 && pos.y < 8 && opp.figure!.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x + 1, fig!.position.y - 1);
         // lewy dolny
         while (pos.x < 8 && pos.y >= 0 && !this.findCell(pos).found) {
@@ -203,11 +260,21 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x + 1, pos.y - 1);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x < 8 && pos.y >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x - 1, fig!.position.y - 1);
         // lewy gorny
         while (pos.x >= 0 && pos.y >= 0 && !this.findCell(pos).found) {
           answer.push(pos);
           pos = new PossibleMove(pos.x - 1, pos.y - 1);
+        }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.x >= 0 && pos.y >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
         }
 
         pos = new PossibleMove(fig!.position.x - 1, fig!.position.y + 1);
@@ -218,12 +285,22 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x - 1, pos.y + 1);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x >= 0 && pos.y < 8 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x + 1, fig!.position.y);
 
         // ruchy do przodu
         while (pos.x < 8 && !this.findCell(pos).found) {
           answer.push(pos);
           pos = new PossibleMove(pos.x + 1, pos.y);
+        }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.x < 8 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
         }
 
         pos = new PossibleMove(fig!.position.x - 1, fig!.position.y);
@@ -233,11 +310,21 @@ export class Board implements AvailabilityChecker {
           pos = new PossibleMove(pos.x - 1, pos.y);
         }
 
+        opp = this.findCell(pos);
+        if (opp.found && pos.x >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         pos = new PossibleMove(fig!.position.x, fig!.position.y - 1);
         //ruchy w lewo
         while (pos.y >= 0 && !this.findCell(pos).found) {
           answer.push(pos);
           pos = new PossibleMove(pos.x, pos.y - 1);
+        }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.y >= 0 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
         }
 
         pos = new PossibleMove(fig!.position.x, fig!.position.y + 1);
@@ -246,6 +333,12 @@ export class Board implements AvailabilityChecker {
           answer.push(pos);
           pos = new PossibleMove(pos.x, pos.y + 1);
         }
+
+        opp = this.findCell(pos);
+        if (opp.found && pos.y < 8 && opp.figure?.owner != fig.owner){
+          answer.push(new PossibleMove(pos.x, pos.y, true));
+        }
+
         return answer;
       }
     
