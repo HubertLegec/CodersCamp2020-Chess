@@ -1,4 +1,4 @@
-import { URLParameters } from '../src/app/URLParameters';
+import { URLParameters } from '../src/app/display/URLParameters';
 
 describe('URLParameters', () => {
 

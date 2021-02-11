@@ -1,4 +1,4 @@
-import { GamePage } from '../src/app/GamePage';
+import { GamePage } from '../src/app/display/GamePage';
 import { getByText } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
