@@ -15,9 +15,7 @@ export class Board {
       this.squares[i] = [];
       for (let j = 7; j >= 0; j--) {
         this.squares[i][j] = new Square(Math.abs(i - 7), j);
-        this.squares[i][j].setDomSquare(domSquares[Math.abs(i - 7) + 8 * j]);
-        //sqare numeration to be changed
-        this.squares[i][j].getDomSquare().innerHTML = String(Math.abs(i - 7) + 8 * Math.abs(j - 7));
+        this.squares[i][j].setDomSquare(domSquares[Math.abs(i - 7) *8 + j]);
       }
     }
     console.log(this.squares)
@@ -26,11 +24,11 @@ export class Board {
 
   private initializePieces() {
     for (let i = 0; i < 8; i++) {
-      this.squares[i][1].setPiece(new Pawn(false));
-      this.squares[i][1].getDomSquare().innerHTML = PieceType.Pawn;
+      this.squares[1][i].setPiece(new Pawn(true));
+      this.squares[1][i].getDomSquare().innerHTML = PieceType.Pawn;
 
-      this.squares[i][6].setPiece(new Pawn(true));
-      this.squares[i][6].getDomSquare(). innerHTML = PieceType.Pawn;
+      this.squares[6][i].setPiece(new Pawn(true));
+      this.squares[6][i].getDomSquare(). innerHTML = PieceType.Pawn;
     }
   }
 }
