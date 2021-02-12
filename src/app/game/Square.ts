@@ -4,11 +4,11 @@ export class Square {
     row: number;
     column: number;
     domSqare!: Element;
-    piece?: Piece;
+    piece: Piece | null ;
 
     constructor(row: number, column: number){
         this.row = row;
         this.column = column; 
+        this.piece = null;
     }
-
 }
