@@ -1,4 +1,3 @@
-import {Board} from '../Board';
 import {Square} from '../Square';
 
 export abstract class Piece {
@@ -21,5 +20,5 @@ export abstract class Piece {
         this.killed = true; 
     } 
   
-    public abstract canMove(board:Board, start:Square, end:Square):boolean; 
+    public abstract canMove(start:Square, end:Square):boolean; 
 }
