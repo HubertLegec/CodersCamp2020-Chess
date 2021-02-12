@@ -1,4 +1,4 @@
-import { LandingPage } from '../src/app/LandingPage';
+import { LandingPage } from '../src/app/display/LandingPage';
 import { fireEvent, getByRole, getByText} from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
