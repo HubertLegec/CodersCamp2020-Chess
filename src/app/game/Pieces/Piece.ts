@@ -6,15 +6,11 @@ export abstract class Piece {
     white: boolean = false;
 
     constructor(white:boolean) { 
-        this.setWhite(white); 
+        this.white = white; 
     } 
   
     public isWhite():boolean { 
         return this.white; 
-    } 
-  
-    public setWhite(white: boolean): void { 
-        this.white = white; 
     } 
   
     public isKilled():boolean{ 
@@ -26,5 +22,4 @@ export abstract class Piece {
     } 
   
     public abstract canMove(board:Board, start:Square, end:Square):boolean; 
-
 }

@@ -6,12 +6,11 @@ export class Game {
     board!: Board; 
     currentTurn!: Player; 
     //  GameStatus status; 
-    movesPlayed: number[]=[]; 
-  
-    private initialize(firstName: string, secondName: string, timeLimit:number) :void{ 
+    movesPlayed: number[]=[];
+
+    constructor(firstName: string, secondName: string, timeLimit:number){ 
         this.players[0] = new Player(firstName, timeLimit, true); 
         this.players[1] = new Player(secondName, timeLimit, false); 
-        this.board.initializeBoard();
+        this.board = new Board();
     }
-
 } 
