@@ -23,36 +23,55 @@ html{
     display: grid;
     grid-template-columns: repeat(10, var(--squareSize));
     grid-template-rows: repeat(10, var(--squareSize));
-    justify-content: center;
-    position: absolute;
-    top: 60px;
 }
 #opponentFile{
     display: grid;
     grid-template-columns: repeat(10, var(--squareSize));
-    grid-column: 1 / span 10;
+    grid-column-start: 1;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 1;
 }
 #myRank{
     display: grid;
+    grid-template-columns: var(--squareSize);
     grid-template-rows: repeat(8, var(--squareSize));
-    grid-row: 2 / span 8;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 10;
 }
 #board{
     display: grid;
+    grid-column-start: 2;
+    grid-column-end: 10;
+    grid-row-start: 2;
+    grid-row-end: 10;
+}
+.board-container{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.board-row{
+    display: grid;
     grid-template-columns: repeat(8, var(--squareSize));
-    grid-template-rows: repeat(8, var(--squareSize));
-    grid-column: 2 / span 8;
-    grid-row: 2 / span 8;
 }
 #opponentRank{
     display: grid;
+    grid-template-columns: var(--squareSize);
     grid-template-rows: repeat(8, var(--squareSize));
-    grid-row: 2 / span 8;
+    grid-column-start: 10;
+    grid-column-end: 10;
+    grid-row-start: 2;
+    grid-row-end: 10;
 }
 #myFile{
     display: grid;
     grid-template-columns: repeat(10, var(--squareSize));
-    grid-column: 1 / span 10;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 10;
+    grid-row-end: 10;
 }
 .box{
     background: linear-gradient(135deg, rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%);
@@ -78,7 +97,7 @@ html{
 .box:nth-child(48) ~ .box:nth-child(-2n+56),
 .box:nth-child(56) ~ .box:nth-child(-2n+63)
 {
-    background: linear-gradient(45deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(76,76,76,1) 59%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(17,17,17,1) 92%,rgba(17,17,17,1) 92%,rgba(0,0,0,1) 93%,rgba(0,0,0,1) 93%,rgba(17,17,17,1) 94%,rgba(44,44,44,1) 94%,rgba(44,44,44,1) 94%,rgba(17,17,17,1) 94%,rgba(19,19,19,1) 100%);
+    background-color: black;
 
   /* background: linear-gradient(135deg, rgba(225,255,255,1) 0%,rgba(225,255,255,1) 7%,rgba(225,255,255,1) 12%,rgba(253,255,255,1) 12%,rgba(230,248,253,1) 30%,rgba(200,238,251,1) 54%,rgba(190,228,248,1) 75%,rgba(177,216,245,1) 100%); */
   color: #fff;
@@ -113,11 +132,6 @@ html{
         } 
   }
   @media (orientation: landscape){
-    #chessBoard{
-        left: 5%;
-        top: 50%;
-        transform: translate(0, -50%);
-    } 
     :root {
         --squareSize: 27px;
     }
@@ -178,9 +192,6 @@ html{
     }
   }
   @media (orientation: portrait)and (min-width: 410px){
-    #chessBoard{
-        top: 100px;
-    } 
     :root {
         --squareSize: 37px;
     }
