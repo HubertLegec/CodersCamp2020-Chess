@@ -1,6 +1,7 @@
 import { Player } from "./Player";
 import { Board } from "./Board";
 import { Move } from "./Move";
+import { PieceType } from "./Pieces/PieceType";
 
 export class Game {
   private players: Player[] = [];
@@ -60,7 +61,10 @@ export class Game {
 
     //execute move
     move.getDestinationSquare().setPiece(move.getStartSquare().getPiece());
+    move.getDestinationSquare().getDomSquare().innerHTML = (move.getStartSquare().getPiece().isWhite()) ? PieceType.White_Pawn : PieceType.Black_Pawn;
+    
     move.getStartSquare().setPiece(null);
+    move.getStartSquare().getDomSquare().innerHTML = null;
 
     //verify game status
     //to be implemented

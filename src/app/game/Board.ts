@@ -55,10 +55,10 @@ export class Board {
   private initializePieces() {
     for (let i = 0; i < 8; i++) {
       this.squares[1][i].setPiece(new Pawn(true));
-      this.squares[1][i].getDomSquare().innerHTML = PieceType.Pawn;
+      this.squares[1][i].getDomSquare().innerHTML = PieceType.White_Pawn;
 
       this.squares[6][i].setPiece(new Pawn(false));
-      this.squares[6][i].getDomSquare().innerHTML = PieceType.Pawn;
+      this.squares[6][i].getDomSquare().innerHTML = PieceType.Black_Pawn;
     }
   }
 }
