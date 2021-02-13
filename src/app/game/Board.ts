@@ -33,13 +33,10 @@ export class Board {
   }
 
   clickHandler(square: Square) {
-    console.log(this.selectedSquares);
 
     //check if the click intends to select piece and assign it as 1st click
       if (square.getPiece() != null && square.getPiece().isWhite() == this.game.getCurrentTurn().isWhiteSide()) {
         this.selectedSquares[0] = square;
-        //log do wywalenia
-        console.log(this.selectedSquares);
       }
     
     //check if the click intends to select destination and assign it as 2nd click
@@ -47,7 +44,7 @@ export class Board {
       if (square.getPiece() == null || (square.getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide()) ) {
           this.selectedSquares[1]=square;
           this.game.getCurrentTurn().playedMove(this.selectedSquares[0], this.selectedSquares[1], this.game);
-        this.selectedSquares = [];
+          this.selectedSquares = [];
       }
     }
   }
