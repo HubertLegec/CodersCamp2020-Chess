@@ -37,44 +37,29 @@ export class Pawn extends Piece {
     this.moveDirection = newDirection;
   }
 
-  public canMove(from: Square, to: Square, board:Board): boolean {
-    let vertical: number = from.getRow() - to.getRow();
-    let horizontal: number = Math.abs(from.getColumn() - to.getColumn());
+  public canMove(from: Square, to: Square, board: Board): boolean {
     let direction = this.getDirection();
+    let verticalDistance: number =
+      (direction == MoveDirection.UP ? -1 : 1) * (from.getRow() - to.getRow());
+    let horizontalDistance: number = Math.abs(from.getColumn() - to.getColumn());
 
-    // let squares =  board.getSquares();
-    let sqaureInFront = board.getSquares()[(direction == MoveDirection.UP)? 2 : 5][from.getColumn()];
+    // pawn can't jump over piece from initial position
+    let sqaureInFront = board.getSquares()[direction == MoveDirection.UP ? 2 : 5][from.getColumn()];
 
     //zwykły ruch
     //check if destination is empty
     if (to.getPiece() == null) {
-
       //check if it's first move and there's nothing in front
-      if (!this.hasMoved() && sqaureInFront.getPiece() == null){
-        //check direction
-        if(direction == MoveDirection.UP){
-          return (vertical == -1 || vertical == -2) && horizontal == 0;
-        } else{
-          return (vertical == 1 || vertical == 2) && horizontal == 0;    
-        }
+      if (!this.hasMoved() && sqaureInFront.getPiece() == null) {
+        return (verticalDistance == 1 || verticalDistance == 2) && horizontalDistance == 0;
       }
-      //this is not first move so check again direction
-       else {
-         if (direction == MoveDirection.UP) {
-          return vertical == -1 && horizontal == 0;
-        }else {
-          return vertical == 1 && horizontal == 0;
-        }
-      }
+      //this is not first move
+      else {return verticalDistance == 1 && horizontalDistance == 0;}
     }
 
     //bicie
-    if(to.getPiece().isWhite() != from.getPiece().isWhite()){
-      if (direction == MoveDirection.UP){
-        return vertical == -1 && horizontal == 1;
-      } else{
-        return vertical == 1 && horizontal == 1;
-      }
+    if (to.getPiece().isWhite() != from.getPiece().isWhite()) {
+        return verticalDistance == 1 && horizontalDistance == 1;
     }
 
     //TODO
