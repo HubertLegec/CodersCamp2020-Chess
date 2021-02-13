@@ -2,7 +2,11 @@ import { Square } from "./Square";
 import { Pawn } from "./Pieces/Pawn";
 import { PieceType } from "./Pieces/PieceType";
 import { Game } from "./Game";
+<<<<<<< HEAD
 import { Move } from "./Move";
+=======
+import { Knight } from "./Pieces/Knight";
+>>>>>>> 5dcc19b87d8bb52beed89be7a63b4ab4e963d977
 
 export class Board {
   private game: Game;
@@ -34,7 +38,6 @@ export class Board {
   }
 
   clickHandler(square: Square) {
-
     //check if the click intends to select piece and assign it as 1st click
       if (square.getPiece() != null && square.getPiece().isWhite() == this.game.getCurrentTurn().isWhiteSide()) {
         this.selectedSquares[0] = square;
@@ -58,6 +61,15 @@ export class Board {
       this.squares[6][i].setPiece(new Pawn(false));
       this.squares[6][i].getDomSquare().innerHTML = PieceType.Black_Pawn;
     }
+    this.squares[0][1].setPiece(new Knight(true));
+    this.squares[0][1].getDomSquare().innerHTML = PieceType.White_Knight;
+    this.squares[0][6].setPiece(new Knight(true));
+    this.squares[0][6].getDomSquare().innerHTML = PieceType.White_Knight;
+
+    this.squares[7][1].setPiece(new Knight(false));
+    this.squares[7][1].getDomSquare().innerHTML = PieceType.Black_Knight;
+    this.squares[7][6].setPiece(new Knight(false));
+    this.squares[7][6].getDomSquare().innerHTML = PieceType.Black_Knight;
   }
 
   getSquares():Square[][]{
