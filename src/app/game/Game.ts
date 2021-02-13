@@ -39,7 +39,7 @@ export class Game {
 
     //can you move it?
     if (
-      !sourcePiece.canMove(move.getStartSquare(), move.getDestinationSquare())
+      !sourcePiece.canMove(move.getStartSquare(), move.getDestinationSquare(), this.board)
     ) {
       return false;
     }
@@ -47,7 +47,7 @@ export class Game {
     //are we gonna kill somepiece?
     let destinationPiece = move.getStartSquare().getPiece();
     if (!destinationPiece) {
-      destinationPiece.kill();
+      destinationPiece.kill(move.getDestinationSquare());
       move.setCapturedPiece(destinationPiece);
     }
 
@@ -61,6 +61,11 @@ export class Game {
     move.getMovedPiece().draw(move);
     move.getDestinationSquare().setPiece(move.getStartSquare().getPiece());
     move.getStartSquare().setPiece(null);
+
+    //You've moved, have you?
+    if(!sourcePiece.hasMoved()){
+        sourcePiece.setMoved(true);
+    }
     
     //verify game status
     //to be implemented

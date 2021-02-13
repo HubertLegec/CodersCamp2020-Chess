@@ -1,10 +1,12 @@
+import { Board } from '../Board';
 import { Move } from '../Move';
 import {Square} from '../Square';
 import { PieceType } from './PieceType';
 
 export abstract class Piece {
-    killed: boolean = false;
-    white: boolean = false;
+    private killed: boolean = false;
+    private moved: boolean = false;
+    private white: boolean = false;
 
     constructor(white:boolean) { 
         this.white = white; 
@@ -12,14 +14,23 @@ export abstract class Piece {
   
     public isWhite():boolean { 
         return this.white; 
-    } 
-  
+    }
+
+    hasMoved():boolean{
+        return this.moved;
+    }
+
+    setMoved(moved:boolean):void{
+        this.moved = moved;
+    }
+
     public isKilled():boolean{ 
         return this.killed; 
     } 
   
-    public kill():void{ 
-        this.killed = true; 
+    public kill(square:Square):void{ 
+        this.killed = true;
+        square.getDomSquare().innerHTML = null;
     } 
 
     public draw(move:Move):void{
@@ -28,6 +39,6 @@ export abstract class Piece {
         move.getDestinationSquare().getDomSquare().innerHTML = PieceType[`${pieceColour}_${pieceType}`];
         move.getStartSquare().getDomSquare().innerHTML = null;
     }
-  
-    public abstract canMove(start:Square, end:Square):boolean; 
+
+    public abstract canMove(from:Square, to:Square, board:Board):boolean; 
 }

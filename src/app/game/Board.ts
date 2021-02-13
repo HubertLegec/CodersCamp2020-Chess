@@ -4,9 +4,9 @@ import { PieceType } from "./Pieces/PieceType";
 import { Game } from "./Game";
 
 export class Board {
-  game: Game;
-  squares: Square[][] = [];
-  selectedSquares: Square[] = [];
+  private game: Game;
+  private squares: Square[][] = [];
+  private selectedSquares: Square[] = [];
 
   constructor(game: Game) {
     this.game = game;
@@ -57,5 +57,9 @@ export class Board {
       this.squares[6][i].setPiece(new Pawn(false));
       this.squares[6][i].getDomSquare().innerHTML = PieceType.Black_Pawn;
     }
+  }
+
+  getSquares():Square[][]{
+    return this.squares;
   }
 }
