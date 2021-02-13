@@ -2,6 +2,7 @@ import { Square } from "./Square";
 import { Pawn } from "./Pieces/Pawn";
 import { PieceType } from "./Pieces/PieceType";
 import { Game } from "./Game";
+import { Move } from "./Move";
 
 export class Board {
   private game: Game;
@@ -61,5 +62,9 @@ export class Board {
 
   getSquares():Square[][]{
     return this.squares;
+  }
+
+  getRecentMoveInGame():Move{
+    return this.game.getRecentMove();
   }
 }

@@ -50,6 +50,9 @@ export class Game {
       destinationPiece.kill(move.getDestinationSquare());
       move.setCapturedPiece(destinationPiece);
     }
+    if (move.isEnPasantMove()){
+      this.getRecentMove().getMovedPiece().kill(this.getRecentMove().getDestinationSquare());
+    }
 
     //is this castling move?
     //to be implemented
@@ -84,5 +87,9 @@ export class Game {
   }
   setCurrentTurn(currentPlayer: Player): void{
       this.currentTurn = currentPlayer;
+  }
+
+  getRecentMove(): Move{
+    return this.movesPlayed[this.movesPlayed.length-1];
   }
 }
