@@ -2,6 +2,9 @@ import { Player } from "./Player";
 import { Board } from "./Board";
 import { Move } from "./Move";
 import { Pawn } from "./Pieces/Pawn";
+import { King } from "./Pieces/King";
+import { Rook } from "./Pieces/Rook";
+import { Square } from "./Square";
 export class Game {
   private players: Player[] = [];
   private board: Board;
@@ -65,13 +68,38 @@ export class Game {
     }
 
     //is this castling move?
-    //to be implemented
+    if (sourcePiece instanceof King && sourcePiece.isValidCastling(move.getStartSquare(), move.getDestinationSquare(), this.board)){
+
+        let currentRow = move.getStartSquare().getRow();
+        let horizontalDistance: number = move.getDestinationSquare().getColumn()- move.getStartSquare().getColumn();
+        let horizontalDistanceDelta: number = Math.abs(horizontalDistance);
+        let horizontalDirection = horizontalDistance/horizontalDistanceDelta;
+
+        //find castling Rook and set moved flag
+        let castlingRook: Rook;
+        let RookColumnBeforeCastling: number;
+        (horizontalDistance < 0)? RookColumnBeforeCastling = 0 : RookColumnBeforeCastling = 7;
+        castlingRook = this.board.getSquares()[currentRow][RookColumnBeforeCastling].getPiece();
+        castlingRook.setMoved(true);
+
+        //Move rook to new position
+        let RookSquareBeforeCastling: Square = this.board.getSquares()[currentRow][RookColumnBeforeCastling];
+        let RookColumnAfterCastling: number = move.getStartSquare().getColumn() + horizontalDirection;
+        let RookSquareAfterCastling: Square = this.board.getSquares()[currentRow][RookColumnAfterCastling];
+
+        RookSquareBeforeCastling.setPiece(null);
+        RookSquareAfterCastling.setPiece(castlingRook);
+        castlingRook.draw(RookSquareBeforeCastling, RookSquareAfterCastling);
+
+        sourcePiece.setCastlingDone(true);
+        move.setCastlingMove(true);
+    }
 
     //save move
     this.recordMove(move);
 
     //execute move
-    move.getMovedPiece().draw(move);
+    move.getMovedPiece().draw(move.getStartSquare(), move.getDestinationSquare());
     move.getDestinationSquare().setPiece(move.getStartSquare().getPiece());
     move.getStartSquare().setPiece(null);
 
