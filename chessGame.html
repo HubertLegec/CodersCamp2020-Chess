@@ -8,14 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>CodersCamp2020 | Chess</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sarpanch:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/chessGameStyle.css" />
+    <link rel="stylesheet" href="styles/chessGameStyle.scss" />
 </head>
 
 <body>
     <div id="chess-app">
         <div id="chessBoard">
             <div id="opponentFile">
-                <div class="corner"></div>
+                <div class="file"></div>
                 <div class="file">A</div>
                 <div class="file">B</div>
                 <div class="file">C</div>
@@ -24,7 +24,7 @@
                 <div class="file">F</div>
                 <div class="file">G</div>
                 <div class="file">H</div>
-                <div class="corner"></div>
+                <div class="file"></div>
             </div>
             <div id="myRank">
                 <div class="rank">8</div>
@@ -38,7 +38,7 @@
             </div>
             <div id="board">
                 <div class="board-container">
-                    <div class="board-row">
+                    <div class="board-row" id="row-1">
                         <div class="box" id="0"></div>
                         <div class="box" id="1"></div>
                         <div class="box" id="2"></div>
@@ -48,7 +48,7 @@
                         <div class="box" id="6"></div>
                         <div class="box" id="7"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-2">
                         <div class="box" id="8"></div>
                         <div class="box" id="9"></div>
                         <div class="box" id="10"></div>
@@ -58,7 +58,7 @@
                         <div class="box" id="14"></div>
                         <div class="box" id="15"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-3">
                         <div class="box" id="16"></div>
                         <div class="box" id="17"></div>
                         <div class="box" id="18"></div>
@@ -68,7 +68,7 @@
                         <div class="box" id="22"></div>
                         <div class="box" id="23"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-4">
                         <div class="box" id="24"></div>
                         <div class="box" id="25"></div>
                         <div class="box" id="26"></div>
@@ -78,7 +78,7 @@
                         <div class="box" id="30"></div>
                         <div class="box" id="31"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-5">
                         <div class="box" id="32"></div>
                         <div class="box" id="33"></div>
                         <div class="box" id="34"></div>
@@ -88,7 +88,7 @@
                         <div class="box" id="38"></div>
                         <div class="box" id="39"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-6">
                         <div class="box" id="40"></div>
                         <div class="box" id="41"></div>
                         <div class="box" id="42"></div>
@@ -98,7 +98,7 @@
                         <div class="box" id="46"></div>
                         <div class="box" id="47"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-7">
                         <div class="box" id="48"></div>
                         <div class="box" id="49"></div>
                         <div class="box" id="50"></div>
@@ -108,7 +108,7 @@
                         <div class="box" id="54"></div>
                         <div class="box" id="55"></div>
                     </div>
-                    <div class="board-row">
+                    <div class="board-row" id="row-8">
                         <div class="box" id="56"></div>
                         <div class="box" id="57"></div>
                         <div class="box" id="58"></div>
@@ -131,7 +131,7 @@
                 <div class="rank">1</div>
             </div>
             <div id="myFile">
-                <div class="corner"></div>
+                <div class="file"></div>
                 <div class="file">A</div>
                 <div class="file">B</div>
                 <div class="file">C</div>
@@ -140,21 +140,29 @@
                 <div class="file">F</div>
                 <div class="file">G</div>
                 <div class="file">H</div>
-                <div class="corner"></div>
+                <div class="file"></div>
+            </div>
+        </div>
+        <h3 id="codersLogo"><span class="themecolor">.</span>Coders<span class="themecolor">Crew</span></h3>
+        <div id="gameSettings">
+            <div id="names">
+                <div id="firstPlayerName"></div>
+                <div id="secondPlayerName"></div>
+            </div>
+            <div id="timers">
+                <div id="firstPlayerTimer"></div>
+                <div id="secondPlayerTimer"></div>
+            </div>
+            <div id="gameButtons">
+                <div id="button1">
+                    <button>Button1</button>
+                </div>
+                <div id="button2">
+                    <button>Button2</button>
+                </div>
             </div>
         </div>
     </div>
-    <div id="gameSettings">
-        <div id="names">
-            <p id="firstPlayerName"></p>
-            <p id="secondPlayerName"></p>
-        </div>
-        <div id="timers">
-            <p id="firstPlayerTimer"></p>
-            <p id="secondPlayerTimer"></p>
-        </div>
-    </div>
-
     <script src='./src/chessGame.ts'></script>
     <script src="https://kit.fontawesome.com/a8fca9087a.js" crossorigin="anonymous"></script>
 </body>
