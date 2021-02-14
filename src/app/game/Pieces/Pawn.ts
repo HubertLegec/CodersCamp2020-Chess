@@ -46,6 +46,10 @@ export class Pawn extends Piece {
     // pawn can't jump over piece from initial position
     let sqaureInFront = board.getSquares()[direction == MoveDirection.UP ? 2 : 5][from.getColumn()];
 
+    if (to.getPiece() && (to.getPiece().isWhite() == this.isWhite())) {
+      return false;
+    }
+
     //zwykły ruch
     //check if destination is empty
     if (to.getPiece() == null && horizontalDistance == 0) {
