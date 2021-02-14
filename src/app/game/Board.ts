@@ -3,6 +3,7 @@ import { Pawn } from "./Pieces/Pawn";
 import { PieceType } from "./Pieces/PieceType";
 import { Game } from "./Game";
 import { Knight } from "./Pieces/Knight";
+import { Bishop } from "./Pieces/Bishop";
 
 export class Board {
   private game: Game;
@@ -61,11 +62,21 @@ export class Board {
     this.squares[0][1].getDomSquare().innerHTML = PieceType.White_Knight;
     this.squares[0][6].setPiece(new Knight(true));
     this.squares[0][6].getDomSquare().innerHTML = PieceType.White_Knight;
+    this.squares[0][2].setPiece(new Bishop(true));
+    this.squares[0][2].getDomSquare().innerHTML = PieceType.White_Bishop;
+    this.squares[0][5].setPiece(new Bishop(true));
+    this.squares[0][5].getDomSquare().innerHTML = PieceType.White_Bishop;
+
+
 
     this.squares[7][1].setPiece(new Knight(false));
     this.squares[7][1].getDomSquare().innerHTML = PieceType.Black_Knight;
     this.squares[7][6].setPiece(new Knight(false));
     this.squares[7][6].getDomSquare().innerHTML = PieceType.Black_Knight;
+    this.squares[7][2].setPiece(new Bishop(false));
+    this.squares[7][2].getDomSquare().innerHTML = PieceType.Black_Bishop;
+    this.squares[7][5].setPiece(new Bishop(false));
+    this.squares[7][5].getDomSquare().innerHTML = PieceType.Black_Bishop;
   }
 
   getSquares():Square[][]{
