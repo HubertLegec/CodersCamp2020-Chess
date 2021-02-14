@@ -1,34 +1,103 @@
 import { Square } from "../Square";
 import { Piece } from "./Piece";
 import { MoveDirection } from "../MoveDirection";
+import { Board } from "../Board";
 
 export class Pawn extends Piece {
-  promoted: boolean;
-  promotedTo: Piece;
-  moveDirection: MoveDirection;
-  moved: boolean = false;
+  private promoted: boolean;
+  private promotedTo: Piece;
+  private moveDirection: MoveDirection;
 
   constructor(white: boolean) {
     super(white);
     this.promoted = false;
+    this.moveDirection = white ? MoveDirection.UP : MoveDirection.Down;
   }
 
-  public canMove(start: Square, end: Square): boolean {
-    let vertical: number;
-    let horizontal: number;
+  isPromoted(): boolean {
+    return this.promoted;
+  }
+  setPromoted(promoted: boolean) {
+    this.promoted = promoted;
+  }
 
-    if (end.getPiece() == null) {
-      vertical =  Math.abs(start.getRow() - end.getRow());
-      horizontal = Math.abs(start.getColumn() - end.getColumn());
-      return vertical == 1 && horizontal == 0;
-    }
+  promoteTo(piece: Piece) {
+    this.promotedTo = piece;
+  }
 
-    if (end.getPiece().isWhite() == this.isWhite()) {
+  isPromotedTo(): Piece {
+    return this.promotedTo;
+  }
+
+  getDirection(): MoveDirection {
+    return this.moveDirection;
+  }
+
+  setDirection(newDirection: MoveDirection) {
+    this.moveDirection = newDirection;
+  }
+
+  public canMove(from: Square, to: Square, board: Board): boolean {
+    let direction = this.getDirection();
+    let verticalDistance: number =
+      (direction == MoveDirection.UP ? -1 : 1) * (from.getRow() - to.getRow());
+    let horizontalDistance: number = Math.abs(from.getColumn() - to.getColumn());
+
+    // pawn can't jump over piece from initial position
+    let sqaureInFront = board.getSquares()[direction == MoveDirection.UP ? 2 : 5][from.getColumn()];
+
+    if (to.getPiece() && (to.getPiece().isWhite() == this.isWhite())) {
       return false;
     }
 
-    vertical = Math.abs(start.getRow() - end.getRow());
-    horizontal = Math.abs(start.getColumn() - end.getColumn());
-    return vertical * horizontal == 1;
+    //zwykły ruch
+    //check if destination is empty
+    if (to.getPiece() == null && horizontalDistance == 0) {
+      //check if it's first move and there's nothing in front
+      if (!this.hasMoved() && sqaureInFront.getPiece() == null) {
+        return verticalDistance == 1 || verticalDistance == 2;
+      }
+      //this is not first move
+      else {
+        return verticalDistance == 1;
+      }
+    }
+
+    //bicie
+    if (to.getPiece() != null && to.getPiece().isWhite() != from.getPiece().isWhite()) {
+      return verticalDistance == 1 && horizontalDistance == 1;
+    }
+
+    // En passant (bicie w przelocie)
+
+    // check if destination is valid
+    if (to.getPiece() == null && verticalDistance == 1) {
+      const recentMove = board.getGame().getRecentMove();
+
+      // check if moved piece was Pawn
+      if (!(recentMove.getMovedPiece() instanceof Pawn)) {
+        return false;
+      }
+
+      // check if horizontal distance between pieces was 1
+      if (!(Math.abs(recentMove.getStartSquare().getColumn() - from.getColumn()) == 1)) {
+        return false;
+      }
+
+      // check if we want kill for good side (left/right)
+      if (recentMove.getDestinationSquare().getColumn() != to.getColumn()){
+        return false;
+      }
+
+      // check if it was double square move
+      if (!(Math.abs(recentMove.getStartSquare().getRow() - recentMove.getDestinationSquare().getRow()) == 2)) {
+        return false;
+      }
+
+      return true;
+    }
+
+    //TODO
+    //promocja pionka
   }
 }

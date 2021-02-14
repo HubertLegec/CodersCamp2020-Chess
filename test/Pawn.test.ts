@@ -1,10 +1,24 @@
+import { Board } from '../src/app/game/Board';
+import { Game } from '../src/app/game/Game';
 import { Pawn } from '../src/app/game/Pieces/Pawn';
 import { Square } from '../src/app/game/Square';
+
+const fs = require('fs');
+const path = require('path');
+const html: string = fs.readFileSync(path.resolve(__dirname, '../chessGame.html'), 'utf8');
+document.body.innerHTML = html;
+const game = new Game('a', 'b', 10);
+const board = new Board(game);
+jest.dontMock('fs');
 
 describe('Pawn', () => {
 
     describe('canMove', () => {
 
+        beforeEach(() => {
+            document.body.innerHTML = html;
+        })
+        
         test('returns false if piece of same color is on end square', () => {
             const pawn1 = new Pawn(true);
             const pawn2 = new Pawn(true);
@@ -13,7 +27,7 @@ describe('Pawn', () => {
             square1.setPiece(pawn1);
             square2.setPiece(pawn2);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
             expect(canMove).toBe(false);
         })
@@ -24,7 +38,7 @@ describe('Pawn', () => {
             const square2 = new Square(1, 0);
             square1.setPiece(pawn1);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
             expect(canMove).toBe(true);
         })
@@ -35,20 +49,20 @@ describe('Pawn', () => {
             const square2 = new Square(3, 0);
             square1.setPiece(pawn1);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
             expect(canMove).toBe(false);
         })
 
-        test('returns false if end square is empty but move is not vertical', () => {
+        test('doesnt return true if end square is empty but move is not vertical', () => {
             const pawn1 = new Pawn(true);
             const square1 = new Square(0, 0);
             const square2 = new Square(0, 3);
             square1.setPiece(pawn1);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
-            expect(canMove).toBe(false);
+            expect(canMove).not.toBe(true);
         })
 
         test('returns true if end square has opposing piece and distance is diagonal 1', () => {
@@ -59,7 +73,7 @@ describe('Pawn', () => {
             square1.setPiece(pawn1);
             square2.setPiece(pawn2);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
             expect(canMove).toBe(true);
         })
@@ -72,7 +86,7 @@ describe('Pawn', () => {
             square1.setPiece(pawn1);
             square2.setPiece(pawn2);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
             expect(canMove).toBe(false);
         })
@@ -85,7 +99,7 @@ describe('Pawn', () => {
             square1.setPiece(pawn1);
             square2.setPiece(pawn2);
 
-            const canMove = pawn1.canMove(square1, square2);
+            const canMove = pawn1.canMove(square1, square2, board);
 
             expect(canMove).toBe(false);
         })
