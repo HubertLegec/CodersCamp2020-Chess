@@ -4,6 +4,7 @@ import { PieceType } from "./Pieces/PieceType";
 import { Game } from "./Game";
 import { Knight } from "./Pieces/Knight";
 import { Bishop } from "./Pieces/Bishop";
+import { Rook } from "./Pieces/Rook";
 
 export class Board {
   private game: Game;
@@ -66,6 +67,10 @@ export class Board {
     this.squares[0][2].getDomSquare().innerHTML = PieceType.White_Bishop;
     this.squares[0][5].setPiece(new Bishop(true));
     this.squares[0][5].getDomSquare().innerHTML = PieceType.White_Bishop;
+    this.squares[0][0].setPiece(new Rook(true));
+    this.squares[0][0].getDomSquare().innerHTML = PieceType.White_Rook;
+    this.squares[0][7].setPiece(new Rook(true));
+    this.squares[0][7].getDomSquare().innerHTML = PieceType.White_Rook;
 
 
 
@@ -77,6 +82,10 @@ export class Board {
     this.squares[7][2].getDomSquare().innerHTML = PieceType.Black_Bishop;
     this.squares[7][5].setPiece(new Bishop(false));
     this.squares[7][5].getDomSquare().innerHTML = PieceType.Black_Bishop;
+    this.squares[7][0].setPiece(new Rook(false));
+    this.squares[7][0].getDomSquare().innerHTML = PieceType.Black_Rook;
+    this.squares[7][7].setPiece(new Rook(false));
+    this.squares[7][7].getDomSquare().innerHTML = PieceType.Black_Rook;
   }
 
   getSquares():Square[][]{
