@@ -1,6 +1,7 @@
 import { Square } from "../Square";
 import { Piece } from "./Piece";
 import { Board } from "../Board";
+import { Rook } from "./Rook";
 
 export class King extends Piece {
   private castlingDone: boolean = false;
@@ -14,7 +15,7 @@ export class King extends Piece {
   }
 
   public setCastlingDone(castlingDone: boolean) {
-    castlingDone = castlingDone;
+    this.castlingDone = castlingDone;
   }
 
   public canMove(from: Square, to: Square, board: Board): boolean {
@@ -22,11 +23,55 @@ export class King extends Piece {
     let verticalDistanceDelta: number = Math.abs(to.getRow() - from.getRow());
     let horizontalDistanceDelta: number = Math.abs(to.getColumn() - from.getColumn());
 
+    //destination doesn't have any of my piece
     if (to.getPiece() && to.getPiece().isWhite() == this.isWhite()) {
       return false;
     }
 
-    if(verticalDistanceDelta * horizontalDistanceDelta <= 1){
+    //basic move
+    if(Math.max(verticalDistanceDelta, horizontalDistanceDelta) == 1){
+        return true;
+    }
+
+    //is this castling move?
+      return this.isValidCastling(from, to, board);
+  }
+
+  public isValidCastling(from: Square, to: Square, board: Board):boolean{
+    
+    if(this.hasMoved()){
+        return false;
+    }
+
+    if(this.isCastlingDone()){
+        return false;
+    }
+
+    let verticalDistanceDelta: number = Math.abs(to.getRow() - from.getRow());
+    let horizontalDistanceDelta: number = Math.abs(to.getColumn() - from.getColumn());
+    let horizontalDistance: number = to.getColumn() - from.getColumn();
+
+    //check if castling Rook has moved
+    let castlingRook: Rook;
+    let castlingRookHorizontalPosition: number;
+    (horizontalDistance < 0)? castlingRookHorizontalPosition = 0 : castlingRookHorizontalPosition = 7;
+    castlingRook = board.getSquares()[from.getRow()][castlingRookHorizontalPosition].getPiece();
+
+    if(castlingRook.hasMoved()){
+        return false;
+    }
+
+    //check if there's no piece in between
+    let horizontalDirection = (horizontalDistance == 0)? 0 : ((horizontalDistance/horizontalDistanceDelta));
+    for(let i = from.getColumn(); i < horizontalDistanceDelta; i++){
+        let checkedSquareH = from.getColumn() + (i * horizontalDirection);
+        if(board.getSquares()[from.getRow()][checkedSquareH].getPiece() != null){
+            return false;
+        }
+    }
+
+    //is this correct square?
+    if(verticalDistanceDelta == 0 && horizontalDistanceDelta == 2){
         return true;
     }
   }
