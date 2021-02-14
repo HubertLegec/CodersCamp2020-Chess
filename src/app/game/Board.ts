@@ -70,7 +70,6 @@ export class Board {
           if(this.getSquares()[i][j].getPiece() && (this.getSquares()[i][j].getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide())){
             this.getSquares()[i][j].getDomSquare().style.background = "red";
           }
-          console.log(this.getSquares()[i][j]);
           this.highlightedSquares.push(this.getSquares()[i][j]);
         }
       }

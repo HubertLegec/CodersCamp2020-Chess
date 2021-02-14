@@ -60,12 +60,12 @@ export class King extends Piece {
     if(castlingRook.hasMoved()){
         return false;
     }
-
+    
     //check if there's no piece in between
-    let horizontalDirection = (horizontalDistance == 0)? 0 : ((horizontalDistance/horizontalDistanceDelta));
-    for(let i = from.getColumn(); i < horizontalDistanceDelta; i++){
+    let horizontalDirection = (horizontalDistance/horizontalDistanceDelta);
+    for(let i = 1; i < horizontalDistanceDelta; i++){
         let checkedSquareH = from.getColumn() + (i * horizontalDirection);
-        if(board.getSquares()[from.getRow()][checkedSquareH].getPiece() != null){
+        if(board.getSquares()[from.getRow()][checkedSquareH].getPiece()){
             return false;
         }
     }
