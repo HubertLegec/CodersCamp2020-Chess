@@ -46,8 +46,8 @@ export class Game {
     }
 
     //are we gonna kill somepiece?
-    let destinationPiece = move.getStartSquare().getPiece();
-    if (!destinationPiece) {
+    let destinationPiece = move.getDestinationSquare().getPiece();
+    if (destinationPiece) {
       destinationPiece.kill(move.getDestinationSquare());
       move.setCapturedPiece(destinationPiece);
     }
@@ -59,6 +59,7 @@ export class Game {
                 if(move.getDestinationSquare().getPiece() == null){
                     move.setEnPassanteMove(true);
                     this.getRecentMove().getMovedPiece().kill(this.getRecentMove().getDestinationSquare());
+                    move.setCapturedPiece(this.getRecentMove().getMovedPiece());
                 }
             }
         }
@@ -97,6 +98,10 @@ export class Game {
   }
   setCurrentTurn(currentPlayer: Player): void{
       this.currentTurn = currentPlayer;
+  }
+
+  getMovesPlayed(): Move[]{
+      return this.movesPlayed;
   }
 
   getRecentMove(): Move{
