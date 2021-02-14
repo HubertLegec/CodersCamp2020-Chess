@@ -1,7 +1,6 @@
 import { Piece } from "./Pieces/Piece";
 import { Square } from "./Square";
 import { Player } from "./Player";
-import { Pawn } from "./Pieces/Pawn";
 
 export class Move {
   private player: Player;
@@ -10,6 +9,7 @@ export class Move {
   private movedPiece: Piece;
   private capturedPiece: Piece;
   private castlingMove: boolean = false;
+  private enPassanteMove: boolean = false;
 
   constructor(player: Player, startSquare: Square, destinationSquare: Square) {
     this.player = player;
@@ -42,28 +42,16 @@ export class Move {
       this.capturedPiece = capturedPiece;
   }
 
-  isCastlingMove(): boolean {
-    return this.castlingMove;
+  isEnPassanteMove(): boolean {
+      return this.enPassanteMove;
   }
 
-  isEnPasantMove(){
-    if (!(this.getMovedPiece() instanceof Pawn)){
-      return false;
-    }
+  setEnPassanteMove(enPassante: boolean): void {
+      this.enPassanteMove = enPassante;
+  }
 
-    if (Math.abs(this.getStartSquare().getRow() - this.getDestinationSquare().getRow()) != 1){
-        return false;
-    }
-
-    if (Math.abs(this.getStartSquare().getColumn() - this.getDestinationSquare().getColumn()) != 1){
-      return false;
-    }
-
-    if (this.getDestinationSquare().getPiece() != null){
-      return false;
-    }
-
-    return true;
+  isCastlingMove(): boolean {
+    return this.castlingMove;
   }
 
   setCastlingMove(castlingMove: boolean) {

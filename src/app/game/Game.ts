@@ -1,6 +1,7 @@
 import { Player } from "./Player";
 import { Board } from "./Board";
 import { Move } from "./Move";
+import { Pawn } from "./Pieces/Pawn";
 export class Game {
   private players: Player[] = [];
   private board: Board;
@@ -50,8 +51,17 @@ export class Game {
       destinationPiece.kill(move.getDestinationSquare());
       move.setCapturedPiece(destinationPiece);
     }
-    if (move.isEnPasantMove()){
-      this.getRecentMove().getMovedPiece().kill(this.getRecentMove().getDestinationSquare());
+
+    //is this enPassante move?
+    if(sourcePiece instanceof Pawn){
+        if(Math.abs(move.getStartSquare().getRow() - move.getDestinationSquare().getRow()) == 1){
+            if(Math.abs(move.getStartSquare().getColumn() - move.getDestinationSquare().getColumn()) == 1){
+                if(move.getDestinationSquare().getPiece() == null){
+                    move.setEnPassanteMove(true);
+                    this.getRecentMove().getMovedPiece().kill(this.getRecentMove().getDestinationSquare());
+                }
+            }
+        }
     }
 
     //is this castling move?

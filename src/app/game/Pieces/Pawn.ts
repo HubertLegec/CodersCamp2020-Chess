@@ -41,14 +41,10 @@ export class Pawn extends Piece {
     let direction = this.getDirection();
     let verticalDistance: number =
       (direction == MoveDirection.UP ? -1 : 1) * (from.getRow() - to.getRow());
-    let horizontalDistance: number = Math.abs(
-      from.getColumn() - to.getColumn()
-    );
+    let horizontalDistance: number = Math.abs(from.getColumn() - to.getColumn());
 
     // pawn can't jump over piece from initial position
-    let sqaureInFront = board.getSquares()[
-      direction == MoveDirection.UP ? 2 : 5
-    ][from.getColumn()];
+    let sqaureInFront = board.getSquares()[direction == MoveDirection.UP ? 2 : 5][from.getColumn()];
 
     //zwykły ruch
     //check if destination is empty
@@ -64,17 +60,15 @@ export class Pawn extends Piece {
     }
 
     //bicie
-    if (to.getPiece() != null) {
-      if (to.getPiece().isWhite() != from.getPiece().isWhite()) {
-        return verticalDistance == 1 && horizontalDistance == 1;
-      }
+    if (to.getPiece() != null && to.getPiece().isWhite() != from.getPiece().isWhite()) {
+      return verticalDistance == 1 && horizontalDistance == 1;
     }
 
     // En passant (bicie w przelocie)
 
     // check if destination is valid
     if (to.getPiece() == null && verticalDistance == 1) {
-      const recentMove = board.getRecentMoveInGame();
+      const recentMove = board.getGame().getRecentMove();
 
       // check if moved piece was Pawn
       if (!(recentMove.getMovedPiece() instanceof Pawn)) {
@@ -82,13 +76,7 @@ export class Pawn extends Piece {
       }
 
       // check if horizontal distance between pieces was 1
-      if (
-        !(
-          Math.abs(
-            recentMove.getStartSquare().getColumn() - from.getColumn()
-          ) == 1
-        )
-      ) {
+      if (!(Math.abs(recentMove.getStartSquare().getColumn() - from.getColumn()) == 1)) {
         return false;
       }
 
@@ -98,21 +86,14 @@ export class Pawn extends Piece {
       }
 
       // check if it was double square move
-      if (
-        !(
-          Math.abs(
-            recentMove.getStartSquare().getRow() -
-              recentMove.getDestinationSquare().getRow()
-          ) == 2
-        )
-      ) {
+      if (!(Math.abs(recentMove.getStartSquare().getRow() - recentMove.getDestinationSquare().getRow()) == 2)) {
         return false;
       }
 
       return true;
     }
+
     //TODO
-    // bicie w przelocie
-    //zmiana kierunku i promocja pionka
+    //promocja pionka
   }
 }

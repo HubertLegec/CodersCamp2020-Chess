@@ -2,11 +2,7 @@ import { Square } from "./Square";
 import { Pawn } from "./Pieces/Pawn";
 import { PieceType } from "./Pieces/PieceType";
 import { Game } from "./Game";
-<<<<<<< HEAD
-import { Move } from "./Move";
-=======
 import { Knight } from "./Pieces/Knight";
->>>>>>> 5dcc19b87d8bb52beed89be7a63b4ab4e963d977
 
 export class Board {
   private game: Game;
@@ -76,7 +72,7 @@ export class Board {
     return this.squares;
   }
 
-  getRecentMoveInGame():Move{
-    return this.game.getRecentMove();
+  getGame(){
+    return this.game;
   }
 }
