@@ -13,6 +13,7 @@ export class LandingPage {
         this.checkInputs();
         this.sliderValue();
         this.setButtonEvent();
+        this.animatePieces();
     }
 
     private checkInputs() {
@@ -63,5 +64,23 @@ export class LandingPage {
             document.getElementById('gameStartButton').removeAttribute('disabled')
         }
         else document.getElementById('gameStartButton').setAttribute('disabled', 'true')
+    }
+
+    private animatePieces() {
+        const svg: SVGElement | null = document.querySelector('svg');
+        const piece_parts = document.querySelectorAll('svg g polygon');
+        const gamePanel = document.getElementById('gamePanel');
+        piece_parts.forEach(p  => { 
+            const transition = `transition: transform ${Math.floor(Math.random() * 1500)}ms`;
+            p.setAttribute("style", transition);
+        });
+        if(gamePanel){
+            setTimeout(() => {
+                console.log('ju');
+                gamePanel.setAttribute('style', 'opacity: 1')
+            }, 2000);
+        }
+
+        svg? svg.setAttribute('class', '') : false;
     }
 }
