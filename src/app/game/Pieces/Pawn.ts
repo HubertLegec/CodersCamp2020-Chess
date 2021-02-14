@@ -69,9 +69,9 @@ export class Pawn extends Piece {
     }
 
     // En passant (bicie w przelocie)
-
+    const recentMove = board.getGame().getRecentMove();
     // check if destination is valid
-    if (to.getPiece() == null && verticalDistance == 1) {
+    if (to.getPiece() == null && verticalDistance == 1 && recentMove != null) {
       const recentMove = board.getGame().getRecentMove();
 
       // check if moved piece was Pawn
