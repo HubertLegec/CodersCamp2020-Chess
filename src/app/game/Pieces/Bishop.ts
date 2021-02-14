@@ -20,14 +20,15 @@ export class Bishop extends Piece {
       return false;
     }
 
-    for(let i = 1; i < verticalDistanceDelta; i++){
-        let checkedSquareV = from.getRow() + (i * (verticalDistance/verticalDistanceDelta));
-        let checkedSquareH = from.getColumn() + (i * (horizontalDistance/horizontalDistanceDelta));
-        if(board.getSquares()[checkedSquareV][checkedSquareH].getPiece() != null){
-            return false;
+    if(verticalDistanceDelta - horizontalDistanceDelta == 0 ){
+        for(let i = 1; i < verticalDistanceDelta; i++){
+            let checkedSquareV = from.getRow() + (i * (verticalDistance/verticalDistanceDelta));
+            let checkedSquareH = from.getColumn() + (i * (horizontalDistance/horizontalDistanceDelta));
+            if(board.getSquares()[checkedSquareV][checkedSquareH].getPiece() != null){
+                return false;
+            }
         }
+        return true;
     }
-
-    return verticalDistanceDelta - horizontalDistanceDelta == 0 ;
   }
 }
