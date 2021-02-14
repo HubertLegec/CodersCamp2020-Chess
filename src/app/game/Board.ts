@@ -7,11 +7,13 @@ import { Bishop } from "./Pieces/Bishop";
 import { Rook } from "./Pieces/Rook";
 import { Queen } from "./Pieces/Queen";
 import { King } from "./Pieces/King";
+import { Piece } from "./Pieces/Piece";
 
 export class Board {
   private game: Game;
   private squares: Square[][] = [];
   private selectedSquares: Square[] = [];
+  highlightedSquares: Square[] = [];
 
   constructor(game: Game) {
     this.game = game;
@@ -19,7 +21,7 @@ export class Board {
   }
 
   private initializeBoard() {
-    const domSquares = document.getElementsByClassName("box");
+    const domSquares = document.getElementById("board").getElementsByClassName("box");
     for (let i = 7; i >= 0; i--) {
       this.squares[i] = [];
       for (let j = 7; j >= 0; j--) {
@@ -39,18 +41,47 @@ export class Board {
 
   clickHandler(square: Square) {
     //check if the click intends to select piece and assign it as 1st click
-      if (square.getPiece() != null && square.getPiece().isWhite() == this.game.getCurrentTurn().isWhiteSide()) {
-        this.selectedSquares[0] = square;
+    if (square.getPiece() != null && square.getPiece().isWhite() == this.game.getCurrentTurn().isWhiteSide()) {
+
+      if(square != this.selectedSquares[0]){
+        this.clearHighlightedSquares();
       }
-    
+      this.selectedSquares[0] = square;
+      this.highlightSquares();
+    }
+
     //check if the click intends to select destination and assign it as 2nd click
     if (this.selectedSquares.length) {
-      if (square.getPiece() == null || (square.getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide()) ) {
-          this.selectedSquares[1]=square;
-          this.game.getCurrentTurn().playedMove(this.selectedSquares[0], this.selectedSquares[1], this.game);
-          this.selectedSquares = [];
+      if (square.getPiece() == null || square.getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide()) {
+        this.selectedSquares[1] = square;
+        this.game.getCurrentTurn().playedMove(this.selectedSquares[0], this.selectedSquares[1], this.game);
+        this.clearHighlightedSquares();
+        this.selectedSquares = [];
       }
     }
+  }
+
+  highlightSquares() {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        let selectedPiece: Piece = this.selectedSquares[0].getPiece();
+        if (selectedPiece.canMove(this.selectedSquares[0], this.getSquares()[i][j], this)) {
+          this.getSquares()[i][j].getDomSquare().style.background = "green"
+          if(this.getSquares()[i][j].getPiece() && (this.getSquares()[i][j].getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide())){
+            this.getSquares()[i][j].getDomSquare().style.background = "red";
+          }
+          console.log(this.getSquares()[i][j]);
+          this.highlightedSquares.push(this.getSquares()[i][j]);
+        }
+      }
+    }
+  }
+
+  clearHighlightedSquares() {
+    this.highlightedSquares.forEach((element) => {
+      element.getDomSquare().style.background = "";
+    });
+    this.highlightedSquares = [];
   }
 
   private initializePieces() {
@@ -96,11 +127,11 @@ export class Board {
     this.squares[7][4].getDomSquare().innerHTML = PieceType.Black_King;
   }
 
-  getSquares():Square[][]{
+  getSquares(): Square[][] {
     return this.squares;
   }
 
-  getGame(){
+  getGame() {
     return this.game;
   }
 }
