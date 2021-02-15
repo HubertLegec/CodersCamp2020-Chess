@@ -5,12 +5,13 @@ import { Pawn } from "./Pieces/Pawn";
 import { King } from "./Pieces/King";
 import { Rook } from "./Pieces/Rook";
 import { Square } from "./Square";
-import { PieceType } from "./Pieces/PieceType";
+import { GameStatus } from "./GameStatus";
 export class Game {
   private players: Player[] = [];
   private board: Board;
   private currentTurn: Player;
   private movesPlayed: Move[];
+  private gameStatus: GameStatus = GameStatus.ACTIVE;
 
   constructor(firstName: string, secondName: string, timeLimit: number) {
     this.players[0] = new Player(firstName, timeLimit, true);
@@ -105,9 +106,15 @@ export class Game {
         move.setFirstMove(true);
         sourcePiece.setMoved(true);
     }
-    
-    //verify game status
-    //to be implemented
+
+    //The king is dead
+    if(destinationPiece != null && destinationPiece instanceof King){
+      if(player.isWhiteSide()){
+        this.setStatus(GameStatus.WHITE_WIN);
+      } else{
+        this.setStatus(GameStatus.BLACK_WIN);
+      }
+    }
 
     //switch turn
     if (this.currentTurn === this.players[0]) {
@@ -132,6 +139,14 @@ export class Game {
 
   getRecentMove(): Move{
     return this.movesPlayed[this.movesPlayed.length-1];
+  }
+
+  getStatus():GameStatus{
+    return this.gameStatus;
+  }
+
+  setStatus(status: GameStatus){
+    this.gameStatus = status;
   }
 
   undoMove(): void {

@@ -5,6 +5,7 @@ import { Rook } from "./Rook";
 
 export class King extends Piece {
   private castlingDone: boolean = false;
+  private location: Square;
 
   constructor(white: boolean) {
     super(white);
@@ -85,5 +86,13 @@ export class King extends Piece {
 
   public canAttack(from: Square, to: Square, board: Board): boolean {
     return false;
+  }
+
+  getLocation(){
+    return this.location;
+  }
+
+  setLocation(location: Square){
+    this.location = location;
   }
 }
