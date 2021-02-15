@@ -5,6 +5,7 @@ import { Pawn } from "./Pieces/Pawn";
 import { King } from "./Pieces/King";
 import { Rook } from "./Pieces/Rook";
 import { Square } from "./Square";
+import { Queen } from "./Pieces/Queen";
 export class Game {
   private players: Player[] = [];
   private board: Board;
@@ -101,6 +102,16 @@ export class Game {
     //You've moved, have you?
     if(!sourcePiece.hasMoved()){
         sourcePiece.setMoved(true);
+    }
+
+    //Promotion check
+    if (move.getMovedPiece() instanceof Pawn && move.getDestinationSquare().isPromotionSquare()) {
+      const pawnToPromote = move.getMovedPiece();
+      move.setPromotionMove(true);
+      pawnToPromote.kill(move.getDestinationSquare());
+      const queen = new Queen(move.getMovedPiece().isWhite());
+      queen.draw(move.getDestinationSquare(), move.getDestinationSquare());
+      move.getDestinationSquare().setPiece(queen);      
     }
     
     //verify game status

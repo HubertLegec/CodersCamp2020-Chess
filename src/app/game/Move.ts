@@ -10,6 +10,7 @@ export class Move {
   private capturedPiece: Piece;
   private castlingMove: boolean = false;
   private enPassanteMove: boolean = false;
+  private promotionMove: boolean = false;
 
   constructor(player: Player, startSquare: Square, destinationSquare: Square) {
     this.player = player;
@@ -56,5 +57,13 @@ export class Move {
 
   setCastlingMove(castlingMove: boolean) {
     this.castlingMove = castlingMove;
+  }
+
+  isPromotionMove(): boolean{
+    return this.promotionMove;
+  }
+
+  setPromotionMove(promotion: boolean) {
+    this.promotionMove = promotion;
   }
 }

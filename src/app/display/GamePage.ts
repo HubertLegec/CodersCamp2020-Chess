@@ -9,6 +9,7 @@ export class GamePage {
 
     displayGameInfo() {
         this.displayPlayersNames();
+        this.displayPromotionOptions();
     }
 
     private displayPlayersNames(){
@@ -18,5 +19,19 @@ export class GamePage {
         firstPlayer.textContent = this._firstPlayerName;
         secondPlayer.textContent = this._secondPlayerName;
     }
-    
+
+    displayPromotionOptions(){
+        const popupMenu = document.getElementById('names');
+        popupMenu.append(this.createOptionsButtons());
+    }
+
+    private createOptionsButtons(){
+        const buttonContainer = document.createElement('div');
+        const queenButton = document.createElement('button');
+        const rookButton = document.createElement('button');
+        const bishopButton = document.createElement('button');
+        const knightButton = document.createElement('button');
+        buttonContainer.append(...[queenButton, rookButton, bishopButton, knightButton])
+        return buttonContainer;
+    }
 }

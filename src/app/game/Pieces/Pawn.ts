@@ -111,4 +111,5 @@ export class Pawn extends Piece {
 
   //TODO
   //promocja pionka
+  
 }
