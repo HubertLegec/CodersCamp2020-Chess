@@ -118,3 +118,23 @@ html{
         margin: 0;
     }
 }
+
+@media screen and (max-height: 430px){ 
+    html{
+        body{
+            #chess-app{
+                h3#codersLogo{
+                    font-size: 20px;
+                    padding: 10px;
+                }
+                #gamePanel{
+                    padding: 15px 20px;
+                    p#gameSettingsTitle{
+                        font-size: 20px;
+                    }
+                } 
+            } 
+        } 
+    }
+}
+
