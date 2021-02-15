@@ -78,7 +78,7 @@ describe('Pawn', () => {
             expect(canMove).toBe(true);
         })
 
-        test('returns false if end square has opposing piece but diagonal distance is more than 1', () => {
+        test('returns not true if end square has opposing piece but diagonal distance is more than 1', () => {
             const pawn1 = new Pawn(true);
             const pawn2 = new Pawn(false);
             const square1 = new Square(0, 0);
@@ -88,10 +88,10 @@ describe('Pawn', () => {
 
             const canMove = pawn1.canMove(square1, square2, board);
 
-            expect(canMove).toBe(false);
+            expect(canMove).not.toBe(true);
         })
 
-        test('returns false if end square has opposing piece and distance is 1 but not diagonal', () => {
+        test('returns not true if end square has opposing piece and distance is 1 but not diagonal', () => {
             const pawn1 = new Pawn(true);
             const pawn2 = new Pawn(false);
             const square1 = new Square(0, 0);
@@ -101,7 +101,7 @@ describe('Pawn', () => {
 
             const canMove = pawn1.canMove(square1, square2, board);
 
-            expect(canMove).toBe(false);
+            expect(canMove).not.toBe(true);
         })
     })
 })

@@ -64,9 +64,9 @@ export class Pawn extends Piece {
     }
 
     //bicie
-    if (to.getPiece() != null && to.getPiece().isWhite() != from.getPiece().isWhite()) {
-      return verticalDistance == 1 && horizontalDistance == 1;
-    }
+    if(this.canAttack(from, to, board) && (to.getPiece() != null && to.getPiece().isWhite() != from.getPiece().isWhite())){
+      return true;
+    } 
 
     return this.isEnPassant(from, to, board);
   }
@@ -107,6 +107,18 @@ export class Pawn extends Piece {
       }
       return true;
     }
+  }
+
+  canAttack(from: Square, to: Square, board: Board):boolean{
+
+    let direction = this.getDirection();
+    let verticalDistance: number =
+      (direction == MoveDirection.UP ? -1 : 1) * (from.getRow() - to.getRow());
+    let horizontalDistance: number = Math.abs(from.getColumn() - to.getColumn());
+
+    
+      return verticalDistance == 1 && horizontalDistance == 1;
+    
   }
 
   //TODO
