@@ -61,13 +61,14 @@ export class Board {
     }
   }
 
+  //highlight all possible moves, if it's capturing move or enPassante move highlight in red
   highlightSquares() {
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         let selectedPiece: Piece = this.selectedSquares[0].getPiece();
         if (selectedPiece.canMove(this.selectedSquares[0], this.getSquares()[i][j], this)) {
-          this.getSquares()[i][j].getDomSquare().style.background = "green"
-          if(this.getSquares()[i][j].getPiece() && (this.getSquares()[i][j].getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide())){
+          this.getSquares()[i][j].getDomSquare().style.background = "green";
+          if((this.getSquares()[i][j].getPiece() && (this.getSquares()[i][j].getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide())) || (selectedPiece instanceof Pawn && selectedPiece.isEnPassant(this.selectedSquares[0], this.getSquares()[i][j], this))){
             this.getSquares()[i][j].getDomSquare().style.background = "red";
           }
           this.highlightedSquares.push(this.getSquares()[i][j]);

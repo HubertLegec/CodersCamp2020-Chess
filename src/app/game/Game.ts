@@ -55,17 +55,11 @@ export class Game {
       move.setCapturedPiece(destinationPiece);
     }
 
-    //is this enPassante move?
-    if(sourcePiece instanceof Pawn){
-        if(Math.abs(move.getStartSquare().getRow() - move.getDestinationSquare().getRow()) == 1){
-            if(Math.abs(move.getStartSquare().getColumn() - move.getDestinationSquare().getColumn()) == 1){
-                if(move.getDestinationSquare().getPiece() == null){
-                    move.setEnPassanteMove(true);
-                    this.getRecentMove().getMovedPiece().kill(this.getRecentMove().getDestinationSquare());
-                    move.setCapturedPiece(this.getRecentMove().getMovedPiece());
-                }
-            }
-        }
+    //is this enPassant move?
+    if(sourcePiece instanceof Pawn && sourcePiece.isEnPassant(move.getStartSquare(), move.getDestinationSquare(), this.board)){
+        this.getRecentMove().getMovedPiece().kill(this.getRecentMove().getDestinationSquare());
+        move.setEnPassanteMove(true);
+        move.setCapturedPiece(this.getRecentMove().getMovedPiece());  
     }
 
     //is this castling move?

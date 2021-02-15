@@ -68,11 +68,17 @@ export class Pawn extends Piece {
       return verticalDistance == 1 && horizontalDistance == 1;
     }
 
-    // En passant (bicie w przelocie)
+    return this.isEnPassant(from, to, board);
+  }
+
+  isEnPassant(from: Square, to: Square, board: Board): boolean{
+
+    let direction = this.getDirection();
+    let verticalDistance: number = (direction == MoveDirection.UP ? -1 : 1) * (from.getRow() - to.getRow());
     const recentMove = board.getGame().getRecentMove();
+
     // check if destination is valid
     if (to.getPiece() == null && verticalDistance == 1 && recentMove != null) {
-      const recentMove = board.getGame().getRecentMove();
 
       // check if moved piece was Pawn
       if (!(recentMove.getMovedPiece() instanceof Pawn)) {
@@ -81,6 +87,12 @@ export class Pawn extends Piece {
 
       // check if horizontal distance between pieces was 1
       if (!(Math.abs(recentMove.getStartSquare().getColumn() - from.getColumn()) == 1)) {
+        return false;
+      }
+
+      //check vertical distance between pawns
+      let verticalDistanceBetweenPawns = (recentMove.getDestinationSquare().getRow() - from.getRow());
+      if(verticalDistanceBetweenPawns != 0){
         return false;
       }
 
@@ -93,11 +105,10 @@ export class Pawn extends Piece {
       if (!(Math.abs(recentMove.getStartSquare().getRow() - recentMove.getDestinationSquare().getRow()) == 2)) {
         return false;
       }
-
       return true;
     }
-
-    //TODO
-    //promocja pionka
   }
+
+  //TODO
+  //promocja pionka
 }
