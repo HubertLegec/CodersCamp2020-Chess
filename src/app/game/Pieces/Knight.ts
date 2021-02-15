@@ -3,6 +3,7 @@ import { Piece } from "./Piece";
 import { Board } from "../Board";
 
 export class Knight extends Piece {
+
   constructor(white: boolean) {
     super(white);
   }
@@ -15,7 +16,9 @@ export class Knight extends Piece {
     if (to.getPiece() && (to.getPiece().isWhite() == this.isWhite())) {
       return false;
     }
-
     return verticalDistance * horizontalDistance == 2;
+  }
+  public canAttack(from: Square, to: Square, board: Board): boolean {
+    return this.canMove(from, to, board);
   }
 }

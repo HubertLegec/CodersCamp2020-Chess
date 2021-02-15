@@ -44,5 +44,6 @@ export abstract class Piece {
             removeFrom.getDomSquare().innerHTML = null;
     }
 
-    public abstract canMove(from:Square, to:Square, board:Board):boolean; 
+    public abstract canMove(from:Square, to:Square, board:Board):boolean;
+    public abstract canAttack(from:Square, to:Square, board:Board):boolean;
 }

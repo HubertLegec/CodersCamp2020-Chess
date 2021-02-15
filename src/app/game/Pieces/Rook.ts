@@ -36,4 +36,8 @@ export class Rook extends Piece {
         return true;
     }
   }
+
+  public canAttack(from: Square, to: Square, board: Board): boolean {
+    return this.canMove(from, to, board);
+  }
 }

@@ -131,6 +131,19 @@ export class Board {
     this.squares[7][4].getDomSquare().innerHTML = PieceType.Black_King;
   }
 
+  isDestinationUnderAttack(from: Square, destination: Square, board: Board): boolean{
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        let attackingPiece = board.getSquares()[i][j].getPiece();
+        if(attackingPiece != null && (this.game.getCurrentTurn().isWhiteSide() != attackingPiece.isWhite())){
+          if(attackingPiece.canAttack(board.getSquares()[i][j], destination, board)){
+            return true;
+          }
+        }
+      }
+    }
+  }
+
   getSquares(): Square[][] {
     return this.squares;
   }
