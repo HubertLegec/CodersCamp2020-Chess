@@ -7,7 +7,7 @@ export enum PieceType {
     White_Knight = '<img class="white" src="./img/pieces/Knight.svg">',
 
     Black_Pawn = '<img class="black" src="./img/pieces/Pawn.svg">',
-    Black_King = '<img class="black" src="./img/pieces/King.svg">',,
+    Black_King = '<img class="black" src="./img/pieces/King.svg">',
     Black_Queen = '<img class="black" src="./img/pieces/Queen.svg">',
     Black_Rook = '<img class="black" src="./img/pieces/Rook.svg">',
     Black_Bishop = '<img class="black" src="./img/pieces/Bishop.svg">',
