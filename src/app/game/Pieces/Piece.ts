@@ -1,5 +1,4 @@
 import { Board } from '../Board';
-import { Move } from '../Move';
 import {Square} from '../Square';
 import { PieceType } from './PieceType';
 
@@ -33,11 +32,11 @@ export abstract class Piece {
         square.getDomSquare().innerHTML = null;
     } 
 
-    public draw(move:Move):void{
-        let pieceColour = (move.getStartSquare().getPiece().isWhite()) ? 'White' : 'Black';
-        let pieceType = (move.getStartSquare().getPiece().constructor.name);
-        move.getDestinationSquare().getDomSquare().innerHTML = PieceType[`${pieceColour}_${pieceType}`];
-        move.getStartSquare().getDomSquare().innerHTML = null;
+    public draw(removeFrom:Square, addTo: Square):void{
+        let pieceColour = (this.isWhite()) ? 'White' : 'Black';
+        let pieceType = (this.constructor.name);
+        addTo.getDomSquare().innerHTML = PieceType[`${pieceColour}_${pieceType}`];
+        removeFrom.getDomSquare().innerHTML = null;
     }
 
     public abstract canMove(from:Square, to:Square, board:Board):boolean; 
