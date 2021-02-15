@@ -20,6 +20,7 @@ export class Game {
 
   recordMove(move: Move) {
     this.movesPlayed.push(move);
+    console.log(move);
   }
 
   //validates and executes played move
@@ -100,6 +101,7 @@ export class Game {
 
     //You've moved, have you?
     if(!sourcePiece.hasMoved()){
+        move.setFirstMove(true);
         sourcePiece.setMoved(true);
     }
     
@@ -128,5 +130,16 @@ export class Game {
 
   getRecentMove(): Move{
     return this.movesPlayed[this.movesPlayed.length-1];
+  }
+
+  undoMove() {
+    const recentMove = this.getRecentMove();
+    this.movesPlayed.pop();
+
+    recentMove.getMovedPiece()
+    
+    if(recentMove.getCapturedPiece() != null){
+
+    }
   }
 }

@@ -10,6 +10,7 @@ export class Move {
   private capturedPiece: Piece;
   private castlingMove: boolean = false;
   private enPassanteMove: boolean = false;
+  private firstMove: boolean;
 
   constructor(player: Player, startSquare: Square, destinationSquare: Square) {
     this.player = player;
@@ -56,5 +57,13 @@ export class Move {
 
   setCastlingMove(castlingMove: boolean) {
     this.castlingMove = castlingMove;
+  }
+
+  getFirstMove() {
+    return this.firstMove;
+  }
+
+  setFirstMove(firstMove: boolean) {
+    this.firstMove = firstMove;
   }
 }
