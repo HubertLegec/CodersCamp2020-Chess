@@ -22,15 +22,15 @@ export class Board {
 
   private initializeBoard() {
     const domSquares = document.getElementById("board").getElementsByClassName("box");
-    for (let i = 7; i >= 0; i--) {
+    for (let i = 0; i < 8 ; i++) {
       this.squares[i] = [];
-      for (let j = 7; j >= 0; j--) {
+      for (let j = 0; j < 8; j++) {
         this.squares[i][j] = new Square(i, j);
-        this.squares[i][j].setDomSquare(domSquares[Math.abs(i - 7) * 8 + j]);
+        this.squares[i][j].setDomSquare(domSquares[8 * i + j]);
         this.assignEventListener(this.squares[i][j]);
       }
     }
-    this.initializePieces();
+     this.initializePieces();
   }
 
   assignEventListener(square: Square) {
@@ -67,9 +67,11 @@ export class Board {
       for (let j = 0; j < 8; j++) {
         let selectedPiece: Piece = this.selectedSquares[0].getPiece();
         if (selectedPiece.canMove(this.selectedSquares[0], this.getSquares()[i][j], this)) {
-          this.getSquares()[i][j].getDomSquare().style.background = "green";
+          this.getSquares()[i][j].getDomSquare().classList.add("active");
           if((this.getSquares()[i][j].getPiece() != null && (this.getSquares()[i][j].getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide())) || (selectedPiece instanceof Pawn && selectedPiece.isEnPassant(this.selectedSquares[0], this.getSquares()[i][j], this))){
-            this.getSquares()[i][j].getDomSquare().style.background = "red";
+            
+            //check and confirm class name
+            this.getSquares()[i][j].getDomSquare().classList.add("beating");
           }
           this.highlightedSquares.push(this.getSquares()[i][j]);
         }
@@ -79,7 +81,9 @@ export class Board {
 
   clearHighlightedSquares() {
     this.highlightedSquares.forEach((element) => {
-      element.getDomSquare().style.background = "";
+
+      //check and confirm class name
+      element.getDomSquare().classList.remove("active", "beating");
     });
     this.highlightedSquares = [];
   }

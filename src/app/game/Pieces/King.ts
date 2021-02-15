@@ -28,8 +28,14 @@ export class King extends Piece {
       return false;
     }
 
+    //to be completed max call stack error, pawn attacks are not correct
+    if(this.isDestinationUnderAttack(from, to, board)){
+      return false;
+    }
+
     //basic move
     if(Math.max(verticalDistanceDelta, horizontalDistanceDelta) == 1){
+
         return true;
     }
 
@@ -73,6 +79,24 @@ export class King extends Piece {
     //is this correct square?
     if(verticalDistanceDelta == 0 && horizontalDistanceDelta == 2){
         return true;
+    }
+  }
+
+  isDestinationUnderAttack(from: Square, to: Square, board: Board): boolean{
+
+    //set king temporarly on destination square
+    // to.setPiece(this);
+    // from.setPiece(null);
+
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        let attackingPiece = board.getSquares()[i][j].getPiece();
+        if(attackingPiece != null && (this.isWhite() != attackingPiece.isWhite())){
+          if(attackingPiece.canMove(board.getSquares()[i][j], to, board)){
+            return true;
+          }
+        }
+      }
     }
   }
 }
