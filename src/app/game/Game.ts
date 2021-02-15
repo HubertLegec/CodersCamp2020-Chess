@@ -135,7 +135,6 @@ export class Game {
   }
 
   undoMove(): void {
-    console.log(this.board.getSquares());
 
     if(this.movesPlayed != undefined && this.movesPlayed.length != 0){
       const recentMove = this.getRecentMove();
