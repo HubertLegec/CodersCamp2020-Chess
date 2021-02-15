@@ -42,7 +42,6 @@ export class Board {
   clickHandler(square: Square) {
     //check if the click intends to select piece and assign it as 1st click
     if (square.getPiece() != null && square.getPiece().isWhite() == this.game.getCurrentTurn().isWhiteSide()) {
-
       if(square != this.selectedSquares[0]){
         this.clearHighlightedSquares();
       }
@@ -61,7 +60,7 @@ export class Board {
     }
   }
 
-  //highlight all possible moves, if it's capturing move or enPassante move highlight in red
+  //highlight all possible moves, if it's capturing move or enPassante move highlight as attack
   highlightSquares() {
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
@@ -69,8 +68,6 @@ export class Board {
         if (selectedPiece.canMove(this.selectedSquares[0], this.getSquares()[i][j], this)) {
           this.getSquares()[i][j].getDomSquare().classList.add("active");
           if((this.getSquares()[i][j].getPiece() != null && (this.getSquares()[i][j].getPiece().isWhite() != this.game.getCurrentTurn().isWhiteSide())) || (selectedPiece instanceof Pawn && selectedPiece.isEnPassant(this.selectedSquares[0], this.getSquares()[i][j], this))){
-            
-            //check and confirm class name
             this.getSquares()[i][j].getDomSquare().classList.add("beating");
           }
           this.highlightedSquares.push(this.getSquares()[i][j]);
@@ -81,8 +78,6 @@ export class Board {
 
   clearHighlightedSquares() {
     this.highlightedSquares.forEach((element) => {
-
-      //check and confirm class name
       element.getDomSquare().classList.remove("active", "beating");
     });
     this.highlightedSquares = [];
