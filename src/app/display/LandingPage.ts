@@ -76,7 +76,6 @@ export class LandingPage {
         });
         if(gamePanel){
             setTimeout(() => {
-                console.log('ju');
                 gamePanel.setAttribute('style', 'opacity: 1')
             }, 2000);
         }
