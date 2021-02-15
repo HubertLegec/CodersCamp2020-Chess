@@ -19,7 +19,7 @@ export abstract class Piece {
         return this.moved;
     }
 
-    setMoved(moved:boolean):void{
+    setMoved(moved: boolean):void{
         this.moved = moved;
     }
 
@@ -30,13 +30,18 @@ export abstract class Piece {
     public kill(square:Square):void{ 
         this.killed = true;
         square.getDomSquare().innerHTML = null;
-    } 
+    }
+    
+    public revive(){
+        this.killed = false;
+    }
 
-    public draw(removeFrom:Square, addTo: Square):void{
+    public draw(removeFrom:Square | null, addTo: Square):void{
         let pieceColour = (this.isWhite()) ? 'White' : 'Black';
         let pieceType = (this.constructor.name);
         addTo.getDomSquare().innerHTML = PieceType[`${pieceColour}_${pieceType}`];
-        removeFrom.getDomSquare().innerHTML = null;
+        if(removeFrom != null)
+            removeFrom.getDomSquare().innerHTML = null;
     }
 
     public abstract canMove(from:Square, to:Square, board:Board):boolean; 

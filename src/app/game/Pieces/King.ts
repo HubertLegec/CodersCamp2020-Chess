@@ -29,9 +29,9 @@ export class King extends Piece {
     }
 
     //to be completed max call stack error, pawn attacks are not correct
-    if(this.isDestinationUnderAttack(from, to, board)){
+    /*if(this.isDestinationUnderAttack(from, to, board)){
       return false;
-    }
+    }*/
 
     //basic move
     if(Math.max(verticalDistanceDelta, horizontalDistanceDelta) == 1){
@@ -63,8 +63,11 @@ export class King extends Piece {
     (horizontalDistance < 0)? castlingRookHorizontalPosition = 0 : castlingRookHorizontalPosition = 7;
     castlingRook = board.getSquares()[from.getRow()][castlingRookHorizontalPosition].getPiece();
 
-    if(castlingRook.hasMoved()){
-        return false;
+    if(castlingRook == null){
+      return false;
+    } 
+    if(castlingRook.hasMoved()) {
+      return false;
     }
     
     //check if there's no piece in between

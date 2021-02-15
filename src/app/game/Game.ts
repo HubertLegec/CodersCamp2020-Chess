@@ -5,22 +5,23 @@ import { Pawn } from "./Pieces/Pawn";
 import { King } from "./Pieces/King";
 import { Rook } from "./Pieces/Rook";
 import { Square } from "./Square";
+import { PieceType } from "./Pieces/PieceType";
 export class Game {
   private players: Player[] = [];
   private board: Board;
   private currentTurn: Player;
-  private movesPlayed: Move[] = [];
+  private movesPlayed: Move[];
 
   constructor(firstName: string, secondName: string, timeLimit: number) {
     this.players[0] = new Player(firstName, timeLimit, true);
     this.players[1] = new Player(secondName, timeLimit, false);
     this.currentTurn = this.players[0];
     this.board = new Board(this);
+    this.movesPlayed = [];
   }
 
   recordMove(move: Move) {
     this.movesPlayed.push(move);
-    console.log(move);
   }
 
   //validates and executes played move
@@ -120,6 +121,7 @@ export class Game {
   getCurrentTurn(): Player {
     return this.currentTurn;
   }
+
   setCurrentTurn(currentPlayer: Player): void{
       this.currentTurn = currentPlayer;
   }
@@ -132,14 +134,74 @@ export class Game {
     return this.movesPlayed[this.movesPlayed.length-1];
   }
 
-  undoMove() {
-    const recentMove = this.getRecentMove();
-    this.movesPlayed.pop();
+  undoMove(): void {
+    console.log(this.board.getSquares());
 
-    recentMove.getMovedPiece()
+    if(this.movesPlayed != undefined && this.movesPlayed.length != 0){
+      const recentMove = this.getRecentMove();
+      const pieceToMoveBack = recentMove.getMovedPiece();
+      const attackedPiece = recentMove.getCapturedPiece()
+      this.movesPlayed.pop();
+
+      pieceToMoveBack.draw(recentMove.getDestinationSquare(), recentMove.getStartSquare());
+      recentMove.getStartSquare().setPiece(pieceToMoveBack);
+      recentMove.getDestinationSquare().setPiece(null);
+
+      if(recentMove.getFirstMove()) {
+        pieceToMoveBack.setMoved(false);
+      }
+
+      if(recentMove.isCastlingMove()) {
+        const kingsCastlingPosition = recentMove.getDestinationSquare();
+        pieceToMoveBack.setMoved(false);
+        (pieceToMoveBack as King).setCastlingDone(false);
+        
+        if(kingsCastlingPosition.getColumn() == 2){
+
+          const rookPosition = this.board.getSquares()[kingsCastlingPosition.getRow()][3];
+          const rook = rookPosition.getPiece();
+          const rookPrevPosition = this.board.getSquares()[kingsCastlingPosition.getRow()][0];
+          rook.draw(rookPosition, rookPrevPosition);
+          rookPosition.setPiece(null);
+          rookPrevPosition.setPiece(rook);
+          rook.setMoved(false);
+
+        } else {
+
+          const rookPosition = this.board.getSquares()[kingsCastlingPosition.getRow()][5];
+          const rook = rookPosition.getPiece();
+          const rookPrevPosition = this.board.getSquares()[kingsCastlingPosition.getRow()][7];
+          rook.draw(rookPosition, rookPrevPosition);
+          rookPosition.setPiece(null);
+          rookPrevPosition.setPiece(rook);
+          rook.setMoved(false);
+
+        }
+      }
     
-    if(recentMove.getCapturedPiece() != null){
+      if(attackedPiece != null){
+        const attackedSquare = recentMove.getDestinationSquare();
+        attackedPiece.revive();  
 
+        if(recentMove.isEnPassanteMove()){
+          let enPassanteAttackedSquare;
+
+          if(attackedPiece.isWhite()){
+            enPassanteAttackedSquare = this.board.getSquares()[attackedSquare.getRow() + 1][attackedSquare.getColumn()];
+          } else {
+            enPassanteAttackedSquare = this.board.getSquares()[attackedSquare.getRow() - 1][attackedSquare.getColumn()];
+          }
+          
+          attackedPiece.draw(null, enPassanteAttackedSquare);
+          enPassanteAttackedSquare.setPiece(attackedPiece);
+        } else { 
+          attackedPiece.draw(null, attackedSquare);
+          attackedSquare.setPiece(attackedPiece);
+        }        
+        
+      }
+      this.currentTurn = recentMove.getPlayer();
     }
+    
   }
 }
