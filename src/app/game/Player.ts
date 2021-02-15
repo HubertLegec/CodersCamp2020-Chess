@@ -1,4 +1,3 @@
-import {Piece} from './Pieces/Piece';
 import {Move} from './Move';
 import { Square } from './Square';
 import { Game } from './Game';
@@ -22,7 +21,4 @@ export class Player {
 
     return game.makeMove(move, this);
   }
-
-
-
 }
