@@ -6,6 +6,7 @@
 
 *{
     box-sizing: border-box;
+    outline: none;
 }
 
 html{
@@ -224,14 +225,23 @@ html{
                 }
                 #gameButtons{
                     grid-row-start: 3;
-                    button{
-                        background-color: $blue;
-                        color: $white;
-                        padding: 10px 40px;
-                        cursor: pointer;
-                        font-size: 18px;
-                        border: none;
-                        border-radius: 2px;
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                    & > div{
+                        grid-column-start: 1;
+                        grid-column-end: 3;
+                        padding: 0;
+                        button{
+                            background-color: $blue;
+                            color: $white;
+                            padding: 10px 40px;
+                            cursor: pointer;
+                            font-size: 18px;
+                            border: none;
+                            border-radius: 2px;
+                            align-self: end;
+                            width: 100%;
+                        }
                     }
                 }
                 #timers, #gameButtons{
@@ -325,6 +335,7 @@ html{
             #chess-app{
                 grid-template-rows: 80px calc(100vw + 20px) calc(100vh - 100vw - 110px);
                 grid-template-columns: 100%;
+                justify-items: center;
                 #chessBoard{
                     margin: 0;
                     grid-column-start: 1;
@@ -356,19 +367,6 @@ html{
                         padding: 0;
                         & > div{
                             box-shadow: 0 0 1px #666;
-                        }
-                    }
-                    #gameButtons{
-                        grid-column-start: 1;
-                        grid-column-end: 3;
-                        & > div{
-                            grid-column-start: 1;
-                            grid-column-end: 3;
-                            margin-top: 5px;
-                            padding: 0;
-                            button{
-                                width: 100%;
-                            }
                         }
                     }
                 }
