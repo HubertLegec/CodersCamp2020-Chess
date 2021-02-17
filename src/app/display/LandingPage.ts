@@ -77,9 +77,7 @@ export class LandingPage {
         if(gamePanel){
             setTimeout(() => {
                 gamePanel.setAttribute('style', 'opacity: 1')
-            }, 2000);
-        }
-
-        svg? svg.setAttribute('class', '') : false;
+            }, 2000, svg? svg.setAttribute('class', '') : false);
+        }        
     }
 }
