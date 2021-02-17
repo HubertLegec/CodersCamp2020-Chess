@@ -1,6 +1,7 @@
 import { Board } from '../Board';
 import {Square} from '../Square';
 import { PieceType } from './PieceType';
+import {drawImage} from "../../display/DrawPiece";
 
 export abstract class Piece {
     private killed: boolean = false;
@@ -37,9 +38,9 @@ export abstract class Piece {
     }
 
     public draw(removeFrom:Square | null, addTo: Square):void{
-        let pieceColour = (this.isWhite()) ? 'White' : 'Black';
+        let pieceColour = (this.isWhite()) ? 'white' : 'black';
         let pieceType = (this.constructor.name);
-        addTo.getDomSquare().innerHTML = PieceType[`${pieceColour}_${pieceType}`];
+        addTo.getDomSquare().append(drawImage(PieceType[pieceType], pieceColour));
         if(removeFrom != null)
             removeFrom.getDomSquare().innerHTML = null;
     }
