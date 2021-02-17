@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sarpanch:wght@600&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+html, html body, html #chess-app {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+html body {
+  font-family: "Lato", sans-serif;
+  background-color: #292929;
+  color: #000;
+}
+html body #chess-app {
+  position: relative;
+}
+html body #chess-app #piecesIntro svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+html body #chess-app #piecesIntro svg:not(.hidden) polygon {
+  transform: translate(0);
+}
+html body #chess-app #piecesIntro svg.hidden #sPiece polygon {
+  transform: translate(-10000px, 0);
+}
+html body #chess-app #piecesIntro svg.hidden #sRook polygon {
+  transform: translate(10000px, 0);
+}
+html body #chess-app #piecesIntro svg.hidden #sKnight polygon {
+  transform: translate(0, -10000px);
+}
+html body #chess-app #piecesIntro svg.hidden #sBishop polygon {
+  transform: translate(0, 10000px);
+}
+html body #chess-app #piecesIntro svg.hidden #sQueen polygon {
+  transform: translate(-10000px, -10000px);
+}
+html body #chess-app #piecesIntro svg.hidden #sKing polygon {
+  transform: translate(10000px, 10000px);
+}
+html body #chess-app h3#codersLogo {
+  font-family: "Sarpanch", sans-serif;
+  font-size: 40px;
+  padding: 20px;
+  color: #fff;
+}
+html body #chess-app h3#codersLogo .themecolor {
+  color: #1a90ff;
+}
+html body #chess-app #gamePanel {
+  opacity: 0;
+  transition: opacity 2s;
+  background: #fff;
+  border: 1px solid black;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+  max-width: 600px;
+  margin: 0 40px;
+  width: calc(100% - 80px);
+  padding: 40px;
+  border-radius: 2px;
+  float: right;
+}
+html body #chess-app #gamePanel p {
+  font-size: 12px;
+}
+html body #chess-app #gamePanel p#gameSettingsTitle {
+  font-weight: 700;
+  text-align: center;
+  font-size: 24px;
+  margin: 0;
+}
+html body #chess-app #gamePanel #nameSettings input {
+  width: calc(50% - 10px);
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0 0 1px #292929;
+}
+html body #chess-app #gamePanel #nameSettings input:first-of-type {
+  margin-right: 20px;
+}
+html body #chess-app #gamePanel input#sliderTime {
+  width: 100%;
+}
+html body #chess-app #gamePanel #gameStartButton {
+  background-color: #0075ff;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  font-size: 18px;
+  border: none;
+  border-radius: 2px;
+}
+html body #chess-app #gamePanel #gameStartButton[disabled] {
+  background-color: #666;
+  cursor: not-allowed;
+}
+html h1, html h2, html h3 {
+  margin: 0;
+}
+
+@media screen and (max-height: 430px) {
+  html body #chess-app h3#codersLogo {
+    font-size: 20px;
+    padding: 10px;
+  }
+  html body #chess-app #gamePanel {
+    padding: 15px 20px;
+  }
+  html body #chess-app #gamePanel p#gameSettingsTitle {
+    font-size: 20px;
+  }
+}
+
+/*# sourceMappingURL=landingPageStyle.3b41bb2d.css.map */

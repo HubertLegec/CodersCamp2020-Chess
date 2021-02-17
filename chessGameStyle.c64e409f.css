@@ -1,0 +1,358 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sarpanch:wght@600&display=swap");
+:root {
+  --squareSize: calc(10vh - 15px);
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html, html body, html #chess-app {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+html body {
+  font-family: "Lato", sans-serif;
+  background-color: #292929;
+  color: #000;
+}
+html body #chess-app {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 80px calc(100% - 80px);
+  grid-template-columns: 50% 50%;
+}
+html body #chess-app.wow {
+  display: block;
+  -webkit-transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, -65deg) scale3d(1, 1, 1);
+  transform: translate3d(0, 0, 0) rotate3d(0, 1, 0, -65deg) scale3d(1, 1, 1);
+  perspective: 70vw;
+}
+html body #chess-app.wow #chessBoard {
+  -webkit-transform: scale3d(1, 1, 2) rotate3d(1, 0, 0, 65deg);
+  transform: scale3d(1, 1, 2) rotate3d(1, 0, 0, 65deg);
+}
+html body #chess-app #chessBoard {
+  display: grid;
+  width: calc(100% - 80px);
+  height: calc(100% - 80px);
+  margin: 40px;
+  grid-column-start: 1;
+  grid-row-start: 2;
+  justify-content: center;
+  grid-template-columns: repeat(10, var(--squareSize));
+  grid-template-rows: repeat(10, var(--squareSize));
+}
+html body #chess-app #chessBoard #opponentFile {
+  display: grid;
+  grid-template-columns: repeat(10, var(--squareSize));
+  grid-column-start: 1;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+html body #chess-app #chessBoard #opponentRank {
+  display: grid;
+  grid-template-columns: var(--squareSize);
+  grid-template-rows: repeat(8, var(--squareSize));
+  grid-column-start: 10;
+  grid-column-end: 10;
+  grid-row-start: 2;
+  grid-row-end: 10;
+}
+html body #chess-app #chessBoard #myFile {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(10, var(--squareSize));
+  grid-column-start: 1;
+  grid-column-end: 11;
+  grid-row-start: 10;
+  grid-row-end: 10;
+}
+html body #chess-app #chessBoard #myRank {
+  display: grid;
+  grid-template-columns: var(--squareSize);
+  grid-template-rows: repeat(8, var(--squareSize));
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 2;
+  grid-row-end: 10;
+}
+html body #chess-app #chessBoard .rank, html body #chess-app #chessBoard .file {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  font-size: 14px;
+  text-shadow: 1px 1px 1px #0075ff;
+  background: #666;
+  color: #fff;
+  box-shadow: 0 0 1px #000;
+}
+html body #chess-app #chessBoard #board {
+  display: grid;
+  grid-column-start: 2;
+  grid-column-end: 10;
+  grid-row-start: 2;
+  grid-row-end: 10;
+}
+html body #chess-app #chessBoard #board .board-container {
+  display: grid;
+  grid-template-rows: repeat(8, var(--squareSize));
+}
+html body #chess-app #chessBoard #board .board-container .board-row {
+  display: grid;
+  grid-template-columns: repeat(8, var(--squareSize));
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-1 {
+  order: 8;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-2 {
+  order: 7;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-3 {
+  order: 6;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-4 {
+  order: 5;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-5 {
+  order: 4;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-6 {
+  order: 3;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-7 {
+  order: 2;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-8 {
+  order: 1;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-1 .box:nth-child(2n-1), html body #chess-app #chessBoard #board .board-container .board-row#row-3 .box:nth-child(2n-1), html body #chess-app #chessBoard #board .board-container .board-row#row-5 .box:nth-child(2n-1), html body #chess-app #chessBoard #board .board-container .board-row#row-7 .box:nth-child(2n-1) {
+  background: #1a90ff;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-1 .box:nth-child(2n), html body #chess-app #chessBoard #board .board-container .board-row#row-3 .box:nth-child(2n), html body #chess-app #chessBoard #board .board-container .board-row#row-5 .box:nth-child(2n), html body #chess-app #chessBoard #board .board-container .board-row#row-7 .box:nth-child(2n) {
+  background: #fff;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-2 .box:nth-child(2n-1), html body #chess-app #chessBoard #board .board-container .board-row#row-4 .box:nth-child(2n-1), html body #chess-app #chessBoard #board .board-container .board-row#row-6 .box:nth-child(2n-1), html body #chess-app #chessBoard #board .board-container .board-row#row-8 .box:nth-child(2n-1) {
+  background: #fff;
+}
+html body #chess-app #chessBoard #board .board-container .board-row#row-2 .box:nth-child(2n), html body #chess-app #chessBoard #board .board-container .board-row#row-4 .box:nth-child(2n), html body #chess-app #chessBoard #board .board-container .board-row#row-6 .box:nth-child(2n), html body #chess-app #chessBoard #board .board-container .board-row#row-8 .box:nth-child(2n) {
+  background: #1a90ff;
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box {
+  box-shadow: 0 0 1px #292929;
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box.active:after, html body #chess-app #chessBoard #board .board-container .board-row .box.beating:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box.active:after {
+  background-color: #4ac45e !important;
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box.beating:after {
+  background-color: #cf000f !important;
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box img, html body #chess-app #chessBoard #board .board-container .board-row .box object {
+  max-width: var(--squareSize);
+  max-height: var(--squareSize);
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box img.white, html body #chess-app #chessBoard #board .board-container .board-row .box object.white {
+  -webkit-filter: brightness(1.3);
+  /* safari 6.0 - 9.0 */
+  filter: brightness(1.3);
+}
+html body #chess-app #chessBoard #board .board-container .board-row .box img.black, html body #chess-app #chessBoard #board .board-container .board-row .box object.black {
+  -webkit-filter: brightness(0.3);
+  /* safari 6.0 - 9.0 */
+  filter: brightness(0.3);
+}
+html body #chess-app h3#codersLogo {
+  font-family: "Sarpanch", sans-serif;
+  font-size: 40px;
+  padding: 20px;
+  color: #fff;
+  text-align: right;
+  align-self: center;
+  line-height: 1;
+  grid-column-start: 2;
+  grid-row-start: 1;
+}
+html body #chess-app h3#codersLogo .themecolor {
+  color: #1a90ff;
+}
+html body #chess-app #gameSettings {
+  display: grid;
+  width: calc(100% - 80px);
+  height: calc(100vh - 150px);
+  margin: 40px;
+  grid-template-columns: 100%;
+  grid-template-rows: calc(100% - 200px) 100px 100px;
+  grid-row-start: 2;
+  justify-content: space-around;
+  background: #666;
+}
+html body #chess-app #gameSettings #names, html body #chess-app #gameSettings #timers, html body #chess-app #gameSettings #gameButtons {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+html body #chess-app #gameSettings #names div, html body #chess-app #gameSettings #timers div, html body #chess-app #gameSettings #gameButtons div {
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #fff;
+  box-shadow: 0 0 1px #292929;
+  margin: 0;
+}
+html body #chess-app #gameSettings #timers {
+  grid-row-start: 2;
+}
+html body #chess-app #gameSettings #timers #secondPlayerTimers {
+  grid-column-start: 2;
+}
+html body #chess-app #gameSettings #gameButtons {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+html body #chess-app #gameSettings #gameButtons > div {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  padding: 0;
+}
+html body #chess-app #gameSettings #gameButtons > div button {
+  background-color: #0075ff;
+  color: #fff;
+  padding: 10px 40px;
+  cursor: pointer;
+  font-size: 18px;
+  border: none;
+  border-radius: 2px;
+  align-self: end;
+  width: 100%;
+}
+html body #chess-app #gameSettings #timers div, html body #chess-app #gameSettings #gameButtons div {
+  padding: 20px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+@media (orientation: landscape) and (max-height: 430px) {
+  html body #chess-app h3#codersLogo {
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+@media (orientation: landscape) and (max-width: 1023px) {
+  :root {
+    --squareSize: calc(10vh - 1px);
+  }
+
+  html body #chess-app {
+    grid-template-rows: 30px calc(100% - 30px);
+    grid-template-columns: 100vh calc(100% - 100vh);
+  }
+  html body #chess-app #chessBoard {
+    margin: 5px;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+  }
+  html body #chess-app #gameSettings {
+    width: calc(100% - 8px);
+    height: calc(100vh - 35px);
+    margin: 0px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: calc(50% - 42px) calc(50% - 50px) 92px;
+    grid-row-start: 2;
+    background: none;
+  }
+  html body #chess-app #gameSettings #names > div, html body #chess-app #gameSettings #timers > div, html body #chess-app #gameSettings #gameButtons > div {
+    font-size: 12px;
+  }
+  html body #chess-app #gameSettings #names, html body #chess-app #gameSettings #timers {
+    grid-template-columns: 50% 50%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 0;
+  }
+  html body #chess-app #gameSettings #names > div, html body #chess-app #gameSettings #timers > div {
+    box-shadow: 0 0 1px #666;
+  }
+  html body #chess-app #gameSettings #gameButtons {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  html body #chess-app #gameSettings #gameButtons > div {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-top: 5px;
+    padding: 0;
+  }
+  html body #chess-app #gameSettings #gameButtons > div button {
+    width: 100%;
+  }
+}
+@media (orientation: portrait) {
+  :root {
+    --squareSize: calc(10vw - 1px);
+  }
+
+  html body #chess-app {
+    grid-template-rows: 80px calc(100vw + 20px) calc(100vh - 100vw - 110px);
+    grid-template-columns: 100%;
+    justify-items: center;
+  }
+  html body #chess-app #chessBoard {
+    margin: 0;
+    grid-column-start: 1;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+  }
+  html body #chess-app h3#codersLogo {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    text-align: center;
+  }
+  html body #chess-app #gameSettings {
+    width: calc(100% - 8px);
+    height: calc(100vh - 35px);
+    margin: 0px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 60px calc(100vh - 100vw - 265px) 92px;
+    grid-row-start: 3;
+    background: none;
+  }
+  html body #chess-app #gameSettings #names > div, html body #chess-app #gameSettings #timers > div, html body #chess-app #gameSettings #gameButtons > div {
+    font-size: 12px;
+  }
+  html body #chess-app #gameSettings #names, html body #chess-app #gameSettings #timers {
+    grid-template-columns: 50% 50%;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 0;
+  }
+  html body #chess-app #gameSettings #names > div, html body #chess-app #gameSettings #timers > div {
+    box-shadow: 0 0 1px #666;
+  }
+}
+
+/*# sourceMappingURL=chessGameStyle.c64e409f.css.map */
