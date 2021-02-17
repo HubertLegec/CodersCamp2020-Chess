@@ -8,6 +8,7 @@ import { Rook } from "./Pieces/Rook";
 import { Queen } from "./Pieces/Queen";
 import { King } from "./Pieces/King";
 import { Piece } from "./Pieces/Piece";
+import {drawImage} from "../display/DrawPiece";
 
 export class Board {
   private game: Game;
@@ -84,46 +85,48 @@ export class Board {
   }
 
   private initializePieces() {
+    const white: string = 'white';
+    const black: string = 'black';
     for (let i = 0; i < 8; i++) {
       this.squares[1][i].setPiece(new Pawn(true));
-      this.squares[1][i].getDomSquare().innerHTML = PieceType.White_Pawn;
+      this.squares[1][i].getDomSquare().append(drawImage(PieceType.Pawn, white));
 
       this.squares[6][i].setPiece(new Pawn(false));
-      this.squares[6][i].getDomSquare().innerHTML = PieceType.Black_Pawn;
+      this.squares[6][i].getDomSquare().append(drawImage(PieceType.Pawn, black));
     }
     this.squares[0][1].setPiece(new Knight(true));
-    this.squares[0][1].getDomSquare().innerHTML = PieceType.White_Knight;
+    this.squares[0][1].getDomSquare().append(drawImage(PieceType.Knight, white));
     this.squares[0][6].setPiece(new Knight(true));
-    this.squares[0][6].getDomSquare().innerHTML = PieceType.White_Knight;
+    this.squares[0][6].getDomSquare().append(drawImage(PieceType.Knight, white));
     this.squares[0][2].setPiece(new Bishop(true));
-    this.squares[0][2].getDomSquare().innerHTML = PieceType.White_Bishop;
+    this.squares[0][2].getDomSquare().append(drawImage(PieceType.Bishop, white));
     this.squares[0][5].setPiece(new Bishop(true));
-    this.squares[0][5].getDomSquare().innerHTML = PieceType.White_Bishop;
+    this.squares[0][5].getDomSquare().append(drawImage(PieceType.Bishop, white));
     this.squares[0][0].setPiece(new Rook(true));
-    this.squares[0][0].getDomSquare().innerHTML = PieceType.White_Rook;
+    this.squares[0][0].getDomSquare().append(drawImage(PieceType.Rook, white));
     this.squares[0][7].setPiece(new Rook(true));
-    this.squares[0][7].getDomSquare().innerHTML = PieceType.White_Rook;
+    this.squares[0][7].getDomSquare().append(drawImage(PieceType.Rook, white));
     this.squares[0][3].setPiece(new Queen(true));
-    this.squares[0][3].getDomSquare().innerHTML = PieceType.White_Queen;
+    this.squares[0][3].getDomSquare().append(drawImage(PieceType.Queen, white));
     this.squares[0][4].setPiece(new King(true));
-    this.squares[0][4].getDomSquare().innerHTML = PieceType.White_King;
+    this.squares[0][4].getDomSquare().append(drawImage(PieceType.King, white));
 
     this.squares[7][1].setPiece(new Knight(false));
-    this.squares[7][1].getDomSquare().innerHTML = PieceType.Black_Knight;
+    this.squares[7][1].getDomSquare().append(drawImage(PieceType.Knight, black));
     this.squares[7][6].setPiece(new Knight(false));
-    this.squares[7][6].getDomSquare().innerHTML = PieceType.Black_Knight;
+    this.squares[7][6].getDomSquare().append(drawImage(PieceType.Knight, black));
     this.squares[7][2].setPiece(new Bishop(false));
-    this.squares[7][2].getDomSquare().innerHTML = PieceType.Black_Bishop;
+    this.squares[7][2].getDomSquare().append(drawImage(PieceType.Bishop, black));
     this.squares[7][5].setPiece(new Bishop(false));
-    this.squares[7][5].getDomSquare().innerHTML = PieceType.Black_Bishop;
+    this.squares[7][5].getDomSquare().append(drawImage(PieceType.Bishop, black));
     this.squares[7][0].setPiece(new Rook(false));
-    this.squares[7][0].getDomSquare().innerHTML = PieceType.Black_Rook;
+    this.squares[7][0].getDomSquare().append(drawImage(PieceType.Rook, black));
     this.squares[7][7].setPiece(new Rook(false));
-    this.squares[7][7].getDomSquare().innerHTML = PieceType.Black_Rook;
+    this.squares[7][7].getDomSquare().append(drawImage(PieceType.Rook, black));
     this.squares[7][3].setPiece(new Queen(false));
-    this.squares[7][3].getDomSquare().innerHTML = PieceType.Black_Queen;
+    this.squares[7][3].getDomSquare().append(drawImage(PieceType.Queen, black));
     this.squares[7][4].setPiece(new King(false));
-    this.squares[7][4].getDomSquare().innerHTML = PieceType.Black_King;
+    this.squares[7][4].getDomSquare().append(drawImage(PieceType.King, black));
   }
 
   isDestinationUnderAttack(from: Square, destination: Square, board: Board): boolean{
